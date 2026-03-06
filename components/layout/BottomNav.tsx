@@ -115,7 +115,7 @@ export function BottomNav() {
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
         aria-label="Quét avatar"
       >
-        <ScanHeart size={26} className="text-white" strokeWidth={2} />
+        <ScanHeart size={30} className="text-white" strokeWidth={2} />
       </motion.button>
     </motion.nav>
   );

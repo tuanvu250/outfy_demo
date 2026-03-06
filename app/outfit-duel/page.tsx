@@ -9,7 +9,7 @@ const outfits = [
   {
     key: "A",
     label: "OUTFIT A",
-    image: "/images/3dfull.png",
+    image: "/images/3dfullv1.png",
     tags: ["Cyberpunk", "Neon"],
     cost: "$249.00",
     btnColor: "bg-[var(--primary)]",

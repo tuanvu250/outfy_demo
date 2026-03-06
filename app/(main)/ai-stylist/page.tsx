@@ -154,7 +154,7 @@ export default function AiStylistPage() {
   };
 
   return (
-    <div className="relative flex h-screen flex-col bg-white overflow-hidden">
+    <div className="relative flex h-dvh w-full flex-col bg-white overflow-hidden -mb-[120px] md:mb-0">
       {/* Gradient bg (empty state only) */}
       {!chatStarted && (
         <div
@@ -176,12 +176,12 @@ export default function AiStylistPage() {
             onClick={handleReset}
             className="flex h-10 w-10 items-center justify-center rounded-full"
           >
-            <ArrowLeft size={20} className="text-[var(--text-primary)]" />
+            <ArrowLeft size={20} className="text-text-primary" />
           </button>
         ) : (
           <div className="h-10 w-10" />
         )}
-        <h1 className="text-lg font-bold tracking-[-0.45px] text-[var(--text-primary)]">
+        <h1 className="text-lg font-bold tracking-[-0.45px] text-text-primary">
           AI Stylist
         </h1>
         <button
@@ -194,7 +194,7 @@ export default function AiStylistPage() {
 
       {/* ── EMPTY STATE ── */}
       {!chatStarted && (
-        <div className="relative flex-1 overflow-y-auto pb-[180px]">
+        <div className="relative flex-1 overflow-y-auto pb-6">
           <div className="mt-8 flex flex-col items-center px-5">
             <div
               className="flex h-[88px] w-[88px] items-center justify-center rounded-full"
@@ -203,7 +203,7 @@ export default function AiStylistPage() {
               <Sparkles size={40} className="text-[var(--primary)]" />
             </div>
             <p
-              className="mt-6 text-center text-xl font-bold text-[var(--text-secondary)]"
+              className="mt-6 text-center text-xl font-bold text-text-secondary"
               style={{ letterSpacing: "-0.5px", lineHeight: 1.3 }}
             >
               Xin chào! Tôi có thể<br />giúp gì cho bạn?
@@ -219,16 +219,16 @@ export default function AiStylistPage() {
                 style={{ boxShadow: "0 4px 8px rgba(0,0,0,0.08)" }}
               >
                 <div
-                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
                   style={{ background: "rgba(48,123,117,0.1)" }}
                 >
                   <Icon size={24} className="text-[var(--primary)]" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-semibold text-[var(--text-primary)]">{title}</p>
-                  <p className="mt-1 text-xs text-[var(--text-secondary)]">{subtitle}</p>
+                  <p className="text-sm font-semibold text-text-primary">{title}</p>
+                  <p className="mt-1 text-xs text-text-secondary">{subtitle}</p>
                 </div>
-                <ChevronRight size={18} className="flex-shrink-0 text-[var(--text-tertiary)]" />
+                <ChevronRight size={18} className="shrink-0 text-text-tertiary" />
               </button>
             ))}
           </div>
@@ -237,19 +237,19 @@ export default function AiStylistPage() {
 
       {/* ── CHAT STATE ── */}
       {chatStarted && (
-        <div className="flex-1 overflow-y-auto px-4 py-4 pb-[200px] space-y-4">
+        <div className="flex-1 overflow-y-auto px-4 py-4 pb-[230px] space-y-4">
           {messages.map((msg) =>
             msg.role === "ai" ? (
               <div key={msg.id} className="flex items-start gap-3">
                 <div
-                  className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+                  className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                   style={{ background: "#307B75" }}
                 >
                   <Sparkles size={14} className="text-white" />
                 </div>
                 <div className="max-w-[82%] space-y-2">
                   <div className="rounded-2xl rounded-tl-none px-4 py-3" style={{ background: "#F3F4F6" }}>
-                    <p className="text-sm text-[var(--text-primary)] leading-relaxed">{msg.text}</p>
+                    <p className="text-sm text-text-primary leading-relaxed">{msg.text}</p>
                   </div>
                   {msg.outfits?.map((outfit) => (
                     <div
@@ -258,8 +258,8 @@ export default function AiStylistPage() {
                       style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.07)" }}
                     >
                       <div className="flex items-center gap-2 mb-2">
-                        <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ background: outfit.color }} />
-                        <p className="text-sm font-semibold text-[var(--text-primary)]">{outfit.name}</p>
+                        <div className="w-3 h-3 rounded-full shrink-0" style={{ background: outfit.color }} />
+                        <p className="text-sm font-semibold text-text-primary">{outfit.name}</p>
                         <span
                           className="ml-auto text-[10px] px-2 py-0.5 rounded-full text-white font-medium"
                           style={{ background: outfit.color }}
@@ -271,7 +271,7 @@ export default function AiStylistPage() {
                         {outfit.items.map((item) => (
                           <span
                             key={item}
-                            className="text-xs px-2 py-1 rounded-full bg-gray-100 text-[var(--text-secondary)]"
+                            className="text-xs px-2 py-1 rounded-full bg-gray-100 text-text-secondary"
                           >
                             {item}
                           </span>
@@ -310,7 +310,7 @@ export default function AiStylistPage() {
           {isTyping && (
             <div className="flex items-start gap-3">
               <div
-                className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
+                className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                 style={{ background: "#307B75" }}
               >
                 <Sparkles size={14} className="text-white" />
@@ -344,7 +344,7 @@ export default function AiStylistPage() {
               <button
                 key={chip}
                 onClick={() => sendMessage(chip)}
-                className="flex-shrink-0 rounded-full border px-3 py-1 text-xs transition-opacity hover:opacity-70"
+                className="shrink-0 rounded-full border px-3 py-1 text-xs transition-opacity hover:opacity-70"
                 style={{ borderColor: "rgba(48,123,117,0.45)", color: "#307B75" }}
               >
                 {chip}
@@ -356,20 +356,20 @@ export default function AiStylistPage() {
           className="flex items-center gap-2 rounded-full border bg-white px-4 py-3"
           style={{ borderColor: "#307B75" }}
         >
-          <Plus size={22} className="flex-shrink-0 text-[var(--text-tertiary)]" />
-          <div className="h-5 w-px flex-shrink-0" style={{ background: "#307B75" }} />
+          <Plus size={22} className="shrink-0 text-text-tertiary" />
+          <div className="h-5 w-px shrink-0" style={{ background: "#307B75" }} />
           <input
-            className="flex-1 bg-transparent text-sm text-[var(--text-primary)] outline-none placeholder:text-[#6B7280]"
+            className="flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-[#6B7280]"
             placeholder="Hỏi AI Stylist..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage(input)}
           />
-          <Mic size={22} className="flex-shrink-0 text-[var(--text-tertiary)]" />
+          <Mic size={22} className="shrink-0 text-text-tertiary" />
           <button
             onClick={() => sendMessage(input)}
             disabled={!input.trim() || isTyping}
-            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white disabled:opacity-40 transition-opacity"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white disabled:opacity-40 transition-opacity"
             style={{ background: "#307B75", boxShadow: "0 2px 6px rgba(48,123,117,0.2)" }}
           >
             <SendHorizontal size={16} />

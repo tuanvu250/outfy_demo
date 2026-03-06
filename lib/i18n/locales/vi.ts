@@ -252,10 +252,21 @@ export interface Translations {
     analyzeBtn: string;
     results: {
       title: string;
+      pageTitle: string;
       fitScore: string;
       goodFit: string;
       goodColor: string;
       waistTooLoose: string;
+      recommendedSize: string;
+      excellentFit: string;
+      excellentFitDesc: string;
+      chest: string;
+      slightlyTight: string;
+      waist: string;
+      perfect: string;
+      shoulders: string;
+      loose: string;
+      addSizeToCart: string;
     };
   };
   product: {
@@ -535,10 +546,21 @@ export const vi: Translations = {
     analyzeBtn: "Phân tích Fit",
     results: {
       title: "Kết quả phân tích",
-      fitScore: "Điểm vừa vặn",
+      pageTitle: "Phân tích độ vừa vặn AI",
+      fitScore: "ĐIỂM VỪA VẶN",
       goodFit: "Size phù hợp với số đo của bạn",
       goodColor: "Màu sắc hài hòa với tông da",
       waistTooLoose: "Eo hơi rộng — có thể thử size S",
+      recommendedSize: "Kích cỡ đề xuất",
+      excellentFit: "Vừa vặn hoàn hảo",
+      excellentFitDesc: "Dựa trên số đo của bạn, size M sẽ vừa vặn hoàn hảo ở hầu hết các vị trí với cảm giác hơi rộng ở phần vai.",
+      chest: "Vòng ngực",
+      slightlyTight: "Hơi chật",
+      waist: "Vòng eo",
+      perfect: "Vừa vặn",
+      shoulders: "Vai",
+      loose: "Rộng",
+      addSizeToCart: "Thêm size {{size}} vào giỏ",
     },
   },
   product: {

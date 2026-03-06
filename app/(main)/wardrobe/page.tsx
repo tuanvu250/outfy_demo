@@ -116,7 +116,9 @@ export default function WardrobePage() {
           <FloatingActionBtn icon={Share2} bg="white" iconColor="#0f172a" />
         </Link>
         <FloatingActionBtn icon={Star} bg="white" iconColor="#0f172a" />
-        <FloatingActionBtn icon={HelpCircle} bg="white" iconColor="#0f172a" />
+        <Link href="/ai-fit-analysis/result">
+          <FloatingActionBtn icon={HelpCircle} bg="white" iconColor="#0f172a" />
+        </Link>
       </div>
 
       {/* Bottom-right swap/delete actions */}
