@@ -204,31 +204,46 @@ export interface Translations {
   avatar: {
     setup: {
       title: string;
+      heading: string;
       subtitle: string;
-      female: string;
-      male: string;
-      other: string;
+      timeEstimate: string;
+      getStarted: string;
     };
     measurements: {
       title: string;
-      subtitle: string;
-      height: string;
-      weight: string;
+      unitMetric: string;
+      unitImperial: string;
+      visualGuideTitle: string;
+      visualGuideSubtitle: string;
+      visualGuideDesc: string;
+      vitalStats: string;
+      heightCm: string;
+      heightIn: string;
+      weightKg: string;
+      weightLbs: string;
+      detailedMeasurements: string;
       chest: string;
+      chestDesc: string;
       waist: string;
+      waistDesc: string;
       hips: string;
+      hipsDesc: string;
+      continue: string;
     };
     scan: {
       title: string;
-      subtitle: string;
-      front: string;
-      side: string;
-      tapToUpload: string;
-      tipsTitle: string;
-      tip1: string;
-      tip2: string;
-      tip3: string;
-      createBtn: string;
+      alignBody: string;
+      step1Title: string;
+      step1Desc: string;
+      scanBtn: string;
+      skip: string;
+      processingTitle: string;
+      processingDesc: string;
+      generatingMesh: string;
+      editTitle: string;
+      adjustProportions: string;
+      shoulders: string;
+      finish: string;
     };
   };
   outfitDuel: {
@@ -497,32 +512,47 @@ export const vi: Translations = {
   },
   avatar: {
     setup: {
-      title: "Tạo Avatar",
-      subtitle: "Bước 1/3 — Chọn giới tính",
-      female: "Nữ",
-      male: "Nam",
-      other: "Khác",
+      title: "Thiết lập Avatar",
+      heading: "Tạo Avatar\n3D Thân Hình",
+      subtitle: "Cá nhân hóa trải nghiệm mua sắm\nvà xem trang phục trên số đo thực\ntrước khi mua.",
+      timeEstimate: "Ước tính 2-3 phút",
+      getStarted: "Bắt đầu",
     },
     measurements: {
-      title: "Số đo cơ thể",
-      subtitle: "Bước 2/3 — Nhập số đo",
-      height: "Chiều cao (cm)",
-      weight: "Cân nặng (kg)",
-      chest: "Vòng ngực (cm)",
-      waist: "Vòng eo (cm)",
-      hips: "Vòng hông (cm)",
+      title: "Nhập Số Đo Cơ Thể",
+      unitMetric: "cm / kg",
+      unitImperial: "inch / lbs",
+      visualGuideTitle: "HƯỚNG DẪN ẢNH",
+      visualGuideSubtitle: "Avatar 3D Cơ Thể",
+      visualGuideDesc: "Sử dụng thước dây mềm để có\nkết quả đo kích thước chính xác nhất.",
+      vitalStats: "CHỈ SỐ CHÍNH",
+      heightCm: "Chiều cao (cm)",
+      heightIn: "Chiều cao (in)",
+      weightKg: "Cân nặng (kg)",
+      weightLbs: "Cân nặng (lbs)",
+      detailedMeasurements: "SỐ ĐO CHI TIẾT",
+      chest: "Vòng ngực",
+      chestDesc: "Chu vi nơi điểm nở nhất",
+      waist: "Vòng eo",
+      waistDesc: "Khu vực eo tự nhiên",
+      hips: "Vòng hông",
+      hipsDesc: "Vị trí nở rộng nhất của hông",
+      continue: "Tiếp tục",
     },
     scan: {
-      title: "Scan Avatar",
-      subtitle: "Bước 3/3 — Upload 2 ảnh để AI tạo avatar 3D",
-      front: "Mặt trước",
-      side: "Mặt bên",
-      tapToUpload: "Nhấn để tải ảnh",
-      tipsTitle: "Lưu ý khi chụp:",
-      tip1: "Đứng thẳng, hai tay duỗi nhẹ",
-      tip2: "Mặc quần áo bó sát",
-      tip3: "Ánh sáng đầy đủ, nền đơn giản",
-      createBtn: "Tạo Avatar 3D",
+      title: "Đang tạo Avatar",
+      alignBody: "CĂN CHỈNH",
+      step1Title: "Đứng thẳng",
+      step1Desc: "Để hai tay hơi dang ra ngoài",
+      scanBtn: "QUÉT",
+      skip: "Bỏ qua",
+      processingTitle: "Đang xử lý ảnh...",
+      processingDesc: "AI đang phân tích số đo cơ thể của bạn",
+      generatingMesh: "ĐANG TẠO MÔ HÌNH LƯỚI CHI TIẾT",
+      editTitle: "Sửa Avatar 3D",
+      adjustProportions: "Điều Chỉnh Tỷ Lệ",
+      shoulders: "Vai",
+      finish: "Hoàn thành",
     },
   },
   outfitDuel: {

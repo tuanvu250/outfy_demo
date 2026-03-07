@@ -104,7 +104,7 @@ export function BottomNav() {
 
       {/* Elevated center scan button */}
       <motion.button
-        onClick={() => router.push("/avatar/scan")}
+        onClick={() => router.push("/avatar/setup")}
         className="absolute left-1/2 -translate-x-1/2 bottom-11.5 flex h-14.5 w-14.5 items-center justify-center rounded-2xl border-[3px] border-[#f1f5f9]"
         style={{
           background: "linear-gradient(135deg, #307B75 0%, #255e59 100%)",
