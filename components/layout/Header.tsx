@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Bell, ArrowLeft } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
@@ -29,9 +30,24 @@ export function Header({ title = "Outfy", showBack = false, className, actions }
             <ArrowLeft size={20} />
           </button>
         )}
-        <span className="text-lg font-bold tracking-tight text-[var(--text-primary)]">
-          {title}
-        </span>
+        {title === "Outfy" ? (
+          <div className="flex items-center gap-2">
+            <Image
+              src="/images/Logo-black-mini.png"
+              alt="Outfy Logo"
+              width={24}
+              height={24}
+              className="object-contain dark:invert"
+            />
+            <span className="text-lg font-bold tracking-tight text-[var(--text-primary)]">
+              {title}
+            </span>
+          </div>
+        ) : (
+          <span className="text-lg font-bold tracking-tight text-[var(--text-primary)]">
+            {title}
+          </span>
+        )}
       </div>
 
       <div className="flex items-center gap-2">

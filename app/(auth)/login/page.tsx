@@ -115,33 +115,20 @@ export default function AuthPage() {
         <LangBadge onClick={() => setLangOpen(true)} />
       </div>
 
-      <div className="text-primary text-3xl font-bold tracking-tight mb-4" style={{ letterSpacing: "-0.02em" }}>
+      {/* <div className="text-primary text-3xl font-bold tracking-tight mb-4" style={{ letterSpacing: "-0.02em" }}>
         OUTFY
-      </div>
+      </div> */}
 
-      {/* Banner image */}
-      <div className="mb-6 w-full overflow-hidden rounded-[50px] shadow-sm" style={{ height: 200 }}>
-        <div className="relative w-full h-full">
-          <Image
-            src="/images/banner-auth.png"
-            alt="Smart Wardrobe"
-            fill
-            className="object-cover"
-            priority
-          />
-          {/* Overlay with label */}
-          <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
-          <div className="absolute top-20 left-0 right-0 flex flex-col items-center pb-4 gap-1">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <line x1="12" y1="22.08" x2="12" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-            <p className="text-xs font-semibold tracking-[1.4px] text-white">YOUR SMART WARDROBE</p>
-          </div>
-        </div>
+      {/* Logo replace banner image */}
+      <div className="mb-6 w-full flex justify-center py-6">
+        <Image
+          src="/images/Logo-black-mini2.png"
+          alt="Outfy Logo"
+          width={200}
+          height={200}
+          className="object-contain"
+          priority
+        />
       </div>
 
       {/* Language bottom sheet */}
