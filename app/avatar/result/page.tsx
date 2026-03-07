@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ChevronLeft, RotateCw } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { BottomNav } from "@/components/layout/BottomNav";
 
 export default function AvatarResultPage() {
     const router = useRouter();
@@ -22,13 +21,13 @@ export default function AvatarResultPage() {
     };
 
     return (
-        <div className="flex flex-col min-h-dvh bg-white font-sans pb-24">
+        <div className="flex flex-col min-h-dvh bg-white font-sans">
             {/* Header */}
-            <div className="flex items-center justify-between px-6 pt-12 pb-4">
+            <div className="flex items-center justify-between px-6 pt-8 pb-2">
                 <button onClick={() => router.back()} className="w-10 h-10 flex items-center justify-start">
                     <ChevronLeft className="w-6 h-6 text-[#0f172a]" />
                 </button>
-                <span className="text-[18px] font-bold text-[#0f172a] flex-1 text-center mr-10 py-2 tracking-[-0.45px] font-['Space_Grotesk']">
+                <span className="text-[18px] font-bold text-[#0f172a] flex-1 text-center mr-10 py-2 tracking-[-0.45px]">
                     {t("avatar.scan.editTitle", "Edit 3D Avatar")}
                 </span>
             </div>
@@ -40,7 +39,7 @@ export default function AvatarResultPage() {
                         src="/images/scan/3.png"
                         alt="3D Avatar Preview"
                         fill
-                        className="object-contain object-bottom pt-4"
+                        className="object-contain object-bottom pt-2"
                         priority
                     />
 
@@ -51,7 +50,7 @@ export default function AvatarResultPage() {
                 </div>
 
                 {/* Adjust Proportions Header */}
-                <h3 className="text-[18px] font-bold text-[#0f172a] mb-6 font-['Space_Grotesk']">
+                <h3 className="text-[18px] font-bold text-[#0f172a] mb-2">
                     {t("avatar.scan.adjustProportions", "Adjust Proportions")}
                 </h3>
 
@@ -60,11 +59,11 @@ export default function AvatarResultPage() {
 
                     {/* Waist Slider */}
                     <div className="w-full">
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-[14px] text-[#94a3b8] font-['Space_Grotesk']">
+                        <div className="flex justify-between items-center mb-2">
+                            <span className="text-[14px] text-[#94a3b8]">
                                 {t("avatar.measurements.waist", "Waist")}
                             </span>
-                            <span className="text-[14px] text-secondary font-['Space_Grotesk']">
+                            <span className="text-[14px] text-secondary">
                                 {waist} cm
                             </span>
                         </div>
@@ -94,11 +93,11 @@ export default function AvatarResultPage() {
 
                     {/* Hips Slider */}
                     <div className="w-full">
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-[14px] text-[#94a3b8] font-['Space_Grotesk']">
+                        <div className="flex justify-between items-center mb-2">
+                            <span className="text-[14px] text-[#94a3b8]">
                                 {t("avatar.measurements.hips", "Hips")}
                             </span>
-                            <span className="text-[14px] text-secondary font-['Space_Grotesk']">
+                            <span className="text-[14px] text-secondary">
                                 {hips} cm
                             </span>
                         </div>
@@ -126,15 +125,15 @@ export default function AvatarResultPage() {
 
                     {/* Shoulders Slider */}
                     <div className="w-full">
-                        <div className="flex justify-between items-center mb-4">
-                            <span className="text-[14px] text-[#94a3b8] font-['Space_Grotesk']">
+                        <div className="flex justify-between items-center mb-2">
+                            <span className="text-[14px] text-[#94a3b8]">
                                 {t("avatar.scan.shoulders", "Shoulders")}
                             </span>
-                            <span className="text-[14px] text-secondary font-['Space_Grotesk']">
+                            <span className="text-[14px] text-secondary">
                                 {shoulders} cm
                             </span>
                         </div>
-                        <div className="relative h-6 flex items-center">
+                        <div className="relative h-4 flex items-center">
                             <input
                                 type="range"
                                 min={30}
@@ -159,10 +158,10 @@ export default function AvatarResultPage() {
                 </div>
 
                 {/* Finish Button */}
-                <div className="pb-8">
+                <div className="pb-4">
                     <button
                         onClick={() => router.push("/profile")}
-                        className="w-full h-14 bg-primary text-white font-bold text-[18px] rounded-full shadow-[0_10px_15px_-3px_rgba(var(--primary-rgb),0.3)] flex items-center justify-center font-['Space_Grotesk']"
+                        className="w-full h-14 bg-primary text-white font-bold text-[18px] rounded-full shadow-[0_10px_15px_-3px_rgba(var(--primary-rgb),0.3)] flex items-center justify-center"
                     >
                         {t("avatar.scan.finish", "Finish")}
                     </button>
@@ -170,8 +169,6 @@ export default function AvatarResultPage() {
 
             </div>
 
-            {/* Include Navigation at bottom to match typical app routing experience */}
-            <BottomNav />
         </div>
     );
 }

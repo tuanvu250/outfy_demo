@@ -124,13 +124,16 @@ export default function HomePage() {
                   className="object-cover"
                 />
                 {/* Heart icon */}
-                <button
-                  className="absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-white/90"
+                <div
+                  className="absolute right-2.5 top-2.5 flex h-7 w-7 items-center justify-center rounded-full bg-white/90 cursor-pointer z-10"
                   style={{ boxShadow: "0 2px 6px rgba(0,0,0,0.15)" }}
-                  onClick={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
                 >
                   <Heart size={14} className="text-text-tertiary" />
-                </button>
+                </div>
                 {/* Try on avatar badge */}
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full px-3 py-1" style={{ background: "rgba(48,123,117,0.92)", whiteSpace: "nowrap" }}>
                   <Zap size={10} className="text-white" />

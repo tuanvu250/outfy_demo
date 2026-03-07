@@ -97,7 +97,7 @@ export default function AuthPage() {
 
   const onLoginSubmit = async (data: LoginFormData) => {
     console.log("Login:", data);
-    router.push("/otp");
+    router.push("/home");
   };
 
   const onRegisterSubmit = async (data: RegisterFormData) => {
