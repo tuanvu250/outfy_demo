@@ -5,6 +5,7 @@ import {
   MessageCircle, ChevronRight, Plus, Mic, SendHorizontal,
   Sparkles, Settings, Shirt, ArrowLeft,
 } from "lucide-react";
+import Image from "next/image";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -200,7 +201,7 @@ export default function AiStylistPage() {
               className="flex h-[88px] w-[88px] items-center justify-center rounded-full"
               style={{ background: "rgba(48,123,117,0.1)" }}
             >
-              <Sparkles size={40} className="text-[var(--primary)]" />
+              <Image src="/images/Logo ko-01.png" alt="AI Stylist" width={60} height={60} />
             </div>
             <p
               className="mt-6 text-center text-xl font-bold text-text-secondary"

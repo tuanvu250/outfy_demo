@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { Home, Shirt, Sparkles, User, ScanHeart } from "lucide-react";
+import { Home, Shirt, Sparkles, User, Focus } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils/cn";
@@ -40,6 +40,7 @@ function NavItem({
         </motion.div>
       </div>
       <motion.span
+        suppressHydrationWarning
         animate={{ fontWeight: isActive ? 700 : 500 }}
         className={cn(
           "text-[10px]",
@@ -104,8 +105,8 @@ export function BottomNav() {
 
       {/* Elevated center scan button */}
       <motion.button
-        onClick={() => router.push("/avatar/setup")}
-        className="absolute left-1/2 -translate-x-1/2 bottom-11.5 flex h-14.5 w-14.5 items-center justify-center rounded-2xl border-[3px] border-[#f1f5f9]"
+        onClick={() => router.push("/avatar/scan")}
+        className="absolute left-1/2 -translate-x-1/2 bottom-11.5 flex h-14.5 w-14.5 items-center justify-center rounded-4xl border-[3px] border-[#f1f5f9]"
         style={{
           background: "linear-gradient(135deg, #307B75 0%, #255e59 100%)",
           boxShadow: "0 8px 20px rgba(48,123,117,0.45), 0 2px 6px rgba(48,123,117,0.2)",
@@ -115,7 +116,7 @@ export function BottomNav() {
         transition={{ type: "spring", stiffness: 400, damping: 20 }}
         aria-label="Quét avatar"
       >
-        <ScanHeart size={30} className="text-white" strokeWidth={2} />
+        <Focus size={30} className="text-white" strokeWidth={2} />
       </motion.button>
     </motion.nav>
   );

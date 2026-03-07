@@ -19,7 +19,7 @@ export default function MeasurementsPage() {
   } = useForm<MeasurementsFormData>({});
 
   const onSubmit = () => {
-    router.push("/avatar/scan");
+    router.push("/avatar/scan?step=processing");
   };
 
   return (

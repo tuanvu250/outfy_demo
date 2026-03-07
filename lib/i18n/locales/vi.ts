@@ -104,8 +104,10 @@ export interface Translations {
   };
   profile: {
     stats: {
+      items: string;
       clothing: string;
       outfits: string;
+      friends: string;
       favorites: string;
     };
     sections: {
@@ -117,11 +119,26 @@ export interface Translations {
       fullName: string;
       email: string;
       phone: string;
+      dob: string;
       height: string;
       weight: string;
       language: string;
       notifications: string;
     };
+    units: {
+      metric: string;
+      imperial: string;
+    };
+    actions: {
+      startScan: string;
+    };
+    preferences: {
+      aiAlerts: string;
+      aiAlertsDesc: string;
+      publicWardrobe: string;
+      publicWardrobeDesc: string;
+    };
+    lastScanned: string;
     languageValue: string;
   };
   upload: {
@@ -410,8 +427,10 @@ export const vi: Translations = {
   },
   profile: {
     stats: {
+      items: "Món đồ",
       clothing: "Trang phục",
       outfits: "Bộ đồ",
+      friends: "Bạn bè",
       favorites: "Yêu thích",
     },
     sections: {
@@ -423,11 +442,26 @@ export const vi: Translations = {
       fullName: "Họ và tên",
       email: "Email",
       phone: "Điện thoại",
+      dob: "Ngày sinh",
       height: "Chiều cao",
       weight: "Cân nặng",
       language: "Ngôn ngữ",
       notifications: "Thông báo",
     },
+    units: {
+      metric: "Mét",
+      imperial: "Inch",
+    },
+    actions: {
+      startScan: "Bắt đầu Quét 3D",
+    },
+    preferences: {
+      aiAlerts: "Thông báo Phong cách AI",
+      aiAlertsDesc: "Gợi ý trang phục mới",
+      publicWardrobe: "Tủ đồ Công khai",
+      publicWardrobeDesc: "Cho phép bạn bè xem phong cách của bạn",
+    },
+    lastScanned: "Quét lần cuối: 2 ngày trước",
     languageValue: "Tiếng Việt",
   },
   upload: {

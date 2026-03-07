@@ -83,7 +83,7 @@ export default function WardrobePage() {
           {snapIndex === 0 ? (
             <motion.img
               key="3dfull"
-              src="/images/3dfull.png"
+              src="/images/3dfullv1.png"
               alt="3D Avatar Full"
               className="absolute inset-0 h-full w-full object-cover object-top"
               initial={{ opacity: 0, scale: 1.05 }}
@@ -107,7 +107,7 @@ export default function WardrobePage() {
       </div>
 
       {/* Right-side floating actions */}
-      <div className="absolute right-5 top-16 z-10 flex flex-col gap-4">
+      <div className="absolute right-3 top-16 z-10 flex flex-col gap-4">
         <FloatingActionBtn icon={MessageCircle} bg="#307B75" size={48} />
         <Link href="/upload">
           <FloatingActionBtn icon={Plus} bg="#FD7123" />
@@ -178,7 +178,7 @@ export default function WardrobePage() {
                   key={cat}
                   onClick={() => setActiveCategory(i)}
                   className={cn(
-                    "pb-3 pr-5 text-sm transition-colors",
+                    "pb-3 mr-4 text-sm transition-colors",
                     i === activeCategory
                       ? "border-b-2 border-[var(--secondary)] font-bold text-[var(--secondary)]"
                       : "font-normal text-[var(--text-tertiary)]"

@@ -114,8 +114,10 @@ export const en: Translations = {
   },
   profile: {
     stats: {
+      items: "Items",
       clothing: "Clothing",
       outfits: "Outfits",
+      friends: "Friends",
       favorites: "Favorites",
     },
     sections: {
@@ -127,11 +129,26 @@ export const en: Translations = {
       fullName: "Full Name",
       email: "Email",
       phone: "Phone",
+      dob: "Date of Birth",
       height: "Height",
       weight: "Weight",
       language: "Language",
       notifications: "Notifications",
     },
+    units: {
+      metric: "Meter",
+      imperial: "Inch",
+    },
+    actions: {
+      startScan: "Start New 3D Scan",
+    },
+    preferences: {
+      aiAlerts: "AI Style Alerts",
+      aiAlertsDesc: "New outfit recommendations",
+      publicWardrobe: "Public Wardrobe",
+      publicWardrobeDesc: "Let friends see your style",
+    },
+    lastScanned: "Last scanned: 2 days ago",
     languageValue: "English",
   },
   upload: {

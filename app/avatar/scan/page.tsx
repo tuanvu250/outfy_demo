@@ -1,14 +1,16 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { ChevronLeft, Sparkles, User } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { ChevronLeft, ImagePlus, Lightbulb, Sparkles, User } from "lucide-react";
 
-export default function AvatarScanPage() {
+function AvatarScanContent() {
   const { t } = useTranslation();
   const router = useRouter();
-  const [step, setStep] = useState<"camera" | "processing">("camera");
+  const searchParams = useSearchParams();
+  const initialStep = searchParams?.get("step") === "processing" ? "processing" : "camera";
+  const [step] = useState<"camera" | "processing">(initialStep);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function AvatarScanPage() {
             {t("avatar.scan.scanTitle", "SCAN")}
           </span>
           <button
-            onClick={() => setStep("processing")}
+            onClick={() => router.push("/avatar/measurements")}
             className="w-auto text-right font-bold text-primary uppercase text-[14px] tracking-[1.4px] shrink-0"
           >
             {t("avatar.scan.skip", "Skip")}
@@ -59,7 +61,7 @@ export default function AvatarScanPage() {
           {/* Interactive touch area for scanning */}
           <button
             className="absolute inset-0 z-10 w-full h-full cursor-pointer outline-none"
-            onClick={() => setStep("processing")}
+            onClick={() => router.push("/avatar/measurements")}
           />
 
           {/* Dashed body outline wrapper */}
@@ -81,7 +83,7 @@ export default function AvatarScanPage() {
               <div className="animate-scan-vertical absolute top-0 left-0 right-0 h-16 bg-linear-to-b from-transparent via-secondary/20 to-transparent shadow-[0_0_15px_rgba(var(--secondary-rgb),0.5)] z-10" />
             </div>
 
-            <div className="mt-4 bg-slate-800/60 px-[12px] py-[4px] rounded-full pointer-events-none z-20 backdrop-blur-[2px]">
+            <div className="mt-4 bg-gray-200 px-[12px] py-[4px] rounded-full pointer-events-none z-20 backdrop-blur-[2px]">
               <span className="text-secondary font-medium text-[12px] tracking-[2.4px] uppercase">
                 {t("avatar.scan.alignBody", "Align Body")}
               </span>
@@ -96,17 +98,10 @@ export default function AvatarScanPage() {
           {/* Side Icons */}
           <div className="absolute bottom-20 left-6 flex flex-col gap-3 pointer-events-auto z-20">
             <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-800 w-[18px] h-[18px]">
-                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
-                <polyline points="17 2 12 7 7 2"></polyline>
-              </svg>
+              <ImagePlus className="w-6 h-6 text-slate-800" />
             </button>
             <button className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-800 w-[18px] h-[18px]">
-                <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"></path>
-                <path d="M9 18h6"></path>
-                <path d="M10 22h4"></path>
-              </svg>
+              <Lightbulb className="w-6 h-6 text-slate-800" />
             </button>
           </div>
         </div>
@@ -147,7 +142,7 @@ export default function AvatarScanPage() {
           <button onClick={() => router.back()} className="w-10 h-10 flex items-center justify-start">
             <ChevronLeft className="w-6 h-6 text-[#0f172a]" />
           </button>
-          <span className="text-[18px] font-bold text-[#0f172a] shadow-sm flex-1 text-center mr-10 py-2 tracking-[-0.45px]">
+          <span className="text-[18px] font-bold text-[#0f172a] flex-1 text-center mr-10 py-2 tracking-[-0.45px]">
             {t("avatar.scan.title", "Creating Avatar")}
           </span>
         </div>
@@ -216,4 +211,12 @@ export default function AvatarScanPage() {
   }
 
   return null;
+}
+
+export default function AvatarScanPage() {
+  return (
+    <Suspense fallback={<div className="bg-[#FAFAFA] h-dvh" />}>
+      <AvatarScanContent />
+    </Suspense>
+  );
 }
