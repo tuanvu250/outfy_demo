@@ -7,7 +7,7 @@ import { Waitlist } from './components/Waitlist';
 
 export default function GenZLandingPage() {
     return (
-        <div className="bg-[#F3F0E6] text-[#0D0D0D] font-body min-h-screen flex flex-col overflow-x-clip selection:bg-[#FD7123] selection:text-white bg-noise">
+        <div className="bg-background text-text-primary font-body min-h-screen flex flex-col overflow-x-clip">
             <Navbar />
             <Hero />
             <StickyTech />

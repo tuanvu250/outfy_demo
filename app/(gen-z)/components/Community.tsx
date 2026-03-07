@@ -26,17 +26,17 @@ export function Community() {
         <section
             ref={containerRef}
             id="community"
-            className="relative w-full min-h-screen flex flex-col items-center py-10 bg-noise overflow-hidden border-t-[3px] border-ink"
+            className="relative w-full min-h-screen flex flex-col items-center py-10 overflow-hidden border-t border-border-light bg-noise"
         >
             {/* Header */}
             <div className="z-20 text-center mb-0 relative">
-                <div className="inline-flex items-center justify-center px-4 py-1.5 border-2 border-ink bg-white shadow-hard-sm mb-4">
-                    <span className="text-sm font-bold uppercase tracking-widest text-ink">Community</span>
+                <div className="inline-flex items-center justify-center px-4 py-1.5 border border-border-light bg-white rounded-full shadow-sm mb-4">
+                    <span className="text-sm font-bold uppercase tracking-widest text-text-primary">Cộng đồng</span>
                 </div>
-                <h2 className="font-display text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-ink">
+                <h2 className="text-5xl md:text-7xl font-bold uppercase tracking-tight leading-none text-text-primary">
                     The OutFy
                 </h2>
-                <p className="mt-4 text-lg md:text-xl font-medium max-w-lg mx-auto text-ink opacity-80">
+                <p className="mt-4 text-lg md:text-xl font-medium max-w-lg mx-auto text-text-secondary">
                     Xem mọi người nói gì về outfit ảo ma canada này nha! 👇
                 </p>
             </div>
@@ -86,22 +86,22 @@ export function Community() {
                 {/* Card 1 - Linh Chi (Top Left) */}
                 <motion.div
                     style={{ y: y1 }}
-                    className="absolute left-[2%] lg:left-[4%] top-[22%] w-[85%] sm:w-[310px] z-30 bg-white border-[3px] border-ink p-5 shadow-hard hover:shadow-hard-hover transition-shadow cursor-pointer -rotate-6"
+                    className="absolute left-[2%] lg:left-[4%] top-[22%] w-[85%] sm:w-[310px] z-30 bg-white border border-border-light rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer -rotate-6"
                 >
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-ink bg-blue-100 flex-shrink-0">
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-border-light bg-blue-50 flex-shrink-0 shadow-sm">
                             <img alt="Linh Chi avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_fl71UqEL4D9MRZqkrfGi-b_cSyMgIHdd0TD3bu7uO_Fs_KGuMmV6_flthks5ENQwT0iO2Mcx5R_44sU2oAooM7rLoN6WpsRAhCx9foUAkQY97I6Lw98czFNg5efMKh2HU_8PtfgJmdeTh_BY9GmMqVKdeeXkl8ID1DX-rU6xy3tbgNk3Ob8CsAUWeHVLS1FzRPsHjWdHYEjNzodxyShmlHIJxNrHOmRX5SL8zDlO9aioKuZ_49SgNFFnlDHKyxBqLsWS73v7RXVi" />
                         </div>
                         <div className="min-w-0">
-                            <h4 className="font-bold leading-tight text-ink">Linh Chi 🎀</h4>
-                            <span className="text-xs text-gray-500 font-medium">@linhchicheck • 2h trước</span>
+                            <h4 className="font-bold leading-tight text-text-primary">Linh Chi 🎀</h4>
+                            <span className="text-xs text-text-tertiary font-medium">@linhchicheck • 2h trước</span>
                         </div>
                         <span className="material-symbols-outlined ml-auto text-primary text-xl flex-shrink-0">verified</span>
                     </div>
-                    <p className="text-base font-bold leading-snug mb-4 text-ink">
+                    <p className="text-base font-medium leading-snug mb-4 text-text-secondary">
                         &quot;Cứu tinh cho đứa lười đi mall như tui 😭🤟 App mượt, thử đồ không cần cởi ra mặc vào mệt nghỉ.&quot;
                     </p>
-                    <div className="flex items-center gap-4 text-gray-500 text-sm font-bold">
+                    <div className="flex items-center gap-4 text-text-tertiary text-sm font-medium">
                         <div className="flex items-center gap-1 hover:text-red-500 transition-colors">
                             <span className="material-symbols-outlined text-[18px]">favorite</span> 1.2k
                         </div>
@@ -117,51 +117,51 @@ export function Community() {
                 {/* Card 2 - Minh Hieu (Top Right) */}
                 <motion.div
                     style={{ y: y2 }}
-                    className="absolute right-[2%] lg:right-[4%] top-[4%] lg:top-[8%] w-[85%] sm:w-[340px] z-10 bg-white border-[3px] border-ink p-5 shadow-hard hover:shadow-hard-hover transition-shadow cursor-pointer rotate-2"
+                    className="absolute right-[2%] lg:right-[4%] top-[4%] lg:top-[8%] w-[85%] sm:w-[340px] z-10 bg-white border border-border-light rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer rotate-2"
                 >
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-ink bg-yellow-100 flex-shrink-0">
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-border-light bg-yellow-50 flex-shrink-0 shadow-sm">
                             <img alt="Minh Hieu avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKsk9mXGO5Ym2tZJ4fTTcMAemTLGXVWt1q7NRYmSQTR0i6sVf4gFJ2wHGz8EDcLfMfPgef4hHiJ-uoLta_hkP6fzWm3OCJnIXADxqEjLPIfbBn6k8Ped941WfPeVxCGMFf1kxMNyQaVyQXxc8TbplPiHrzKctb1GovvoodXoZaJg7lbYOVETTtAZlouvBPGFASiTRZftcVHWe0nu8TM9VenxYCLgcwwFY4iA1Ch-cX6RSY4ifi8cjZx4ziIM-daZAJEK-bg0is1iVH" />
                         </div>
                         <div className="min-w-0">
-                            <h4 className="font-bold leading-tight text-ink">Minh Hiếu 🛹</h4>
-                            <span className="text-xs text-gray-500 font-medium">@hieuskater • 5h trước</span>
+                            <h4 className="font-bold leading-tight text-text-primary">Minh Hiếu 🛹</h4>
+                            <span className="text-xs text-text-tertiary font-medium">@hieuskater • 5h trước</span>
                         </div>
                     </div>
-                    <p className="text-[15px] font-bold leading-snug text-ink mb-4">
-                        &quot;Fit chuẩn 9/10 nha mí bà <span className="font-bold text-ink">#OutFy</span>. Cái tính năng AI mix đồ đỉnh vãi chưởng, đỡ phải nghĩ nay mặc gì.&quot;
+                    <p className="text-[15px] font-medium leading-snug text-text-secondary mb-4">
+                        &quot;Fit chuẩn 9/10 nha mí bà <span className="font-bold text-primary">#OutFy</span>. Cái tính năng AI mix đồ đỉnh vãi chưởng, đỡ phải nghĩ nay mặc gì.&quot;
                     </p>
                     {/* Image */}
-                    <div className="w-full h-28 rounded-sm border-2 border-ink mb-3 bg-gray-100 overflow-hidden relative">
+                    <div className="w-full h-28 rounded-xl border border-border-light mb-3 bg-gray-100 overflow-hidden relative">
                         <div
                             className="absolute inset-0 bg-cover bg-center grayscale"
                             style={{ backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuB8VMTVRO82B8H7QZIeKUyttRsgtUaZ69sTTF3HTBkgEDOpe6_evUhvy9Sa1T2gGhG1_NNz-H-9zGnTJjdrJzv-C-9c7BJgCh-oliZTj7LdeCFGdC7_mMXkqgcodEJ_MOQ16VBvqkriWWmmzc-3meRwAsR6ib-yjtu_F3hM-uW8lCMOe2NX3sGjSbZ13WgstBRMMXXcgmjIGT8dyrAnocEqQX060zrfXK0pJA0TG_frLbZfBQ1W2aQYu5lJfF_r_VoVi7OwlZ0Jajmh')" }}
                         />
-                        <div className="absolute bottom-2 right-2 bg-ink text-white text-[10px] px-1.5 py-0.5 font-bold uppercase tracking-wider rounded-sm">GIF</div>
+                        <div className="absolute bottom-2 right-2 bg-text-primary/70 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 font-bold uppercase tracking-wider rounded-full">GIF</div>
                     </div>
                 </motion.div>
 
                 {/* Card 3 - Bao Ngoc (Center Left — TRENDING) */}
                 <motion.div
                     style={{ y: y3 }}
-                    className="absolute left-[12%] lg:left-[28%] top-[48%] lg:top-[45%] w-[85%] sm:w-[310px] z-30 bg-[#FFF5E6] border-[3px] border-ink p-5 shadow-hard hover:shadow-hard-hover transition-shadow cursor-pointer rotate-3"
+                    className="absolute left-[12%] lg:left-[28%] top-[48%] lg:top-[45%] w-[85%] sm:w-[310px] z-30 bg-primary/5 border border-primary/20 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer rotate-3"
                 >
-                    <div className="absolute -top-4 right-3 bg-secondary text-white text-[11px] font-bold px-3 py-1.5 rotate-12 border-2 border-ink shadow-sm z-20">
+                    <div className="absolute -top-3 right-3 bg-primary text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm z-20">
                         TRENDING 🔥
                     </div>
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-ink bg-pink-100 flex-shrink-0">
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-border-light bg-pink-50 flex-shrink-0 shadow-sm">
                             <img alt="Bao Ngoc avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWsnwAzAC-EvLC5jGLU1OLm7ERhKoADfH_i1ZWVFko3BmywvlzkNEnnozYzrWWvQ07nXoP7qlwXecDIyFTeXPNIhHU1wSQYtM-KEyhoTJaZPp7nQQbBOL7t-p1_ricdLuUtI0oKx2y1XJNEwA5nrh-YpcsVeXDa0-ux-UBHVa42Gk6okr8aSGBHIqfn2bgd-wxHA6Lxw68baIT7snUhP91AkFKKboHXQayvEM8BHLNk4DLvu9RGh8k50EjqdV4Dhv6_9fjeRDdMHmB" />
                         </div>
                         <div className="min-w-0">
-                            <h4 className="font-bold leading-tight text-ink">Bảo Ngọc ✨</h4>
-                            <span className="text-xs text-gray-500 font-medium">@baongoc_blink • 1d trước</span>
+                            <h4 className="font-bold leading-tight text-text-primary">Bảo Ngọc ✨</h4>
+                            <span className="text-xs text-text-tertiary font-medium">@baongoc_blink • 1d trước</span>
                         </div>
                     </div>
-                    <p className="text-lg font-bold leading-snug mb-4 text-ink">
+                    <p className="text-lg font-medium leading-snug mb-4 text-text-secondary">
                         &quot;Đỉnh của chóp! 💯 Mới tải về test thử mà ghiền lun á. Mấy cái filter quần áo nhìn real xỉu.&quot;
                     </p>
-                    <div className="flex items-center gap-6 text-gray-500 text-sm font-bold">
+                    <div className="flex items-center gap-6 text-text-tertiary text-sm font-medium">
                         <div className="flex items-center gap-1 hover:text-red-500 transition-colors">
                             <span className="material-symbols-outlined text-[18px]">favorite</span> 2.4k
                         </div>
@@ -174,21 +174,21 @@ export function Community() {
                 {/* Card 4 - Quynh Nhu (Bottom Left) */}
                 <motion.div
                     style={{ y: y5 }}
-                    className="absolute left-[2%] lg:left-[2%] top-[82%] lg:top-[60%] w-[85%] sm:w-[310px] z-40 bg-white border-[3px] border-ink p-5 shadow-hard hover:shadow-hard-hover transition-shadow cursor-pointer -rotate-2"
+                    className="absolute left-[2%] lg:left-[2%] top-[82%] lg:top-[60%] w-[85%] sm:w-[310px] z-40 bg-white border border-border-light rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer -rotate-2"
                 >
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-ink bg-purple-100 flex-shrink-0">
-                            <img alt="Quynh Nhu avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqX3zE2d9ci-MO3Cwuzz6GcvLm9uyi3Y2uaw9-_MaCOdXMGFCVQnJ7P7jzpvHAun22dD7i_5Hy8LwXrXfF5t_XlZX6orfpVAe211tQFXBqT_Q0BUF79KREGq8940CefP7LIkM1i3jNctFfhUkSV4a7YVi1DIqrfLJJlzSp7NWcfWt9ocZvx5-OGRiTWDx4iQzzBSuXziMVnMeDEh-VSECJsL_5Z4vTh6J9QV7GqzPNWfVJE8TYsxNQGB3d5dqFY8TZCBaQUp_yP3Xb" />
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-border-light bg-purple-50 flex-shrink-0 shadow-sm">
+                            <img alt="Quynh Nhu avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWsnwAzAC-EvLC5jGLU1OLm7ERhKoADfH_i1ZWVFko3BmywvlzkNEnnozYzrWWvQ07nXoP7qlwXecDIyFTeXPNIhHU1wSQYtM-KEyhoTJaZPp7nQQbBOL7t-p1_ricdLuUtI0oKx2y1XJNEwA5nrh-YpcsVeXDa0-ux-UBHVa42Gk6okr8aSGBHIqfn2bgd-wxHA6Lxw68baIT7snUhP91AkFKKboHXQayvEM8BHLNk4DLvu9RGh8k50EjqdV4Dhv6_9fjeRDdMHmB" />
                         </div>
                         <div className="min-w-0">
-                            <h4 className="font-bold leading-tight text-ink">Quỳnh Như 💅</h4>
-                            <span className="text-xs text-gray-500 font-medium">@nhunhu_slay • 30m trước</span>
+                            <h4 className="font-bold leading-tight text-text-primary">Quỳnh Như 💅</h4>
+                            <span className="text-xs text-text-tertiary font-medium">@nhunhu_slay • 30m trước</span>
                         </div>
                     </div>
-                    <p className="text-base font-bold leading-snug mb-5 text-ink">
+                    <p className="text-base font-medium leading-snug mb-5 text-text-secondary">
                         &quot;Ai chưa tải thì tải lẹ điiii. Săn sale online mà có cái này đỡ hớ hẳn =)))&quot;
                     </p>
-                    <div className="flex items-center gap-4 text-gray-500 text-sm font-bold">
+                    <div className="flex items-center gap-4 text-text-tertiary text-sm font-medium">
                         <div className="flex items-center gap-1 text-red-500">
                             <span className="material-symbols-outlined text-[18px] fill-current">favorite</span> 156
                         </div>
@@ -201,21 +201,21 @@ export function Community() {
                 {/* Card 5 - Tuan Anh (Bottom Center-Right) */}
                 <motion.div
                     style={{ y: y4 }}
-                    className="absolute right-[2%] lg:right-[18%] top-[67%] lg:top-[55%] w-[85%] sm:w-[290px] z-30 bg-white border-[3px] border-ink p-5 shadow-hard hover:shadow-hard-hover transition-shadow cursor-pointer -rotate-5"
+                    className="absolute right-[2%] lg:right-[18%] top-[67%] lg:top-[55%] w-[85%] sm:w-[290px] z-30 bg-white border border-border-light rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer -rotate-5"
                 >
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-ink bg-green-100 flex-shrink-0">
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-border-light bg-green-50 flex-shrink-0 shadow-sm">
                             <img alt="Tuan Anh avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjY-OnKSUSdT7PF1fZydwgWmvvylVpCxilL0AzY2dBHBphTldzb5zDw-qLVXIWw9g41HOF2O_ZPvKbKNX0rlJftvuMQYgXAcfC1yPRmgsKBCmJaClu4egkgBRioy5dlC_F7vrSrUINfxXLrnAJA2BOiRx7aOOhRaU_CI6vJCYjWT6v54a6QTRfoANSa1G2PXp3ik8WY3c7Pd9rLyeSb1Les3BGQ8_h4GPAwYby8GGd5rC0iqOFXNMM-ykTw2tjY1gToBV0Cw5CgG32" />
                         </div>
                         <div className="min-w-0">
-                            <h4 className="font-bold leading-tight text-ink">Tuấn Anh 🧢</h4>
-                            <span className="text-xs text-gray-500 font-medium">@tuananh99 • 3h trước</span>
+                            <h4 className="font-bold leading-tight text-text-primary">Tuấn Anh 🧢</h4>
+                            <span className="text-xs text-text-tertiary font-medium">@tuananh99 • 3h trước</span>
                         </div>
                     </div>
-                    <p className="text-base font-bold leading-snug mb-4 text-ink">
+                    <p className="text-base font-medium leading-snug mb-4 text-text-secondary">
                         &quot;Scan 3D nhanh gọn lẹ. Recommend cho anh em nào lười thử đồ nha.&quot;
                     </p>
-                    <div className="flex items-center gap-4 text-gray-500 text-sm font-bold">
+                    <div className="flex items-center gap-4 text-text-tertiary text-sm font-medium">
                         <div className="flex items-center gap-1 hover:text-red-500 transition-colors">
                             <span className="material-symbols-outlined text-[18px]">favorite</span> 56
                         </div>

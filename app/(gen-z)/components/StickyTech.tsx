@@ -9,30 +9,30 @@ export function StickyTech() {
             {/* Section Header */}
             <div className="relative z-10 mb-12 text-center max-w-4xl mx-auto">
                 <div className="inline-block transform -rotate-2 mb-4">
-                    <span className="bg-accent px-4 py-1 border-2 border-ink text-white font-sticker text-xl shadow-[4px_4px_0px_#0D0D0D]">Sticky Tech</span>
+                    <span className="bg-primary px-4 py-1.5 rounded-full text-white font-bold tracking-wider text-sm shadow-sm">Sticky Tech</span>
                 </div>
-                <h2 className="text-[42px] md:text-[64px] font-display font-bold leading-[0.9] tracking-tight uppercase text-ink">
-                    Công nghệ <br /> <span className="text-primary underline decoration-4 decoration-accent underline-offset-4">cực dính</span>
+                <h2 className="text-[42px] md:text-[64px] font-bold leading-[0.9] tracking-tight uppercase text-text-primary">
+                    Công nghệ <br /> <span className="text-secondary">cực chuẩn</span>
                 </h2>
             </div>
             {/* Bento Grid Layout */}
             <div className="relative z-10 w-full max-w-[1100px] grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-[minmax(250px,auto)] mb-12">
                 {/* Card 1: Quét 3D (Vertical - Left) */}
-                <div className="group relative col-span-1 md:col-span-5 row-span-2 bg-primary border-[3px] border-ink shadow-hard rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-hard-hover cursor-pointer flex flex-col">
+                <div className="group relative col-span-1 md:col-span-5 row-span-2 bg-primary border border-border-light shadow-sm rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col">
                     {/* Sticker */}
-                    <div className="absolute top-4 right-4 z-20 bg-lime-pop text-ink font-sticker text-lg px-3 py-1 border-2 border-ink shadow-[2px_2px_0px_#0D0D0D] rotate-6 group-hover:rotate-12 transition-transform">
+                    <div className="absolute top-4 right-4 z-20 bg-[#E6FF99] text-text-primary font-bold text-xs px-3 py-1.5 rounded-full shadow-sm group-hover:scale-105 transition-transform">
                         100% Fit
                     </div>
                     {/* Content Top */}
                     <div className="p-6 md:p-8 flex-1 relative z-10">
-                        <div className="w-12 h-12 bg-ink rounded-full flex items-center justify-center mb-4 text-white">
+                        <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4 text-white">
                             <span className="material-symbols-outlined text-2xl">qr_code_scanner</span>
                         </div>
-                        <h3 className="text-3xl font-display font-bold text-white mb-2 leading-none">Quét 3D</h3>
+                        <h3 className="text-3xl font-bold text-white mb-2 leading-none">Quét 3D</h3>
                         <p className="text-white/90 text-lg leading-snug font-medium">Scan body 360 độ chỉ trong 10s. Chuẩn từng milimet.</p>
                     </div>
                     {/* Visual Bottom (Image/GIF placeholder) */}
-                    <div className="relative h-[300px] md:h-[400px] w-full bg-black/20 mt-auto border-t-[3px] border-ink">
+                    <div className="relative h-[300px] md:h-[400px] w-full bg-black/10 mt-auto border-t border-white/10">
                         <img alt="3D wireframe mesh of a human figure rotating in a green digital space" className="w-full h-full object-cover mix-blend-overlay opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBexQI3RKAzC3a8QtGuAerz4z-6eihEc3Rj7FawH3XLVBG9xu5RatOU8adbE1M1fdSzJOzdfIWJ5zR4Brf9B0sbgu2bOaP7OnMSgig4AnvteX_bxWkCljdH_dd5BzPMVLfrMEXK-kJnW0UbztPsufupTCmNh695q94HI0u_xdVIjS0dOyGBktRYBobM8ghqP__N0B1F_phKteco0raqXv-HNswNB3AGsG1x12wChgr_e5OdxdgDmXAtYN-oO3vSkXhKFlrjKjcutmiE" />
                         {/* Overlay Grid UI */}
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
@@ -47,41 +47,41 @@ export function StickyTech() {
                     </div>
                 </div>
                 {/* Card 2: AI Stylist (Wide - Top Right) */}
-                <div className="group relative col-span-1 md:col-span-7 bg-white border-[3px] border-ink shadow-hard rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-hard-hover cursor-pointer flex flex-col md:flex-row">
+                <div className="group relative col-span-1 md:col-span-7 bg-surface border border-border-light shadow-sm rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col md:flex-row">
                     {/* Content Left */}
-                    <div className="p-6 md:p-8 flex flex-col justify-center md:w-1/2 border-b-[3px] md:border-b-0 md:border-r-[3px] border-ink bg-bg-paper">
-                        <div className="w-10 h-10 bg-accent rounded-sm border-2 border-ink flex items-center justify-center mb-4 shadow-[2px_2px_0px_#0D0D0D]">
-                            <span className="material-symbols-outlined text-white">auto_awesome</span>
+                    <div className="p-6 md:p-8 flex flex-col justify-center md:w-1/2 border-b md:border-b-0 md:border-r border-border-light bg-background">
+                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                            <span className="material-symbols-outlined text-primary">auto_awesome</span>
                         </div>
-                        <h3 className="text-2xl font-display font-bold text-ink mb-2">AI Stylist</h3>
-                        <p className="text-ink/80 font-medium">Stylist riêng hiểu gu bạn hơn người yêu cũ.</p>
+                        <h3 className="text-2xl font-bold text-text-primary mb-2">AI Stylist</h3>
+                        <p className="text-text-secondary font-medium">Stylist riêng hiểu gu bạn hơn người yêu cũ.</p>
                     </div>
                     {/* Visual Right (Chat Interface) */}
-                    <div className="p-6 md:p-8 md:w-1/2 bg-white relative flex flex-col justify-center space-y-3">
+                    <div className="p-6 md:p-8 md:w-1/2 relative flex flex-col justify-center space-y-3 bg-surface">
                         {/* Chat Bubble 1 (AI) */}
-                        <div className="self-start max-w-[90%] bg-lime-pop border-2 border-ink rounded-tr-xl rounded-tl-xl rounded-br-xl p-3 shadow-[2px_2px_0px_#0D0D0D] transform -rotate-1 group-hover:rotate-0 transition-transform">
-                            <p className="text-sm font-bold text-ink">Outfit này hợp vibe đi cafe nè! ☕️</p>
+                        <div className="self-start max-w-[90%] bg-[#E6FF99] rounded-2xl rounded-tl-sm p-3 shadow-sm transform group-hover:scale-[1.02] transition-transform">
+                            <p className="text-sm font-medium text-text-primary">Outfit này hợp vibe đi cafe nè! ☕️</p>
                         </div>
                         {/* Chat Bubble 2 (User) */}
-                        <div className="self-end max-w-[80%] bg-surface border-2 border-ink rounded-tr-xl rounded-tl-xl rounded-bl-xl p-3 shadow-[2px_2px_0px_#0D0D0D] transform rotate-1 group-hover:rotate-0 transition-transform">
-                            <p className="text-sm font-bold text-white">Chốt đơn liền! 🔥</p>
+                        <div className="self-end max-w-[80%] bg-primary rounded-2xl rounded-br-sm p-3 shadow-sm transform group-hover:scale-[1.02] transition-transform">
+                            <p className="text-sm font-medium text-white">Chốt đơn liền! 🔥</p>
                         </div>
                     </div>
                 </div>
                 {/* Card 3: Mix & Match (Square - Bottom Right) */}
-                <div className="group relative col-span-1 md:col-span-7 bg-lime-pop border-[3px] border-ink shadow-hard rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-hard-hover cursor-pointer flex flex-col md:flex-row">
+                <div className="group relative col-span-1 md:col-span-7 bg-[#E6FF99] border border-border-light shadow-sm rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col md:flex-row">
                     {/* Visual Left (Drag & Drop UI) */}
-                    <div className="h-48 md:h-auto md:w-1/2 bg-[#fff] border-b-[3px] md:border-b-0 md:border-r-[3px] border-ink relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(#0D0D0D_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
+                    <div className="h-48 md:h-auto md:w-1/2 bg-white/50 border-b md:border-b-0 md:border-r border-border-light relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(#0D0D0D_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.03]"></div>
                         {/* Draggable Items Mockup */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full p-4 flex items-center justify-center">
-                            <div className="relative w-24 h-32 bg-primary border-2 border-ink rounded rotate-[-6deg] group-hover:rotate-[-12deg] transition-transform z-10 shadow-card flex items-center justify-center">
+                            <div className="relative w-24 h-32 bg-primary rounded-xl rotate-[-6deg] group-hover:rotate-[-12deg] transition-transform z-10 shadow-sm flex items-center justify-center">
                                 <span className="material-symbols-outlined text-white text-4xl">checkroom</span>
-                                <div className="absolute -top-3 -right-3 bg-accent text-white text-xs font-bold px-2 py-0.5 border border-ink rounded-full">Top</div>
+                                <div className="absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">Top</div>
                             </div>
-                            <div className="relative w-24 h-32 bg-white border-2 border-ink rounded rotate-[12deg] group-hover:rotate-[6deg] transition-transform -ml-8 z-20 shadow-card flex items-center justify-center">
-                                <span className="material-symbols-outlined text-ink text-4xl">styler</span>
-                                <div className="absolute -bottom-3 -left-3 bg-surface text-white text-xs font-bold px-2 py-0.5 border border-ink rounded-full">Pant</div>
+                            <div className="relative w-24 h-32 bg-white rounded-xl rotate-[12deg] group-hover:rotate-[6deg] transition-transform -ml-8 z-20 shadow-sm flex items-center justify-center border border-border-light">
+                                <span className="material-symbols-outlined text-text-primary text-4xl">styler</span>
+                                <div className="absolute -bottom-2 -left-2 bg-text-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">Pant</div>
                             </div>
                             {/* Cursor */}
                             <div className="absolute bottom-10 right-10 z-30 pointer-events-none group-hover:translate-x-[-10px] group-hover:translate-y-[-10px] transition-transform duration-500">
@@ -94,21 +94,21 @@ export function StickyTech() {
                     {/* Content Right */}
                     <div className="p-6 md:p-8 md:w-1/2 flex flex-col justify-center">
                         <div className="flex items-center gap-3 mb-2">
-                            <h3 className="text-2xl font-display font-bold text-ink">Mix &amp; Match</h3>
-                            <span className="bg-white border-2 border-ink rounded-full px-2 py-0.5 text-xs font-bold uppercase tracking-wide">Beta</span>
+                            <h3 className="text-2xl font-bold text-text-primary">Mix &amp; Match</h3>
+                            <span className="bg-white border border-border-light rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-text-secondary">Beta</span>
                         </div>
-                        <p className="text-ink/90 font-medium mb-4">Kéo thả phối đồ, 1 chạm là lên đồ ngay.</p>
-                        <button className="self-start bg-ink text-white font-bold py-2 px-4 rounded-sm border-2 border-transparent hover:bg-white hover:text-ink hover:border-ink transition-colors shadow-[2px_2px_0px_#fff] hover:shadow-[2px_2px_0px_#0D0D0D]">
+                        <p className="text-text-secondary font-medium mb-4">Kéo thả phối đồ, 1 chạm là lên đồ ngay.</p>
+                        <button className="self-start bg-text-primary text-white font-bold py-2 px-5 rounded-full hover:bg-primary transition-colors shadow-sm text-sm">
                             Thử ngay →
                         </button>
                     </div>
                 </div>
             </div>
             {/* Marquee Strip Bottom (Decorative) */}
-            <div className="w-full absolute bottom-0 left-0 border-t-[3px] border-ink bg-accent overflow-hidden whitespace-nowrap py-3">
+            <div className="w-full absolute bottom-0 left-0 border-t border-border-light bg-primary overflow-hidden whitespace-nowrap py-2 shadow-sm">
                 <div className="inline-block animate-[marquee_20s_linear_infinite]">
-                    <span className="text-white font-display font-bold text-xl mx-4 uppercase tracking-widest">• Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop • Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop</span>
-                    <span className="text-white font-display font-bold text-xl mx-4 uppercase tracking-widest">• Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop • Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop</span>
+                    <span className="text-white font-bold text-sm mx-4 uppercase tracking-widest">• Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop • Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop</span>
+                    <span className="text-white font-bold text-sm mx-4 uppercase tracking-widest">• Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop • Quét 3D • Mix Đồ Cực Cháy • Không Cần Ra Shop</span>
                 </div>
             </div>
         </section>
