@@ -44,7 +44,7 @@ function LangBottomSheet({ open, onClose }: { open: boolean; onClose: () => void
             className="fixed bottom-0 left-0 right-0 z-50 rounded-t-3xl bg-white px-6 pb-10 pt-5 shadow-2xl"
           >
             <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-[#E2E8F0]" />
-            <h3 className="mb-5 text-lg font-bold" style={{ color: "#307B75" }}>
+            <h3 className="mb-5 text-lg font-bold" style={{ color: "var(--primary)" }}>
               {t("lang.choosePicker")}
             </h3>
             <div className="space-y-1">
@@ -56,7 +56,7 @@ function LangBottomSheet({ open, onClose }: { open: boolean; onClose: () => void
                 >
                   <Flag className="h-5 w-7 rounded-sm object-cover shadow-sm" />
                   <span className="flex-1 text-left text-base font-medium text-[#0f172a]">{label}</span>
-                  {lang === code && <Check size={20} stroke="#307B75" strokeWidth={2} />}
+                  {lang === code && <Check size={20} stroke="var(--primary)" strokeWidth={2} />}
                 </button>
               ))}
             </div>
@@ -152,14 +152,14 @@ export default function AuthPage() {
         <div className="relative flex h-full">
           <button
             className="flex flex-1 items-center justify-center text-sm font-semibold transition-colors duration-300"
-            style={{ color: mode === "signup" ? "#307B75" : "#64748B" }}
+            style={{ color: mode === "signup" ? "var(--primary)" : "#64748B" }}
             onClick={() => setMode("signup")}
           >
             {t("auth.register")}
           </button>
           <button
             className="flex flex-1 items-center justify-center text-sm font-semibold transition-colors duration-300"
-            style={{ color: mode === "login" ? "#307B75" : "#64748B" }}
+            style={{ color: mode === "login" ? "var(--primary)" : "#64748B" }}
             onClick={() => setMode("login")}
           >
             {t("auth.login")}
@@ -221,8 +221,8 @@ export default function AuthPage() {
             : registerForm.handleSubmit(onRegisterSubmit)
         }
         disabled={isSubmitting}
-        className="mt-8 h-14 w-full rounded-full bg-[#307B75] text-lg font-bold text-white transition-opacity hover:opacity-90 active:opacity-80 disabled:opacity-50"
-        style={{ boxShadow: "0 4px 6px rgba(48,123,117,0.25)" }}
+        className="mt-8 h-14 w-full rounded-full bg-[var(--primary)] text-lg font-bold text-white transition-opacity hover:opacity-90 active:opacity-80 disabled:opacity-50"
+        style={{ boxShadow: "0 4px 6px color-mix(in srgb, var(--primary) 25%, transparent)" }}
       >
         {isSubmitting ? t("auth.processing") : mode === "login" ? t("auth.login") : t("auth.register")}
       </button>
@@ -248,9 +248,9 @@ export default function AuthPage() {
       {/* Footer terms */}
       <p className="mt-8 px-4 text-center text-sm leading-relaxed text-[#94A3B8]">
         {t("auth.termsNotice")}{" "}
-        <span className="cursor-pointer text-[#307B75] underline">{t("auth.termsOfService")}</span>{" "}
+        <span className="cursor-pointer text-[var(--primary)] underline">{t("auth.termsOfService")}</span>{" "}
         {t("auth.and")}{" "}
-        <span className="cursor-pointer text-[#307B75] underline">{t("auth.privacyPolicy")}</span>{" "}
+        <span className="cursor-pointer text-[var(--primary)] underline">{t("auth.privacyPolicy")}</span>{" "}
         {t("auth.of")}
       </p>
     </div>

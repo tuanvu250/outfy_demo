@@ -96,8 +96,8 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           href="/avatar/scan"
           className="flex h-14 w-full items-center justify-center gap-2 rounded-full text-[15px] font-bold text-white"
           style={{
-            background: "linear-gradient(135deg, #307B75 0%, #255e59 100%)",
-            boxShadow: "0 8px 20px rgba(48,123,117,0.35)",
+            background: "linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, black) 100%)",
+            boxShadow: "0 8px 20px color-mix(in srgb, var(--primary) 35%, transparent)",
           }}
         >
           <Users size={20} />

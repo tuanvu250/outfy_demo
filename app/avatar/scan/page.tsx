@@ -172,7 +172,7 @@ function AvatarScanContent() {
               style={{ top: `${progress - 20}%` }}
             />
             <div
-              className="absolute left-0 right-0 h-[2px] shadow-[0_0_15px_rgba(48,123,117,0.8)] bg-primary/80 transition-all ease-linear z-20"
+              className="absolute left-0 right-0 h-[2px] shadow-[0_0_15px_color-mix(in_srgb,var(--primary)_80%,transparent)] bg-primary/80 transition-all ease-linear z-20"
               style={{ top: `${progress}%` }}
             />
           </div>

@@ -23,7 +23,7 @@ export default function AiFitAnalysisResultPage() {
                         />
                         {/* Overlay Badge */}
                         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-10">
-                            <div className="bg-[var(--primary)] text-white px-6 py-2 rounded-full font-bold text-sm shadow-[0_8px_16px_rgba(48,123,117,0.3)] whitespace-nowrap">
+                            <div className="bg-(--primary) text-white px-6 py-2 rounded-full font-bold text-sm shadow-[0_8px_16px_color-mix(in_srgb,var(--primary)_30%,transparent)] whitespace-nowrap">
                                 {t("aiFitAnalysis.results.recommendedSize")}: M
                             </div>
                         </div>
@@ -98,7 +98,7 @@ export default function AiFitAnalysisResultPage() {
 
                     {/* Add to Cart Button */}
                     <div className="mt-auto">
-                        <button className="w-full h-[56px] bg-[var(--primary)] text-white rounded-full font-bold text-[16px] shadow-[0_8px_20px_rgba(48,123,117,0.3)] transition-transform active:scale-[0.98]">
+                        <button className="w-full h-[56px] bg-(--primary) text-white rounded-full font-bold text-[16px] shadow-[0_8px_20px_color-mix(in_srgb,var(--primary)_30%,transparent)] transition-transform active:scale-[0.98]">
                             {t("aiFitAnalysis.results.addSizeToCart", { size: "M" })}
                         </button>
                     </div>

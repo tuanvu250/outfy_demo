@@ -47,7 +47,7 @@ export default function ProcessingPage() {
             className="flex flex-col items-center justify-center py-20 gap-5"
             style={{
               background:
-                "radial-gradient(circle at 50% 55%, rgba(48,123,117,0.18) 0%, rgba(48,123,117,0.06) 55%, #f8fffe 100%)",
+                "radial-gradient(circle at 50% 55%, color-mix(in srgb, var(--primary) 18%, transparent) 0%, color-mix(in srgb, var(--primary) 6%, transparent) 55%, #f8fffe 100%)",
             }}
           >
             <div className="w-28 h-28 rounded-full bg-[var(--primary)]/10 flex items-center justify-center">

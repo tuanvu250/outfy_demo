@@ -58,7 +58,7 @@ function LangBottomSheet({ open, onClose }: { open: boolean; onClose: () => void
 
             <h3
               className="mb-5 text-lg font-bold"
-              style={{ color: "#307B75" }}
+              style={{ color: "var(--primary)" }}
             >
               {t("lang.choosePicker")}
             </h3>
@@ -73,7 +73,7 @@ function LangBottomSheet({ open, onClose }: { open: boolean; onClose: () => void
                   <Flag className="h-5 w-7 rounded-sm object-cover shadow-sm" />
                   <span className="flex-1 text-left text-base font-medium text-[#0f172a]">{label}</span>
                   {lang === code && (
-                    <Check size={20} stroke="#307B75" strokeWidth={2} />
+                    <Check size={20} stroke="var(--primary)" strokeWidth={2} />
                   )}
                 </button>
               ))}
@@ -120,7 +120,7 @@ function Dots({ active }: { active: 0 | 1 }) {
           style={{
             width: active === i ? 20 : 8,
             height: 8,
-            background: active === i ? "#307B75" : "#CBD5E1",
+            background: active === i ? "var(--primary)" : "#CBD5E1",
           }}
         />
       ))}
@@ -214,7 +214,7 @@ function SplashScreen({
           </p>
           <p className="text-[28px] font-bold leading-tight">
             <span className="text-[#0f172a]">{t("splash.heading2")} </span>
-            <span style={{ color: "#307B75" }}>{t("splash.heading2Accent")}</span>
+            <span style={{ color: "var(--primary)" }}>{t("splash.heading2Accent")}</span>
           </p>
         </div>
 
@@ -229,7 +229,7 @@ function SplashScreen({
         <button
           onClick={handleStart}
           className="flex w-full items-center justify-center gap-2 rounded-full py-4 text-base font-semibold text-white transition-opacity active:opacity-80"
-          style={{ background: "#307B75" }}
+          style={{ background: "var(--primary)" }}
         >
           <ArrowRight size={18} />
           <span>{t("splash.startBtn")}</span>
@@ -238,7 +238,7 @@ function SplashScreen({
         <button
           onClick={handleGuest}
           className="w-full rounded-full border-1 py-4 text-base font-semibold transition-opacity active:opacity-70"
-          style={{ color: "#FD7123", borderColor: "#FD7123" }}
+          style={{ color: "var(--secondary)", borderColor: "var(--secondary)" }}
         >
           {t("splash.guestBtn")}
         </button>
@@ -288,7 +288,7 @@ function OnboardingSlide({
         <button
           onClick={onSkip}
           className="text-sm font-semibold tracking-wide"
-          style={{ color: "#307B75" }}
+          style={{ color: "var(--primary)" }}
         >
           {t("onboarding.skip")}
         </button>
@@ -308,12 +308,12 @@ function OnboardingSlide({
           {slideIndex === 0 ? (
             <>
               <span className="text-[#0f172a]">{t("onboarding.slide1.heading")} </span>
-              <span style={{ color: "#FD7123" }}>{t("onboarding.slide1.headingAccent")}</span>
+              <span style={{ color: "var(--secondary)" }}>{t("onboarding.slide1.headingAccent")}</span>
             </>
           ) : (
             <>
               <span className="text-[#0f172a]">{t("onboarding.slide2.heading1")} </span>
-              <span style={{ color: "#FD7123" }}>{t("onboarding.slide2.headingAccent")}</span>
+              <span style={{ color: "var(--secondary)" }}>{t("onboarding.slide2.headingAccent")}</span>
               {t("onboarding.slide2.heading2") && (
                 <><br /><span className="text-[#0f172a]">{t("onboarding.slide2.heading2")}</span></>
               )}
@@ -335,7 +335,7 @@ function OnboardingSlide({
         <button
           onClick={isLastSlide ? onFinish : onNext}
           className="flex w-full items-center justify-center gap-2 rounded-full py-4 text-base font-semibold text-white transition-opacity active:opacity-80"
-          style={{ background: "#307B75" }}
+          style={{ background: "var(--primary)" }}
         >
           {isLastSlide ? <Rocket size={18} /> : <ArrowRight size={18} />}
           <span>{isLastSlide ? t("onboarding.slide2.cta") : t("onboarding.slide1.cta")}</span>
@@ -374,7 +374,7 @@ export default function StartPage() {
         {view === "splash" && (
           <SplashScreen
             onStart={() => setView("slide1")}
-            onGuest={() => {}}
+            onGuest={() => { }}
             onLangOpen={() => setLangOpen(true)}
           />
         )}
@@ -393,7 +393,7 @@ export default function StartPage() {
           <OnboardingSlide
             slideIndex={1}
             onSkip={handleSkip}
-            onNext={() => {}}
+            onNext={() => { }}
             onFinish={handleFinish}
             onLangOpen={() => setLangOpen(true)}
           />

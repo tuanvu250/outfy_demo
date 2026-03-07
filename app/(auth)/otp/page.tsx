@@ -50,19 +50,19 @@ function OtpContent() {
         <button onClick={() => router.back()} className="absolute left-0 p-2 active:opacity-60">
           <ArrowLeft size={20} stroke="#0f172a" />
         </button>
-        <span className="text-xs font-bold tracking-[2.5px] text-[#307B75] uppercase">Bảo Mật</span>
+        <span className="text-xs font-bold tracking-[2.5px] text-[var(--primary)] uppercase">Bảo Mật</span>
       </div>
 
       {/* Avatar circle */}
       <div className="flex justify-center mt-8 mb-8">
-        <div className="h-24 w-24 rounded-full bg-[#FD7123]" />
+        <div className="h-24 w-24 rounded-full bg-[var(--secondary)]" />
       </div>
 
       {/* Title */}
       <div className="text-center mb-8">
         <h1 className="text-2xl font-extrabold text-[#0f172a] mb-3">Mã Xác Nhận</h1>
-        <p className="text-sm text-[#307B75]">Nhập mã 6 chữ số đã gửi đến</p>
-        <p className="text-sm font-semibold text-[#307B75] mt-0.5">{phone}</p>
+        <p className="text-sm text-[var(--primary)]">Nhập mã 6 chữ số đã gửi đến</p>
+        <p className="text-sm font-semibold text-[var(--primary)] mt-0.5">{phone}</p>
       </div>
 
       {/* OTP inputs */}
@@ -77,7 +77,7 @@ function OtpContent() {
             value={otp[i]}
             onChange={(e) => handleChange(i, e.target.value)}
             onKeyDown={(e) => handleKeyDown(i, e)}
-            className="h-14 w-12 rounded-2xl border-2 border-[#e2e8f0] bg-[#f8fafc] text-center text-xl font-bold text-[#0f172a] outline-none transition-all focus:border-[#307B75] focus:ring-2 focus:ring-[#307B75]/20"
+            className="h-14 w-12 rounded-2xl border-2 border-[#e2e8f0] bg-[#f8fafc] text-center text-xl font-bold text-[#0f172a] outline-none transition-all focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
           />
         ))}
       </div>
@@ -92,7 +92,7 @@ function OtpContent() {
           Chưa nhận được mã?{" "}
           <button
             onClick={canResend ? handleResend : undefined}
-            className={`font-bold ${canResend ? "text-[#307B75] active:opacity-60" : "text-[#307B75] opacity-50 cursor-default"}`}
+            className={`font-bold ${canResend ? "text-[var(--primary)] active:opacity-60" : "text-[var(--primary)] opacity-50 cursor-default"}`}
           >
             Gửi lại OTP
           </button>
@@ -104,8 +104,8 @@ function OtpContent() {
         <button
           onClick={() => router.push("/terms")}
           disabled={!isComplete}
-          className="h-14 w-full rounded-full bg-[#307B75] text-base font-bold text-white transition-opacity hover:opacity-90 active:opacity-80 disabled:opacity-40"
-          style={{ boxShadow: "0 4px 6px rgba(48,123,117,0.25)" }}
+          className="h-14 w-full rounded-full bg-[var(--primary)] text-base font-bold text-white transition-opacity hover:opacity-90 active:opacity-80 disabled:opacity-40"
+          style={{ boxShadow: "0 4px 6px color-mix(in srgb, var(--primary) 25%, transparent)" }}
         >
           Xác Nhận &amp; Tiếp Tục
         </button>

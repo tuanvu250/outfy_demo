@@ -49,7 +49,7 @@ const MOCK_OUTFITS: OutfitSuggestion[] = [
     name: "Công sở thanh lịch",
     items: ["Áo sơ mi trắng", "Quần tây đen", "Giày oxford nâu"],
     occasion: "Đi làm",
-    color: "#307B75",
+    color: "var(--primary)",
   },
   {
     id: 2,
@@ -162,7 +162,7 @@ export default function AiStylistPage() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(48,123,117,0.15) 0%, rgba(48,123,117,0.05) 40%, transparent 70%)",
+              "radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in srgb, var(--primary) 15%, transparent) 0%, color-mix(in srgb, var(--primary) 5%, transparent) 40%, transparent 70%)",
           }}
         />
       )}
@@ -187,7 +187,7 @@ export default function AiStylistPage() {
         </h1>
         <button
           className="flex h-10 w-10 items-center justify-center rounded-full text-white"
-          style={{ background: "#307B75", boxShadow: "0 4px 4px rgba(0,0,0,0.3)" }}
+          style={{ background: "var(--primary)", boxShadow: "0 4px 4px rgba(0,0,0,0.3)" }}
         >
           <MessageCircle size={18} />
         </button>
@@ -199,7 +199,7 @@ export default function AiStylistPage() {
           <div className="mt-8 flex flex-col items-center px-5">
             <div
               className="flex h-[88px] w-[88px] items-center justify-center rounded-full"
-              style={{ background: "rgba(48,123,117,0.1)" }}
+              style={{ background: "color-mix(in srgb, var(--primary) 10%, transparent)" }}
             >
               <Image src="/images/Logo ko-01.png" alt="AI Stylist" width={60} height={60} />
             </div>
@@ -221,7 +221,7 @@ export default function AiStylistPage() {
               >
                 <div
                   className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full"
-                  style={{ background: "rgba(48,123,117,0.1)" }}
+                  style={{ background: "color-mix(in srgb, var(--primary) 10%, transparent)" }}
                 >
                   <Icon size={24} className="text-[var(--primary)]" />
                 </div>
@@ -244,7 +244,7 @@ export default function AiStylistPage() {
               <div key={msg.id} className="flex items-start gap-3">
                 <div
                   className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ background: "#307B75" }}
+                  style={{ background: "var(--primary)" }}
                 >
                   <Sparkles size={14} className="text-white" />
                 </div>
@@ -287,7 +287,7 @@ export default function AiStylistPage() {
                           key={chip}
                           onClick={() => sendMessage(chip)}
                           className="rounded-full border px-3 py-1 text-xs transition-opacity hover:opacity-70"
-                          style={{ borderColor: "rgba(48,123,117,0.45)", color: "#307B75" }}
+                          style={{ borderColor: "color-mix(in srgb, var(--primary) 45%, transparent)", color: "var(--primary)" }}
                         >
                           {chip}
                         </button>
@@ -300,7 +300,7 @@ export default function AiStylistPage() {
               <div key={msg.id} className="flex justify-end">
                 <div
                   className="max-w-[75%] rounded-2xl rounded-tr-none px-4 py-3 text-white"
-                  style={{ background: "#307B75" }}
+                  style={{ background: "var(--primary)" }}
                 >
                   <p className="text-sm leading-relaxed">{msg.text}</p>
                 </div>
@@ -312,7 +312,7 @@ export default function AiStylistPage() {
             <div className="flex items-start gap-3">
               <div
                 className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
-                style={{ background: "#307B75" }}
+                style={{ background: "var(--primary)" }}
               >
                 <Sparkles size={14} className="text-white" />
               </div>
@@ -322,7 +322,7 @@ export default function AiStylistPage() {
                     <span
                       key={i}
                       className="w-2 h-2 rounded-full animate-bounce"
-                      style={{ background: "#307B75", animationDelay: `${i * 0.15}s` }}
+                      style={{ background: "var(--primary)", animationDelay: `${i * 0.15}s` }}
                     />
                   ))}
                 </div>
@@ -346,7 +346,7 @@ export default function AiStylistPage() {
                 key={chip}
                 onClick={() => sendMessage(chip)}
                 className="shrink-0 rounded-full border px-3 py-1 text-xs transition-opacity hover:opacity-70"
-                style={{ borderColor: "rgba(48,123,117,0.45)", color: "#307B75" }}
+                style={{ borderColor: "color-mix(in srgb, var(--primary) 45%, transparent)", color: "var(--primary)" }}
               >
                 {chip}
               </button>
@@ -355,10 +355,10 @@ export default function AiStylistPage() {
         )}
         <div
           className="flex items-center gap-2 rounded-full border bg-white px-4 py-3"
-          style={{ borderColor: "#307B75" }}
+          style={{ borderColor: "var(--primary)" }}
         >
           <Plus size={22} className="shrink-0 text-text-tertiary" />
-          <div className="h-5 w-px shrink-0" style={{ background: "#307B75" }} />
+          <div className="h-5 w-px shrink-0" style={{ background: "var(--primary)" }} />
           <input
             className="flex-1 bg-transparent text-sm text-text-primary outline-none placeholder:text-[#6B7280]"
             placeholder="Hỏi AI Stylist..."
@@ -371,7 +371,7 @@ export default function AiStylistPage() {
             onClick={() => sendMessage(input)}
             disabled={!input.trim() || isTyping}
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white disabled:opacity-40 transition-opacity"
-            style={{ background: "#307B75", boxShadow: "0 2px 6px rgba(48,123,117,0.2)" }}
+            style={{ background: "var(--primary)", boxShadow: "0 2px 6px color-mix(in srgb, var(--primary) 20%, transparent)" }}
           >
             <SendHorizontal size={16} />
           </button>

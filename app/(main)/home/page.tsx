@@ -64,8 +64,8 @@ export default function HomePage() {
                 href="/avatar/scan"
                 className="inline-flex items-center rounded-full px-5 py-2 text-xs font-bold text-white transition-opacity hover:opacity-90"
                 style={{
-                  background: "#307B75",
-                  boxShadow: "0 10px 15px rgba(48,123,117,0.4), 0 4px 6px rgba(48,123,117,0.3)",
+                  background: "var(--primary)",
+                  boxShadow: "0 10px 15px color-mix(in srgb, var(--primary) 40%, transparent), 0 4px 6px color-mix(in srgb, var(--primary) 30%, transparent)",
                 }}
               >
                 Thử ngay trong 3D
@@ -135,7 +135,7 @@ export default function HomePage() {
                   <Heart size={14} className="text-text-tertiary" />
                 </div>
                 {/* Try on avatar badge */}
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full px-3 py-1" style={{ background: "rgba(48,123,117,0.92)", whiteSpace: "nowrap" }}>
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full px-3 py-1" style={{ background: "color-mix(in srgb, var(--primary) 92%, transparent)", whiteSpace: "nowrap" }}>
                   <Zap size={10} className="text-white" />
                   <span className="text-[9px] font-bold uppercase tracking-[0.5px] text-white">Try on Avatar</span>
                 </div>

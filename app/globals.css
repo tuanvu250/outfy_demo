@@ -5,8 +5,9 @@
 
 
 :root {
-  --primary: #307B75;
-  --secondary: #FD7123;
+  --primary: #6742AE;
+  --secondary: #D8D527;
+
   --background: #ffffff;
   --surface: #ffffff;
   --text-primary: #0f172a;
@@ -17,9 +18,9 @@
 }
 
 @theme inline {
-  --color-primary: #307B75;
-  --color-secondary: #FD7123;
-  --color-accent: #FD7123;
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--secondary);
   --color-background-light: #F3F0E6;
   --color-background-dark: #1A0B2E;
   --color-lime: #E6FF99;
@@ -41,7 +42,7 @@
   --color-lime-pop: #E6FF99;
   --color-bg-paper: #F3F0E6;
   --color-surface: #1A0B2E;
-  --color-vibe-green: #307B75;
+  --color-vibe-green: var(--primary);
 
   --shadow-hard: 6px 6px 0px 0px #0D0D0D;
   --shadow-hard-sm: 3px 3px 0px 0px #0D0D0D;
@@ -125,7 +126,7 @@ body {
 
 /* Custom Styles for Text Outline and Glitch Effect */
 .text-outline-green {
-  -webkit-text-stroke: 2px #307B75;
+  -webkit-text-stroke: 2px var(--primary);
   color: transparent;
 }
 

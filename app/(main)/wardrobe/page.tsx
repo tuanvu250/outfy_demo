@@ -108,9 +108,9 @@ export default function WardrobePage() {
 
       {/* Right-side floating actions */}
       <div className="absolute right-3 top-16 z-10 flex flex-col gap-4">
-        <FloatingActionBtn icon={MessageCircle} bg="#307B75" size={48} />
+        <FloatingActionBtn icon={MessageCircle} bg="var(--primary)" size={48} />
         <Link href="/upload">
-          <FloatingActionBtn icon={Plus} bg="#FD7123" />
+          <FloatingActionBtn icon={Plus} bg="var(--secondary)" />
         </Link>
         <Link href="/share-look">
           <FloatingActionBtn icon={Share2} bg="white" iconColor="#0f172a" />
@@ -124,9 +124,9 @@ export default function WardrobePage() {
       {/* Bottom-right swap/delete actions */}
       <div className="absolute right-5 z-10 flex flex-col gap-3" style={{ bottom: "130px" }}>
         <Link href="/outfit-duel">
-          <FloatingActionBtn icon={ArrowLeftRight} bg="#307B75" />
+          <FloatingActionBtn icon={ArrowLeftRight} bg="var(--primary)" />
         </Link>
-        <FloatingActionBtn icon={Trash2} bg="#307B75" />
+        <FloatingActionBtn icon={Trash2} bg="var(--primary)" />
       </div>
 
       {/* Draggable Bottom Sheet */}
@@ -152,9 +152,9 @@ export default function WardrobePage() {
             <div
               className="flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold"
               style={{
-                background: "rgba(48,123,117,0.1)",
-                borderColor: "rgba(48,123,117,0.2)",
-                color: "#307B75",
+                background: "color-mix(in srgb, var(--primary) 10%, transparent)",
+                borderColor: "color-mix(in srgb, var(--primary) 20%, transparent)",
+                color: "var(--primary)",
               }}
             >
               <ListFilter size={14} />
@@ -206,7 +206,7 @@ export default function WardrobePage() {
                     className="relative w-full overflow-hidden rounded-2xl bg-[#F1F5F9]"
                     style={{
                       aspectRatio: "0.75",
-                      border: i === selectedItem ? "2px solid #307B75" : "none",
+                      border: i === selectedItem ? "2px solid var(--primary)" : "none",
                       boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
                     }}
                   >
@@ -217,7 +217,7 @@ export default function WardrobePage() {
                       className="h-full w-full object-cover"
                     />
                     {i === selectedItem && (
-                      <div className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#307B75]">
+                      <div className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-(--primary)">
                         <Check size={10} className="text-white" />
                       </div>
                     )}

@@ -10,7 +10,7 @@ interface ActionButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
 
 const variantClasses = {
   primary:
-    "bg-[var(--primary)] text-white hover:opacity-90 active:opacity-80 shadow-[0_4px_4px_rgba(48,123,117,0.3)]",
+    "bg-(--primary) text-white hover:opacity-90 active:opacity-80 shadow-[0_4px_4px_color-mix(in_srgb,var(--primary)_30%,transparent)]",
   secondary:
     "bg-[var(--secondary)] text-white hover:opacity-90 active:opacity-80 shadow-sm",
   outline:

@@ -38,7 +38,7 @@ export default function TermsPage() {
       {/* Shield icon */}
       <div className="flex justify-center mb-6">
         <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#edf6f5] border-2">
-          <Shield size={40} stroke="#307B75" strokeWidth={2} />
+          <Shield size={40} stroke="var(--primary)" strokeWidth={2} />
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export default function TermsPage() {
               className="flex w-full items-center gap-4 rounded-2xl bg-white px-4 py-4 shadow-sm active:opacity-70"
             >
               <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#edf6f5]">
-                <Icon size={20} stroke="#307B75" strokeWidth={1.8} />
+                <Icon size={20} stroke="var(--primary)" strokeWidth={1.8} />
               </div>
               <div className="flex-1 text-left">
                 <p className="text-sm font-semibold text-[#0f172a]">{title}</p>
@@ -77,17 +77,16 @@ export default function TermsPage() {
           className="flex items-start gap-3 text-left active:opacity-70"
         >
           <div
-            className={`mt-0.5 h-5 w-5 flex-shrink-0 rounded-full border-2 transition-colors flex items-center justify-center ${
-              agreed ? "border-[#307B75] bg-[#307B75]" : "border-[#cbd5e1] bg-white"
-            }`}
+            className={`mt-0.5 h-5 w-5 flex-shrink-0 rounded-full border-2 transition-colors flex items-center justify-center ${agreed ? "border-[var(--primary)] bg-[var(--primary)]" : "border-[#cbd5e1] bg-white"
+              }`}
           >
             {agreed && <Check size={12} stroke="white" strokeWidth={3} />}
           </div>
           <p className="text-base leading-relaxed text-[#475569]">
             Tôi đã đọc và đồng ý với{" "}
-            <span className="font-bold text-[#307B75]">Điều khoản Dịch vụ</span>{" "}
+            <span className="font-bold text-[var(--primary)]">Điều khoản Dịch vụ</span>{" "}
             và{" "}
-            <span className="font-bold text-[#307B75]">Chính sách B.mật</span>.
+            <span className="font-bold text-[var(--primary)]">Chính sách B.mật</span>.
             {" "}Tôi hiểu cách dữ liệu quét 3D của tôi được xử lý.
           </p>
         </button>
@@ -98,8 +97,8 @@ export default function TermsPage() {
         <button
           onClick={() => router.push("/home")}
           disabled={!agreed}
-          className="h-14 w-full rounded-full bg-[#307B75] text-base font-bold text-white transition-opacity hover:opacity-90 active:opacity-80 disabled:opacity-40"
-          style={{ boxShadow: agreed ? "0 4px 6px rgba(48,123,117,0.25)" : "none" }}
+          className="h-14 w-full rounded-full bg-[var(--primary)] text-base font-bold text-white transition-opacity hover:opacity-90 active:opacity-80 disabled:opacity-40"
+          style={{ boxShadow: agreed ? "0 4px 6px color-mix(in srgb, var(--primary) 25%, transparent)" : "none" }}
         >
           Xác Nhận &amp; Tiếp Tục
         </button>
