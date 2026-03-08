@@ -190,6 +190,16 @@ export interface Translations {
       size: string;
       processBtn: string;
     };
+    previewDetail: {
+      pageTitle: string;
+      aiSuggestion: string;
+      technicalSpecs: string;
+      chestWidth: string;
+      bodyLength: string;
+      sleeveLength: string;
+      silhouette: string;
+      confirmBtn: string;
+    };
     processing: {
       title: string;
       constructingMesh: string;
@@ -515,6 +525,16 @@ export const vi: Translations = {
       garmentSize: "Kích cỡ",
       size: "Kích cỡ",
       processBtn: "Tạo mô hình 3D",
+    },
+    previewDetail: {
+      pageTitle: "Thông số kỹ thuật",
+      aiSuggestion: "AI đã tự động nhận diện các số đo bên dưới. Bạn có thể điều chỉnh lại.",
+      technicalSpecs: "Thông số",
+      chestWidth: "Chiều rộng ngực",
+      bodyLength: "Chiều dài thân",
+      sleeveLength: "Chiều dài tay áo",
+      silhouette: "Kiểu dáng",
+      confirmBtn: "Xác nhận & Tạo 3D",
     },
     processing: {
       title: "Đang xử lý",

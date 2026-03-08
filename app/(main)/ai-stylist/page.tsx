@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   MessageCircle, ChevronRight, Plus, Mic, SendHorizontal,
   Sparkles, Settings, Shirt, ArrowLeft,
@@ -120,16 +121,21 @@ function getMockResponse(userText: string): { text: string; outfits?: OutfitSugg
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function AiStylistPage() {
+  const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([INITIAL_AI_MESSAGE]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [chatStarted, setChatStarted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (chatStarted) {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
+    if (!chatStarted) return;
+    requestAnimationFrame(() => {
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+      }
+    });
   }, [messages, isTyping, chatStarted]);
 
   const sendMessage = (text: string) => {
@@ -238,7 +244,7 @@ export default function AiStylistPage() {
 
       {/* ── CHAT STATE ── */}
       {chatStarted && (
-        <div className="flex-1 overflow-y-auto px-4 py-4 pb-[230px] space-y-4">
+        <div ref={chatContainerRef} className="flex-1 overflow-y-auto px-4 py-4 pb-[230px] space-y-4">
           {messages.map((msg) =>
             msg.role === "ai" ? (
               <div key={msg.id} className="flex items-start gap-3">
@@ -278,6 +284,13 @@ export default function AiStylistPage() {
                           </span>
                         ))}
                       </div>
+                      <button
+                        onClick={() => router.push("/wardrobe")}
+                        className="mt-3 w-full rounded-full py-2 text-xs font-semibold text-white transition-opacity active:opacity-80"
+                        style={{ background: outfit.color }}
+                      >
+                        Thử ngay
+                      </button>
                     </div>
                   ))}
                   {msg.id === 0 && (

@@ -23,11 +23,13 @@ const SNAP_HEIGHTS = ["15vh", "55vh", "85vh"];
 const CATEGORIES = ["Tops", "Bottoms", "Shoes", "Outfits"];
 
 const CLOTHING_ITEMS = [
-  { id: 1, title: "Cotton Tee", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=60" },
-  { id: 2, title: "Black Hoodie", image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=60" },
-  { id: 3, title: "Navy Polo", image: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=400&q=60" },
-  { id: 4, title: "Linen Shirt", image: "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=400&q=60" },
-  { id: 5, title: "Crew Knit", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=400&q=60" },
+  { id: 1, title: "Gray Hoodie", image: "/images/items/item1.png" },
+  { id: 2, title: "Khaki Shorts", image: "/images/items/item2.png" },
+];
+
+const OUTFIT_ITEMS = [
+  { id: 101, title: "Outfit 1", image: "/images/3dfullv1.png" },
+  { id: 102, title: "Outfit 2", image: "/images/3dfullv2.png" },
 ];
 
 function FloatingActionBtn({
@@ -62,7 +64,8 @@ function FloatingActionBtn({
 export default function WardrobePage() {
   const [snapIndex, setSnapIndex] = useState(1);
   const [activeCategory, setActiveCategory] = useState(0);
-  const [selectedItem, setSelectedItem] = useState(0);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [tried, setTried] = useState(false);
 
   const handleSheetDragEnd = (_: unknown, info: { offset: { y: number }; velocity: { y: number } }) => {
     if (info.offset.y < -50 || info.velocity.y < -300) {
@@ -80,7 +83,18 @@ export default function WardrobePage() {
       {/* Avatar background */}
       <div className="absolute inset-0 overflow-hidden">
         <AnimatePresence mode="wait">
-          {snapIndex === 0 ? (
+          {tried ? (
+            <motion.img
+              key="3dfullv4"
+              src="/images/3dfullv4.png"
+              alt="3D Avatar V4"
+              className="absolute inset-0 h-full w-full object-cover object-top"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.97 }}
+              transition={{ duration: 0.4 }}
+            />
+          ) : snapIndex === 0 ? (
             <motion.img
               key="3dfull"
               src="/images/3dfullv1.png"
@@ -121,11 +135,43 @@ export default function WardrobePage() {
         </Link>
       </div>
 
+      {/* Try now button */}
+      <AnimatePresence>
+        {selectedItems.length === 2 && !tried && activeCategory !== 3 && (
+          <motion.div
+            className="absolute inset-x-0 z-10 flex justify-center"
+            style={{ bottom: "calc(15vh + 24px)" }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+          >
+            <button
+              onClick={() => setTried(true)}
+              className="rounded-full px-8 py-3 text-sm font-bold text-white"
+              style={{ background: "var(--primary)", boxShadow: "0 4px 20px rgba(0,0,0,0.25)" }}
+            >
+              ✨ Thử ngay
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Bottom-right swap/delete actions */}
       <div className="absolute right-5 z-10 flex flex-col gap-3" style={{ bottom: "130px" }}>
-        <Link href="/outfit-duel">
-          <FloatingActionBtn icon={ArrowLeftRight} bg="var(--primary)" />
-        </Link>
+        <AnimatePresence>
+          {activeCategory === 3 && selectedItems.length === 2 && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.7 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.7 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <Link href="/outfit-duel">
+                <FloatingActionBtn icon={ArrowLeftRight} bg="var(--primary)" />
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <FloatingActionBtn icon={Trash2} bg="var(--primary)" />
       </div>
 
@@ -193,10 +239,17 @@ export default function WardrobePage() {
           {/* Clothing grid */}
           <div className="grid grid-cols-3 gap-3 px-6 pb-8 pt-6">
             <AnimatePresence>
-              {CLOTHING_ITEMS.map((item, i) => (
+              {(activeCategory === 3 ? OUTFIT_ITEMS : CLOTHING_ITEMS).map((item, i) => (
                 <motion.button
                   key={item.id}
-                  onClick={() => setSelectedItem(i)}
+                  onClick={() => {
+                    setSelectedItems((prev) =>
+                      prev.includes(item.id)
+                        ? prev.filter((id) => id !== item.id)
+                        : [...prev, item.id]
+                    );
+                    setTried(false);
+                  }}
                   className="flex flex-col items-center gap-2"
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -206,7 +259,7 @@ export default function WardrobePage() {
                     className="relative w-full overflow-hidden rounded-2xl bg-[#F1F5F9]"
                     style={{
                       aspectRatio: "0.75",
-                      border: i === selectedItem ? "2px solid var(--primary)" : "none",
+                      border: selectedItems.includes(item.id) ? "2px solid var(--primary)" : "none",
                       boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
                     }}
                   >
@@ -216,7 +269,7 @@ export default function WardrobePage() {
                       alt={item.title}
                       className="h-full w-full object-cover"
                     />
-                    {i === selectedItem && (
+                    {selectedItems.includes(item.id) && (
                       <div className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-(--primary)">
                         <Check size={10} className="text-white" />
                       </div>
@@ -225,7 +278,7 @@ export default function WardrobePage() {
                   <span
                     className={cn(
                       "text-[10px]",
-                      i === selectedItem
+                      selectedItems.includes(item.id)
                         ? "font-bold text-[var(--text-primary)]"
                         : "font-medium text-[var(--text-secondary)]"
                     )}

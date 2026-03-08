@@ -203,6 +203,16 @@ export const en: Translations = {
       size: "Size",
       processBtn: "Process 3D Garment",
     },
+    previewDetail: {
+      pageTitle: "Garment Specs",
+      aiSuggestion: "AI has auto-detected the measurements below. You can adjust them.",
+      technicalSpecs: "Specifications",
+      chestWidth: "Chest Width",
+      bodyLength: "Body Length",
+      sleeveLength: "Sleeve Length",
+      silhouette: "Silhouette / Fit",
+      confirmBtn: "Confirm & Process 3D",
+    },
     processing: {
       title: "Processing",
       constructingMesh: "Constructing Mesh",

@@ -133,10 +133,10 @@ export default function AttributesPage() {
       {/* Sticky bottom button */}
       <div className="px-4 pt-3 pb-6 bg-[var(--background)] border-t border-[var(--border-light)]">
         <button
-          onClick={() => router.push("/upload/processing")}
+          onClick={() => router.push("/upload/preview-detail")}
           className="w-full py-4 rounded-full bg-[var(--primary)] text-white font-bold text-base flex items-center justify-center gap-2 active:opacity-90 transition-opacity"
         >
-          {t("upload.attributes.processBtn")}
+          {t("upload.category.continueToAnalysis")} <span aria-hidden>→</span>
           <Sparkles size={18} />
         </button>
       </div>
