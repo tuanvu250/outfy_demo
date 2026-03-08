@@ -103,7 +103,7 @@ export default function AuthPage() {
 
   const onRegisterSubmit = async (data: RegisterFormData) => {
     console.log("Register:", data);
-    router.push("/terms");
+    router.push("/otp");
   };
 
   const isSubmitting =
@@ -208,6 +208,12 @@ export default function AuthPage() {
         )}
         {mode === "login" && loginForm.formState.errors.password && (
           <p className="text-xs text-red-500">{loginForm.formState.errors.password.message}</p>
+        )}
+        {mode === "signup" && registerForm.formState.errors.email && (
+          <p className="text-xs text-red-500">{registerForm.formState.errors.email.message}</p>
+        )}
+        {mode === "signup" && registerForm.formState.errors.password && (
+          <p className="text-xs text-red-500">{registerForm.formState.errors.password.message}</p>
         )}
         {mode === "signup" && registerForm.formState.errors.confirmPassword && (
           <p className="text-xs text-red-500">{registerForm.formState.errors.confirmPassword.message}</p>
