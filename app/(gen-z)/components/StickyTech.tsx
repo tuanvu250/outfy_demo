@@ -5,7 +5,7 @@ export function StickyTech() {
         <section id="sticky-tech" className="relative w-full min-h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8 overflow-hidden">
             {/* Decorative Floating Elements (Background) */}
             <div className="absolute top-10 left-10 w-32 h-32 bg-accent rounded-full border-[3px] border-ink opacity-20 blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-10 right-10 w-48 h-48 bg-lime-pop rounded-full border-[3px] border-ink opacity-30 blur-3xl"></div>
+            <div className="absolute bottom-10 right-10 w-48 h-48 bg-secondary rounded-full border-[3px] border-ink opacity-30 blur-3xl"></div>
             {/* Section Header */}
             <div className="relative z-10 mb-12 text-center max-w-4xl mx-auto">
                 <div className="inline-block transform -rotate-2 mb-4">
@@ -20,7 +20,7 @@ export function StickyTech() {
                 {/* Card 1: Quét 3D (Vertical - Left) */}
                 <div className="group relative col-span-1 md:col-span-5 row-span-2 bg-primary border border-border-light shadow-sm rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col">
                     {/* Sticker */}
-                    <div className="absolute top-4 right-4 z-20 bg-[#E6FF99] text-text-primary font-bold text-xs px-3 py-1.5 rounded-full shadow-sm group-hover:scale-105 transition-transform">
+                    <div className="absolute top-4 right-4 z-20 bg-secondary text-text-primary font-bold text-xs px-3 py-1.5 rounded-full shadow-sm group-hover:scale-105 transition-transform">
                         100% Fit
                     </div>
                     {/* Content Top */}
@@ -37,9 +37,9 @@ export function StickyTech() {
                         {/* Overlay Grid UI */}
                         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="relative w-48 h-48 border-2 border-dashed border-lime-pop rounded-full animate-[spin_10s_linear_infinite] opacity-70"></div>
+                            <div className="relative w-48 h-48 border-2 border-dashed border-secondary rounded-full animate-[spin_10s_linear_infinite] opacity-70"></div>
                             <div className="absolute w-40 h-40 border border-white rounded-full flex items-center justify-center">
-                                <span className="material-symbols-outlined text-5xl text-lime-pop animate-pulse">accessibility_new</span>
+                                <span className="material-symbols-outlined text-5xl text-secondary animate-pulse">accessibility_new</span>
                             </div>
                         </div>
                         {/* Scanning Line */}
@@ -59,7 +59,7 @@ export function StickyTech() {
                     {/* Visual Right (Chat Interface) */}
                     <div className="p-6 md:p-8 md:w-1/2 relative flex flex-col justify-center space-y-3 bg-surface">
                         {/* Chat Bubble 1 (AI) */}
-                        <div className="self-start max-w-[90%] bg-[#E6FF99] rounded-2xl rounded-tl-sm p-3 shadow-sm transform group-hover:scale-[1.02] transition-transform">
+                        <div className="self-start max-w-[90%] bg-secondary rounded-2xl rounded-tl-sm p-3 shadow-sm transform group-hover:scale-[1.02] transition-transform">
                             <p className="text-sm font-medium text-text-primary">Outfit này hợp vibe đi cafe nè! ☕️</p>
                         </div>
                         {/* Chat Bubble 2 (User) */}
@@ -69,7 +69,7 @@ export function StickyTech() {
                     </div>
                 </div>
                 {/* Card 3: Mix & Match (Square - Bottom Right) */}
-                <div className="group relative col-span-1 md:col-span-7 bg-[#E6FF99] border border-border-light shadow-sm rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col md:flex-row">
+                <div className="group relative col-span-1 md:col-span-7 bg-secondary border border-border-light shadow-sm rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer flex flex-col md:flex-row">
                     {/* Visual Left (Drag & Drop UI) */}
                     <div className="h-48 md:h-auto md:w-1/2 bg-white/50 border-b md:border-b-0 md:border-r border-border-light relative overflow-hidden">
                         <div className="absolute inset-0 bg-[radial-gradient(#0D0D0D_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.03]"></div>

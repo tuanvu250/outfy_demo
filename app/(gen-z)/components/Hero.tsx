@@ -9,10 +9,10 @@ export function Hero() {
                 {/* Left Side: Typography & CTA */}
                 <div className="w-full lg:w-1/2 px-6 py-12 lg:pl-20 lg:pr-10 flex flex-col justify-center items-start z-10">
                     <div className="mb-4 inline-block transform -rotate-2">
-                        <span className="bg-[#E6FF99] border border-border-light rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider shadow-sm text-text-primary">New Version 2.0</span>
+                        <span className="bg-secondary border border-border-light rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider shadow-sm text-text-primary">First 3D Try On App</span>
                     </div>
                     <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-8 text-text-primary">
-                        Thử đồ <span className="text-outline-green italic">3D</span><br />
+                        Thử đồ <span className="text-outline-secondary italic">3D</span><br />
                         Định hình<br />
                         chất riêng
                     </h1>
@@ -65,7 +65,7 @@ export function Hero() {
                         </div>
                         {/* Floating Sticker 3 (Small decoration) */}
                         <div className="absolute top-1/2 left-0 lg:-left-10 z-10 animate-pulse">
-                            <span className="material-symbols-outlined text-6xl text-[#E6FF99] drop-shadow-md">star</span>
+                            <span className="material-symbols-outlined text-6xl text-secondary drop-shadow-md">star</span>
                         </div>
                     </div>
                 </div>

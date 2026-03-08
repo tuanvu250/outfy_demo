@@ -103,14 +103,14 @@ export function Waitlist() {
                 </div>
             </div>
             {/* Bottom Marquee (Visual Separation) */}
-            <div className="absolute bottom-0 left-0 w-full bg-secondary border-t-[3px] border-ink py-2 overflow-hidden rotate-1 scale-105 origin-bottom-left">
+            {/* <div className="absolute bottom-0 left-0 w-full bg-secondary border-t-[3px] border-ink py-2 overflow-hidden rotate-1 scale-105 origin-bottom-left">
                 <div className="marquee-container">
                     <div className="marquee-content font-display font-bold text-ink text-sm uppercase tracking-widest">
                         DOWNLOAD NOW • TẢI NGAY ĐI CHỜ CHI • VIBECHECK • DOWNLOAD NOW • TẢI NGAY ĐI CHỜ CHI • VIBECHECK • DOWNLOAD NOW • TẢI NGAY ĐI CHỜ CHI • VIBECHECK •
                         DOWNLOAD NOW • TẢI NGAY ĐI CHỜ CHI • VIBECHECK • DOWNLOAD NOW • TẢI NGAY ĐI CHỜ CHI • VIBECHECK • DOWNLOAD NOW • TẢI NGAY ĐI CHỜ CHI • VIBECHECK •
                     </div>
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 }

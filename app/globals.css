@@ -125,8 +125,8 @@ body {
 }
 
 /* Custom Styles for Text Outline and Glitch Effect */
-.text-outline-green {
-  -webkit-text-stroke: 2px var(--primary);
+.text-outline-secondary {
+  -webkit-text-stroke: 2px var(--secondary);
   color: transparent;
 }
 
