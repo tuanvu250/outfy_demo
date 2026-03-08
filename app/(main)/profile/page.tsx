@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useState, useRef } from "react";
-import { User, Camera, MessageCircle, ChevronDown, Check, Edit2, Sparkles, Globe, ScanFace } from "lucide-react";
+import { User, Camera, MessageCircle, ChevronDown, Check, Sparkles, Globe, ScanFace } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import GB from "country-flag-icons/react/3x2/GB";
@@ -38,7 +38,8 @@ function LangBottomSheet({ open, onClose }: { open: boolean; onClose: () => void
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "tween", duration: 0.28, ease: "easeOut" }}
-            className="fixed bottom-0 left-0 right-0 z-[70] rounded-t-3xl bg-white px-6 pb-10 pt-5 shadow-2xl"
+            className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full z-[70] rounded-t-3xl bg-white px-6 pb-10 pt-5 shadow-2xl"
+            style={{ maxWidth: 430 }}
           >
             <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-[#E2E8F0]" />
             <h3 className="mb-5 text-lg font-bold text-[var(--primary)]">

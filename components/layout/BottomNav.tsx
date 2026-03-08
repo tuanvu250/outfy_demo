@@ -70,8 +70,8 @@ export function BottomNav() {
 
   return (
     <motion.nav
-      className="fixed bottom-0 left-0 right-0 z-50 md:hidden"
-      style={{ height: "110px" }}
+      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full z-50"
+      style={{ height: "110px", maxWidth: "430px" }}
       initial={{ y: 80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.1 }}
