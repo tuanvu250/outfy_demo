@@ -6,19 +6,31 @@ import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { MeasurementsFormData } from "@/lib/utils/validators";
-import { ChevronLeft, ArrowRight, Activity, Scan, CircleDashed } from "lucide-react";
+import {
+  ChevronLeft,
+  ArrowRight,
+  Activity,
+  Scan,
+  CircleDashed,
+} from "lucide-react";
 
 export default function MeasurementsPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm<MeasurementsFormData>({});
+  const { register, handleSubmit, getValues } = useForm<MeasurementsFormData>(
+    {},
+  );
+
+  // Store key for passing data between pages
+  const MEASUREMENTS_KEY = "outfy_measurements";
 
   const onSubmit = () => {
+    // Get form values and save to localStorage
+    const values = getValues();
+    localStorage.setItem(MEASUREMENTS_KEY, JSON.stringify(values));
+    // Navigate to scan page with processing step
     router.push("/avatar/scan?step=processing");
   };
 
@@ -44,26 +56,42 @@ export default function MeasurementsPage() {
           <button
             type="button"
             onClick={() => setUnit("metric")}
-            className={`flex-1 py-[10px] text-[13px] font-bold rounded-full transition-all ${unit === "metric" ? "bg-white text-primary shadow-[0_2px_8px_-4px_rgba(0,0,0,0.1)]" : "text-[#94a3b8] font-semibold"
-              }`}
+            className={`flex-1 py-[10px] text-[13px] font-bold rounded-full transition-all ${
+              unit === "metric"
+                ? "bg-white text-primary shadow-[0_2px_8px_-4px_rgba(0,0,0,0.1)]"
+                : "text-[#94a3b8] font-semibold"
+            }`}
           >
             {t("avatar.measurements.unitMetric", "cm / kg")}
           </button>
           <button
             type="button"
             onClick={() => setUnit("imperial")}
-            className={`flex-1 py-[10px] text-[13px] font-bold rounded-full transition-all ${unit === "imperial" ? "bg-white text-primary shadow-[0_2px_8px_-4px_rgba(0,0,0,0.1)]" : "text-[#94a3b8] font-semibold"
-              }`}
+            className={`flex-1 py-[10px] text-[13px] font-bold rounded-full transition-all ${
+              unit === "imperial"
+                ? "bg-white text-primary shadow-[0_2px_8px_-4px_rgba(0,0,0,0.1)]"
+                : "text-[#94a3b8] font-semibold"
+            }`}
           >
             {t("avatar.measurements.unitImperial", "inch / lbs")}
           </button>
         </div>
 
-        <form id="measurements-form" onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          id="measurements-form"
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-6"
+        >
           {/* Visual Reference Section */}
           <div className="bg-secondary/10 rounded-[24px] p-4 flex gap-4 items-center">
             <div className="w-[62px] h-[116px] relative shrink-0">
-              <Image src="/images/scan/2.png" alt="Visual Guide" fill className="object-contain" priority />
+              <Image
+                src="/images/scan/2.png"
+                alt="Visual Guide"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
             <div className="flex flex-col pr-2">
               <span className="text-secondary text-[10px] font-bold uppercase tracking-[1.5px] mb-0.5">
@@ -73,7 +101,10 @@ export default function MeasurementsPage() {
                 {t("avatar.measurements.visualGuideSubtitle", "3D Body Avatar")}
               </h3>
               <p className="text-[#64748b] text-[11px] leading-relaxed font-medium">
-                {t("avatar.measurements.visualGuideDesc", "Use a soft measuring tape for the most accurate sizing results.")}
+                {t(
+                  "avatar.measurements.visualGuideDesc",
+                  "Use a soft measuring tape for the most accurate sizing results.",
+                )}
               </p>
             </div>
           </div>
@@ -87,7 +118,9 @@ export default function MeasurementsPage() {
               {/* Height */}
               <div className="bg-white border border-[#F1F5F9] shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] rounded-[24px] p-4 pb-5 flex flex-col gap-1.5 focus-within:border-primary transition-colors">
                 <label className="text-slate-400 text-[11px] font-medium">
-                  {unit === "metric" ? t("avatar.measurements.heightCm", "Height (cm)") : t("avatar.measurements.heightIn", "Height (in)")}
+                  {unit === "metric"
+                    ? t("avatar.measurements.heightCm", "Height (cm)")
+                    : t("avatar.measurements.heightIn", "Height (in)")}
                 </label>
                 <input
                   {...register("height", { valueAsNumber: true })}
@@ -100,7 +133,9 @@ export default function MeasurementsPage() {
               {/* Weight */}
               <div className="bg-white border border-[#F1F5F9] shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] rounded-[24px] p-4 pb-5 flex flex-col gap-1.5 focus-within:border-primary transition-colors">
                 <label className="text-slate-400 text-[11px] font-medium">
-                  {unit === "metric" ? t("avatar.measurements.weightKg", "Weight (kg)") : t("avatar.measurements.weightLbs", "Weight (lbs)")}
+                  {unit === "metric"
+                    ? t("avatar.measurements.weightKg", "Weight (kg)")
+                    : t("avatar.measurements.weightLbs", "Weight (lbs)")}
                 </label>
                 <input
                   {...register("weight", { valueAsNumber: true })}
@@ -115,21 +150,30 @@ export default function MeasurementsPage() {
           {/* Detailed Measurements */}
           <div className="space-y-4 pt-2">
             <h4 className="text-[#64748B] text-[11px] font-bold tracking-[1.2px] uppercase">
-              {t("avatar.measurements.detailedMeasurements", "DETAILED MEASUREMENTS")}
+              {t(
+                "avatar.measurements.detailedMeasurements",
+                "DETAILED MEASUREMENTS",
+              )}
             </h4>
             <div className="space-y-3">
               {/* Chest */}
               <div className="bg-white border border-[#F1F5F9] shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] rounded-[24px] p-4 flex items-center justify-between focus-within:border-primary transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <Scan className="text-primary w-[20px] h-[20px]" strokeWidth={2.5} />
+                    <Scan
+                      className="text-primary w-[20px] h-[20px]"
+                      strokeWidth={2.5}
+                    />
                   </div>
                   <div className="flex flex-col justify-center">
                     <h5 className="text-slate-800 text-[14px] font-bold mb-0.5">
                       {t("avatar.measurements.chest", "Chest")}
                     </h5>
                     <p className="text-[#94A3B8] text-[10px] font-medium">
-                      {t("avatar.measurements.chestDesc", "Circumference at widest point")}
+                      {t(
+                        "avatar.measurements.chestDesc",
+                        "Circumference at widest point",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -150,14 +194,20 @@ export default function MeasurementsPage() {
               <div className="bg-white border border-[#F1F5F9] shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] rounded-[24px] p-4 flex items-center justify-between focus-within:border-primary transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <Activity className="text-primary w-[20px] h-[20px]" strokeWidth={2.5} />
+                    <Activity
+                      className="text-primary w-[20px] h-[20px]"
+                      strokeWidth={2.5}
+                    />
                   </div>
                   <div className="flex flex-col justify-center">
                     <h5 className="text-slate-800 text-[14px] font-bold mb-0.5">
                       {t("avatar.measurements.waist", "Waist")}
                     </h5>
                     <p className="text-[#94A3B8] text-[10px] font-medium">
-                      {t("avatar.measurements.waistDesc", "Natural waistline area")}
+                      {t(
+                        "avatar.measurements.waistDesc",
+                        "Natural waistline area",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -178,14 +228,20 @@ export default function MeasurementsPage() {
               <div className="bg-white border border-[#F1F5F9] shadow-[0_2px_10px_-4px_rgba(0,0,0,0.05)] rounded-[24px] p-4 flex items-center justify-between focus-within:border-primary transition-colors">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <CircleDashed className="text-primary w-[20px] h-[20px]" strokeWidth={2.5} />
+                    <CircleDashed
+                      className="text-primary w-[20px] h-[20px]"
+                      strokeWidth={2.5}
+                    />
                   </div>
                   <div className="flex flex-col justify-center">
                     <h5 className="text-slate-800 text-[14px] font-bold mb-0.5">
                       {t("avatar.measurements.hips", "Hips")}
                     </h5>
                     <p className="text-[#94A3B8] text-[10px] font-medium">
-                      {t("avatar.measurements.hipsDesc", "Fullest part of hips")}
+                      {t(
+                        "avatar.measurements.hipsDesc",
+                        "Fullest part of hips",
+                      )}
                     </p>
                   </div>
                 </div>
