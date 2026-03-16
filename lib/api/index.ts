@@ -20,14 +20,19 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Return unwrapped data for easier access
+    return response.data;
+  },
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("outfy-auth");
-      window.location.href = "/login";
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

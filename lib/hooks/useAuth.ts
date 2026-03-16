@@ -1,25 +1,30 @@
 import { useMutation } from "@tanstack/react-query";
 import { authApi } from "@/lib/api/auth";
 import { useAuthStore } from "@/lib/store/authStore";
-import type { LoginCredentials, RegisterData } from "@/lib/types/auth";
+import type { LoginRequest, RegisterRequest } from "@/lib/types/auth";
 import { useRouter } from "next/navigation";
 
 export function useAuth() {
-  const { user, token, isAuthenticated, setAuth, logout } = useAuthStore();
+  const { user, accessToken, isAuthenticated, setAuth, logout } =
+    useAuthStore();
   const router = useRouter();
 
   const loginMutation = useMutation({
-    mutationFn: (data: LoginCredentials) => authApi.login(data),
-    onSuccess: ({ data }) => {
-      setAuth(data.user, data.token);
-      router.push("/home");
+    mutationFn: (data: LoginRequest) => authApi.login(data),
+    onSuccess: (response) => {
+      if (response.success) {
+        setAuth(response.data);
+        router.push("/home");
+      }
     },
   });
 
   const registerMutation = useMutation({
-    mutationFn: (data: RegisterData) => authApi.register(data),
-    onSuccess: (_, variables) => {
-      router.push(`/otp?email=${encodeURIComponent(variables.email)}`);
+    mutationFn: (data: RegisterRequest) => authApi.register(data),
+    onSuccess: (response, variables) => {
+      if (response.success) {
+        router.push(`/otp?email=${encodeURIComponent(variables.email)}`);
+      }
     },
   });
 
@@ -34,7 +39,7 @@ export function useAuth() {
 
   return {
     user,
-    token,
+    token: accessToken,
     isAuthenticated,
     login: loginMutation.mutate,
     loginAsync: loginMutation.mutateAsync,

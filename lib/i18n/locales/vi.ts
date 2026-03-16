@@ -65,6 +65,16 @@ export interface Translations {
     privacyPolicy: string;
     of: string;
     logout: string;
+    fullName: string;
+    phone: string;
+    gender: string;
+    loginError: string;
+    registerError: string;
+    invalidEmail: string;
+    invalidPassword: string;
+    passwordTooShort: string;
+    passwordMismatch: string;
+    requiredField: string;
   };
   otp: {
     title: string;
@@ -72,6 +82,15 @@ export interface Translations {
     confirm: string;
     resendIn: string;
     resend: string;
+    resendPrompt: string;
+    enterCode: string;
+    codeSentTo: string;
+    verifySuccess: string;
+    redirecting: string;
+    invalidOtp: string;
+    otpRequired: string;
+    resendSuccess: string;
+    resendError: string;
   };
   home: {
     title: string;
@@ -353,7 +372,8 @@ export const vi: Translations = {
     heading1: "Thử đồ trực tuyến 3D.",
     heading2: "Định hình phong cách với",
     heading2Accent: "AI.",
-    subtitle: "Tương lai của thời trang là đây.\nChiêm ngưỡng góc nhìn thực tế trước khi mua.",
+    subtitle:
+      "Tương lai của thời trang là đây.\nChiêm ngưỡng góc nhìn thực tế trước khi mua.",
     startBtn: "Bắt đầu",
     guestBtn: "Tiếp tục với tư cách Khách",
     securityNote: "Quét 3D bảo mật được trang bị bằng AI",
@@ -392,6 +412,16 @@ export const vi: Translations = {
     privacyPolicy: "Chính sách bảo mật",
     of: "của Outfy.",
     logout: "Đăng xuất",
+    fullName: "Họ và tên",
+    phone: "Số điện thoại",
+    gender: "Giới tính",
+    loginError: "Đã xảy ra lỗi. Vui lòng thử lại.",
+    registerError: "Đăng ký thất bại. Vui lòng thử lại.",
+    invalidEmail: "Địa chỉ email không hợp lệ",
+    invalidPassword: "Mật khẩu phải có ít nhất 8 ký tự",
+    passwordMismatch: "Mật khẩu không khớp",
+    passwordTooShort: "Mật khẩu phải có ít nhất 8 ký tự",
+    requiredField: "Trường này là bắt buộc",
   },
   otp: {
     title: "Nhập mã OTP",
@@ -399,6 +429,15 @@ export const vi: Translations = {
     confirm: "Xác nhận",
     resendIn: "Gửi lại sau",
     resend: "Gửi lại mã",
+    resendPrompt: "Chưa nhận được mã?",
+    enterCode: "Nhập mã 6 chữ số",
+    codeSentTo: "Mã đã gửi đến",
+    verifySuccess: "Xác Nhận Thành Công!",
+    redirecting: "Đang chuyển hướng...",
+    invalidOtp: "Mã OTP không hợp lệ hoặc đã hết hạn",
+    otpRequired: "Vui lòng nhập đầy đủ 6 chữ số",
+    resendSuccess: "OTP đã được gửi lại thành công",
+    resendError: "Gửi lại OTP thất bại. Vui lòng thử lại.",
   },
   home: {
     title: "Trang chủ",
@@ -488,7 +527,8 @@ export const vi: Translations = {
     uploadedPreviews: "Ảnh đã tải lên",
     removeAll: "Xóa tất cả",
     proTip: "Mẹo hay",
-    proTipText: "Sử dụng nền trung tính và ánh sáng tốt để tạo mô hình 3D chính xác nhất.",
+    proTipText:
+      "Sử dụng nền trung tính và ánh sáng tốt để tạo mô hình 3D chính xác nhất.",
     continue: "Tiếp tục",
     dropzone: {
       title: "Kéo & thả ảnh vào đây",
@@ -528,7 +568,8 @@ export const vi: Translations = {
     },
     previewDetail: {
       pageTitle: "Thông số kỹ thuật",
-      aiSuggestion: "AI đã tự động nhận diện các số đo bên dưới. Bạn có thể điều chỉnh lại.",
+      aiSuggestion:
+        "AI đã tự động nhận diện các số đo bên dưới. Bạn có thể điều chỉnh lại.",
       technicalSpecs: "Thông số",
       chestWidth: "Chiều rộng ngực",
       bodyLength: "Chiều dài thân",
@@ -568,7 +609,8 @@ export const vi: Translations = {
     setup: {
       title: "Thiết lập Avatar",
       heading: "Tạo Avatar\n3D Thân Hình",
-      subtitle: "Cá nhân hóa trải nghiệm mua sắm\nvà xem trang phục trên số đo thực\ntrước khi mua.",
+      subtitle:
+        "Cá nhân hóa trải nghiệm mua sắm\nvà xem trang phục trên số đo thực\ntrước khi mua.",
       timeEstimate: "Ước tính 2-3 phút",
       getStarted: "Bắt đầu",
     },
@@ -578,7 +620,8 @@ export const vi: Translations = {
       unitImperial: "inch / lbs",
       visualGuideTitle: "HƯỚNG DẪN ẢNH",
       visualGuideSubtitle: "Avatar 3D Cơ Thể",
-      visualGuideDesc: "Sử dụng thước dây mềm để có\nkết quả đo kích thước chính xác nhất.",
+      visualGuideDesc:
+        "Sử dụng thước dây mềm để có\nkết quả đo kích thước chính xác nhất.",
       vitalStats: "CHỈ SỐ CHÍNH",
       heightCm: "Chiều cao (cm)",
       heightIn: "Chiều cao (in)",
@@ -637,7 +680,8 @@ export const vi: Translations = {
       waistTooLoose: "Eo hơi rộng — có thể thử size S",
       recommendedSize: "Kích cỡ đề xuất",
       excellentFit: "Vừa vặn hoàn hảo",
-      excellentFitDesc: "Dựa trên số đo của bạn, size M sẽ vừa vặn hoàn hảo ở hầu hết các vị trí với cảm giác hơi rộng ở phần vai.",
+      excellentFitDesc:
+        "Dựa trên số đo của bạn, size M sẽ vừa vặn hoàn hảo ở hầu hết các vị trí với cảm giác hơi rộng ở phần vai.",
       chest: "Vòng ngực",
       slightlyTight: "Hơi chật",
       waist: "Vòng eo",

@@ -30,7 +30,8 @@ export const en: Translations = {
     heading1: "Try on outfits in 3D.",
     heading2: "Define your style with",
     heading2Accent: "AI.",
-    subtitle: "The future of fashion is here.\nSee how it looks before you buy.",
+    subtitle:
+      "The future of fashion is here.\nSee how it looks before you buy.",
     startBtn: "Get Started",
     guestBtn: "Continue as Guest",
     securityNote: "AI-powered secure 3D scanning",
@@ -69,6 +70,16 @@ export const en: Translations = {
     privacyPolicy: "Privacy Policy",
     of: "",
     logout: "Log Out",
+    fullName: "Full Name",
+    phone: "Phone",
+    gender: "Gender",
+    loginError: "An error occurred. Please try again.",
+    registerError: "Registration failed. Please try again.",
+    invalidEmail: "Invalid email address",
+    invalidPassword: "Password must be at least 8 characters",
+    passwordMismatch: "Passwords do not match",
+    passwordTooShort: "Password must be at least 8 characters",
+    requiredField: "This field is required",
   },
   otp: {
     title: "Enter OTP Code",
@@ -76,6 +87,15 @@ export const en: Translations = {
     confirm: "Confirm",
     resendIn: "Resend in",
     resend: "Resend Code",
+    resendPrompt: "Didn't receive the code?",
+    enterCode: "Enter the 6-digit code",
+    codeSentTo: "Code sent to",
+    verifySuccess: "Verification Successful!",
+    redirecting: "Redirecting...",
+    invalidOtp: "Invalid or expired OTP code",
+    otpRequired: "Please enter all 6 digits",
+    resendSuccess: "OTP resent successfully",
+    resendError: "Failed to resend OTP. Please try again.",
   },
   home: {
     title: "Home",
@@ -108,7 +128,8 @@ export const en: Translations = {
     },
     prompt2: {
       title: "Analyze current wardrobe",
-      subtitle: "AI will evaluate and suggest outfit combinations from your wardrobe",
+      subtitle:
+        "AI will evaluate and suggest outfit combinations from your wardrobe",
     },
     inputPlaceholder: "Ask AI Stylist...",
   },
@@ -165,7 +186,8 @@ export const en: Translations = {
     uploadedPreviews: "Uploaded previews",
     removeAll: "Remove All",
     proTip: "Pro Tip",
-    proTipText: "Use a neutral background and good lighting for the most accurate 3D model generation.",
+    proTipText:
+      "Use a neutral background and good lighting for the most accurate 3D model generation.",
     continue: "Continue",
     dropzone: {
       title: "Drag & drop image here",
@@ -177,7 +199,8 @@ export const en: Translations = {
       title: "Choose Category",
       pageTitle: "Category",
       heading: "What type of garment is this?",
-      subheading: "Select the category that best matches your 2D reference image for 3D conversion.",
+      subheading:
+        "Select the category that best matches your 2D reference image for 3D conversion.",
       top: "Top",
       tops: "Tops",
       bottom: "Bottom",
@@ -205,7 +228,8 @@ export const en: Translations = {
     },
     previewDetail: {
       pageTitle: "Garment Specs",
-      aiSuggestion: "AI has auto-detected the measurements below. You can adjust them.",
+      aiSuggestion:
+        "AI has auto-detected the measurements below. You can adjust them.",
       technicalSpecs: "Specifications",
       chestWidth: "Chest Width",
       bodyLength: "Body Length",
@@ -235,7 +259,8 @@ export const en: Translations = {
       back: "Back",
       side: "Side",
       generationComplete: "Generation Complete",
-      generationSubtitle: "Your custom garment is ready for your digital wardrobe.",
+      generationSubtitle:
+        "Your custom garment is ready for your digital wardrobe.",
       addToWardrobe: "Add to Wardrobe",
       editAttributes: "Edit Attributes",
       regenerate: "Regenerate Variant",
@@ -245,7 +270,8 @@ export const en: Translations = {
     setup: {
       title: "Avatar Setup",
       heading: "Create Your 3D Body\nAvatar",
-      subtitle: "Personalize your shopping experience\nand see outfits on your real body shape\nbefore you buy.",
+      subtitle:
+        "Personalize your shopping experience\nand see outfits on your real body shape\nbefore you buy.",
       timeEstimate: "2-3 min estimate",
       getStarted: "Get Started",
     },
@@ -255,7 +281,8 @@ export const en: Translations = {
       unitImperial: "inch / lbs",
       visualGuideTitle: "VISUAL GUIDE",
       visualGuideSubtitle: "3D Body Avatar",
-      visualGuideDesc: "Use a soft measuring tape for the\nmost accurate sizing results.",
+      visualGuideDesc:
+        "Use a soft measuring tape for the\nmost accurate sizing results.",
       vitalStats: "VITAL STATS",
       heightCm: "Height (cm)",
       heightIn: "Height (in)",
@@ -314,7 +341,8 @@ export const en: Translations = {
       waistTooLoose: "Waist is a bit loose — try size S",
       recommendedSize: "Recommended Size",
       excellentFit: "Excellent Fit",
-      excellentFitDesc: "Based on your measurements, size M will fit you perfectly in most areas with a slightly loose feel on shoulders.",
+      excellentFitDesc:
+        "Based on your measurements, size M will fit you perfectly in most areas with a slightly loose feel on shoulders.",
       chest: "Chest",
       slightlyTight: "Slightly Tight",
       waist: "Waist",
