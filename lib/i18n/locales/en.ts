@@ -80,6 +80,9 @@ export const en: Translations = {
     passwordMismatch: "Passwords do not match",
     passwordTooShort: "Password must be at least 8 characters",
     requiredField: "This field is required",
+    googleLoginFailed: "Google login failed. Please try again.",
+    googleEmailNotVerified: "Google email is not verified",
+    googleAccountInactive: "Your account is inactive. Please contact support.",
   },
   otp: {
     title: "Enter OTP Code",

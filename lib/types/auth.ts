@@ -57,6 +57,11 @@ export interface RefreshTokenRequest {
   refreshToken: string;
 }
 
+// Google OAuth2 Request
+export interface GoogleLoginRequest {
+  idToken: string;
+}
+
 // ============================================
 // API Response wrapper
 // ============================================

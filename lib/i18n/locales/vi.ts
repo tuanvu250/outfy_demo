@@ -75,6 +75,9 @@ export interface Translations {
     passwordTooShort: string;
     passwordMismatch: string;
     requiredField: string;
+    googleLoginFailed: string;
+    googleEmailNotVerified: string;
+    googleAccountInactive: string;
   };
   otp: {
     title: string;
@@ -517,6 +520,10 @@ export const vi: Translations = {
     passwordMismatch: "Mật khẩu không khớp",
     passwordTooShort: "Mật khẩu phải có ít nhất 8 ký tự",
     requiredField: "Trường này là bắt buộc",
+    googleLoginFailed: "Đăng nhập Google thất bại. Vui lòng thử lại.",
+    googleEmailNotVerified: "Email Google chưa được xác minh",
+    googleAccountInactive:
+      "Tài khoản của bạn đã bị vô hiệu hóa. Vui lòng liên hệ hỗ trợ.",
   },
   otp: {
     title: "Nhập mã OTP",

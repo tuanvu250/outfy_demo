@@ -5,6 +5,7 @@ import type {
   ResendVerificationRequest,
   LoginRequest,
   RefreshTokenRequest,
+  GoogleLoginRequest,
   AuthResponse,
   User,
   ApiResponse,
@@ -54,6 +55,14 @@ export const authApi = {
   refreshToken: (data: RefreshTokenRequest) =>
     api
       .post<ApiAuthResponse<AuthResponse>>("/auth/refresh", data)
+      .then((res) => res as unknown as ApiAuthResponse<AuthResponse>),
+
+  // ============================================
+  // Google OAuth2 Login
+  // ============================================
+  googleLogin: (data: GoogleLoginRequest) =>
+    api
+      .post<ApiAuthResponse<AuthResponse>>("/auth/google", data)
       .then((res) => res as unknown as ApiAuthResponse<AuthResponse>),
 
   // ============================================
