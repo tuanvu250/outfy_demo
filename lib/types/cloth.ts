@@ -72,12 +72,15 @@ export interface WardrobeItem {
   id: number;
   userId: number;
   clothingItemId: number;
+  name?: string;
   category: string;
+  garmentCategory?: string;
   season: Season;
   color: string;
   isFavorite: boolean;
   notes: string;
   imageUrl: string;
+  previewUrl?: string;
   createdAt: string;
   updatedAt: string;
 }

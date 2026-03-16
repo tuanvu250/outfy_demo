@@ -381,6 +381,60 @@ export interface Translations {
     back: string;
     notifications: string;
   };
+  tryon: {
+    create: {
+      title: string;
+      subtitle: string;
+      selectAvatar: string;
+      selectClothing: string;
+      selectSize: string;
+      selectFitType: string;
+      startTryOn: string;
+      creating: string;
+      noWardrobeItems: string;
+      goToWardrobe: string;
+    };
+    result: {
+      pageTitle: string;
+      fitScore: string;
+      note: string;
+      regenerate: string;
+      addToFavorites: string;
+      removeFromFavorites: string;
+      share: string;
+      tryAnother: string;
+      processing: string;
+      completed: string;
+      failed: string;
+      retry: string;
+    };
+    avatar: {
+      slim_male: string;
+      slim_female: string;
+      regular_male: string;
+      regular_female: string;
+      athletic_male: string;
+      curvy_female: string;
+    };
+    size: {
+      XS: string;
+      S: string;
+      M: string;
+      L: string;
+      XL: string;
+    };
+    fitType: {
+      slim: string;
+      regular: string;
+      loose: string;
+      oversize: string;
+    };
+    errors: {
+      sessionNotFound: string;
+      generateFailed: string;
+      wardrobeNotFound: string;
+    };
+  };
 }
 
 export const vi: Translations = {
@@ -782,6 +836,64 @@ export const vi: Translations = {
       season: "Mùa",
       color: "Màu sắc",
       itemName: "Tên sản phẩm",
+    },
+  },
+
+  // ============================================
+  // Try-On Pipeline
+  // ============================================
+  tryon: {
+    create: {
+      title: "Thử Đồ",
+      subtitle: "Chọn avatar và quần áo để thử",
+      selectAvatar: "Chọn Avatar",
+      selectClothing: "Chọn Quần Áo",
+      selectSize: "Chọn Kích Thước",
+      selectFitType: "Loại Fit",
+      startTryOn: "Bắt Đầu Thử Đồ",
+      creating: "Đang tạo phiên...",
+      noWardrobeItems: "Không có quần áo trong tủ đồ của bạn",
+      goToWardrobe: "Đến Tủ Đồ",
+    },
+    result: {
+      pageTitle: "Kết Quả Thử Đồ",
+      fitScore: "Điểm Phù Hợp",
+      note: "Ghi chú",
+      regenerate: "Tạo Lại",
+      addToFavorites: "Thêm vào Yêu Thích",
+      removeFromFavorites: "Xóa khỏi Yêu Thích",
+      share: "Chia Sẻ",
+      tryAnother: "Thử Cái Khác",
+      processing: "Đang xử lý thử đồ...",
+      completed: "Hoàn Thành Thử Đồ",
+      failed: "Thử Đồ Thất Bại",
+      retry: "Thử Lại",
+    },
+    avatar: {
+      slim_male: "Nam Gầy",
+      slim_female: "Nữ Gầy",
+      regular_male: "Nam Bình Thường",
+      regular_female: "Nữ Bình Thường",
+      athletic_male: "Nam Cơ Bắp",
+      curvy_female: "Nữ Mũm Mĩm",
+    },
+    size: {
+      XS: "XS",
+      S: "S",
+      M: "M",
+      L: "L",
+      XL: "XL",
+    },
+    fitType: {
+      slim: "Fit Ôm",
+      regular: "Fit Bình Thường",
+      loose: "Fit Rộng",
+      oversize: "Oversize",
+    },
+    errors: {
+      sessionNotFound: "Không tìm thấy phiên thử đồ",
+      generateFailed: "Không thể tạo kết quả thử đồ",
+      wardrobeNotFound: "Không tìm thấy sản phẩm trong tủ đồ",
     },
   },
 };

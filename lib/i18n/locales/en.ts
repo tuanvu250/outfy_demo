@@ -403,4 +403,62 @@ export const en: Translations = {
       itemName: "Item Name",
     },
   },
+
+  // ============================================
+  // Try-On Pipeline
+  // ============================================
+  tryon: {
+    create: {
+      title: "Try-On",
+      subtitle: "Select avatar and clothing to try on",
+      selectAvatar: "Select Avatar",
+      selectClothing: "Select Clothing",
+      selectSize: "Select Size",
+      selectFitType: "Fit Type",
+      startTryOn: "Start Try-On",
+      creating: "Creating session...",
+      noWardrobeItems: "No clothing items in your wardrobe",
+      goToWardrobe: "Go to Wardrobe",
+    },
+    result: {
+      pageTitle: "Try-On Result",
+      fitScore: "Fit Score",
+      note: "Note",
+      regenerate: "Regenerate",
+      addToFavorites: "Add to Favorites",
+      removeFromFavorites: "Remove from Favorites",
+      share: "Share",
+      tryAnother: "Try Another",
+      processing: "Processing your try-on...",
+      completed: "Try-On Completed",
+      failed: "Try-On Failed",
+      retry: "Try Again",
+    },
+    avatar: {
+      slim_male: "Slim Male",
+      slim_female: "Slim Female",
+      regular_male: "Regular Male",
+      regular_female: "Regular Female",
+      athletic_male: "Athletic Male",
+      curvy_female: "Curvy Female",
+    },
+    size: {
+      XS: "XS",
+      S: "S",
+      M: "M",
+      L: "L",
+      XL: "XL",
+    },
+    fitType: {
+      slim: "Slim Fit",
+      regular: "Regular Fit",
+      loose: "Loose Fit",
+      oversize: "Oversize",
+    },
+    errors: {
+      sessionNotFound: "Try-On session not found",
+      generateFailed: "Failed to generate try-on result",
+      wardrobeNotFound: "Wardrobe item not found",
+    },
+  },
 };
