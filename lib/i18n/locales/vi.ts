@@ -247,6 +247,32 @@ export interface Translations {
       regenerate: string;
     };
   };
+  cloth: {
+    analyze: {
+      title: string;
+      imageUrl: string;
+      imageUrlPlaceholder: string;
+      fileName: string;
+      fileNamePlaceholder: string;
+      fileNameHint: string;
+      analyzeBtn: string;
+      analyzing: string;
+      success: string;
+      error: string;
+      invalidUrl: string;
+    };
+    result: {
+      pageTitle: string;
+      category: string;
+      template: string;
+      attributes: string;
+      parameters: string;
+      confidence: string;
+      view3DModel: string;
+      tryOn: string;
+      uploadAnother: string;
+    };
+  };
   avatar: {
     setup: {
       title: string;
@@ -700,5 +726,32 @@ export const vi: Translations = {
   header: {
     back: "Quay lại",
     notifications: "Thông báo",
+  },
+  cloth: {
+    analyze: {
+      title: "Phân Tích Quần Áo",
+      imageUrl: "URL Hình ảnh",
+      imageUrlPlaceholder: "https://example.com/hoodie.jpg",
+      fileName: "Tên file (tùy chọn)",
+      fileNamePlaceholder: "my_hoodie.jpg",
+      fileNameHint:
+        "Dùng để phát hiện loại quần áo (vd: hoodie, tshirt, pants)",
+      analyzeBtn: "Phân Tích",
+      analyzing: "Đang phân tích...",
+      success: "Phân Tích Hoàn Tất!",
+      error: "Phân tích thất bại. Vui lòng thử lại.",
+      invalidUrl: "Vui lòng nhập URL hợp lệ",
+    },
+    result: {
+      pageTitle: "Kết Quả Phân Tích",
+      category: "Loại quần áo",
+      template: "Mẫu",
+      attributes: "Thuộc tính",
+      parameters: "Thông số",
+      confidence: "Độ tin cậy",
+      view3DModel: "Xem Mô Hình 3D",
+      tryOn: "Thử Ngay",
+      uploadAnother: "Tải Lên Thêm",
+    },
   },
 };

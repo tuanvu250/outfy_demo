@@ -81,3 +81,14 @@ export type OtpFormData = z.infer<typeof otpSchema>;
 export type ResendOtpFormData = z.infer<typeof resendOtpSchema>;
 export type MeasurementsFormData = z.infer<typeof measurementsSchema>;
 export type GenerateAvatarFormData = z.infer<typeof generateAvatarSchema>;
+
+// ============================================
+// Cloth Analysis Validation Schema
+// ============================================
+
+export const analyzeClothingSchema = z.object({
+  imageUrl: z.string().url("Invalid URL format"),
+  fileName: z.string().optional(),
+});
+
+export type AnalyzeClothingFormData = z.infer<typeof analyzeClothingSchema>;
