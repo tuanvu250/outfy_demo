@@ -257,7 +257,7 @@ function OtpContent() {
           }}
         >
           {isLoading && <Loader2 className="w-5 h-5 animate-spin" />}
-          {t("otp.confirm") || "Xác Nhận & Tiếp Tục"}
+          {t("otp.confirm")}
         </button>
       </div>
     </div>
