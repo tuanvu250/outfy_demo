@@ -3,8 +3,20 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, RefreshCw, CheckCircle } from "lucide-react";
-import { ClothingAnalysisResult, CLOTH_RESULT_KEY } from "@/lib/types/cloth";
+import {
+  ArrowLeft,
+  RefreshCw,
+  CheckCircle,
+  Loader2,
+  AlertCircle,
+  Archive,
+} from "lucide-react";
+import {
+  ClothingAnalysisResult,
+  CLOTH_RESULT_KEY,
+  Season,
+} from "@/lib/types/cloth";
+import { addToWardrobe } from "@/lib/api/cloth";
 
 export default function ClothResultPage() {
   const router = useRouter();
@@ -12,6 +24,14 @@ export default function ClothResultPage() {
   const [result, setResult] = useState<ClothingAnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [modelError, setModelError] = useState(false);
+
+  // Add to wardrobe state
+  const [userId, setUserId] = useState("");
+  const [season, setSeason] = useState<Season | "">("");
+  const [notes, setNotes] = useState("");
+  const [isAddingToWardrobe, setIsAddingToWardrobe] = useState(false);
+  const [addedToWardrobe, setAddedToWardrobe] = useState(false);
+  const [addError, setAddError] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem(CLOTH_RESULT_KEY);
@@ -26,6 +46,36 @@ export default function ClothResultPage() {
     }
   }, []);
 
+  const handleAddToWardrobe = async () => {
+    const userIdNum = parseInt(userId, 10);
+    if (!result || isNaN(userIdNum) || userIdNum < 1) {
+      setAddError(t("cloth.analyze.requiredUserId"));
+      return;
+    }
+
+    setIsAddingToWardrobe(true);
+    setAddError(null);
+
+    try {
+      await addToWardrobe({
+        clothingItemId: result.clothingItemId,
+        userId: userIdNum,
+        season: season || undefined,
+        notes: notes || undefined,
+      });
+      setAddedToWardrobe(true);
+    } catch (err) {
+      console.error("Add to wardrobe error:", err);
+      setAddError(
+        err instanceof Error
+          ? err.message
+          : t("cloth.result.addToWardrobeError"),
+      );
+    } finally {
+      setIsAddingToWardrobe(false);
+    }
+  };
+
   if (error) {
     return (
       <div className="flex flex-col min-h-screen bg-[var(--background)]">
@@ -33,6 +83,7 @@ export default function ClothResultPage() {
           <button
             onClick={() => router.back()}
             className="p-2 rounded-full hover:bg-gray-100"
+            type="button"
           >
             <ArrowLeft size={20} className="text-[var(--text-primary)]" />
           </button>
@@ -47,6 +98,7 @@ export default function ClothResultPage() {
             <button
               onClick={() => router.push("/cloth/analyze")}
               className="px-6 py-3 bg-[var(--primary)] text-white rounded-full font-semibold"
+              type="button"
             >
               {t("cloth.result.uploadAnother")}
             </button>
@@ -63,8 +115,9 @@ export default function ClothResultPage() {
           <button
             onClick={() => router.back()}
             className="p-2 rounded-full hover:bg-gray-100"
+            type="button"
           >
-            <ArrowLeft size={20} className="text-[[var(--text-primary)]" />
+            <ArrowLeft size={20} className="text-[var(--text-primary)]" />
           </button>
           <h1 className="flex-1 text-center text-lg font-bold text-[var(--text-primary)]">
             {t("cloth.result.pageTitle")}
@@ -87,6 +140,7 @@ export default function ClothResultPage() {
         <button
           onClick={() => router.back()}
           className="p-2 rounded-full hover:bg-gray-100"
+          type="button"
         >
           <ArrowLeft size={20} className="text-[var(--text-primary)]" />
         </button>
@@ -96,6 +150,7 @@ export default function ClothResultPage() {
         <button
           onClick={() => router.push("/cloth/analyze")}
           className="p-2 rounded-full hover:bg-gray-100"
+          type="button"
         >
           <RefreshCw size={20} className="text-[var(--text-primary)]" />
         </button>
@@ -104,19 +159,33 @@ export default function ClothResultPage() {
       {/* 3D Model Viewer */}
       <div className="flex-1 px-4 pb-4">
         <div
-          className="w-full rounded-3xl overflow-hidden bg-gray-100 relative"
+          className="w-full rounded-3xl overflow-hidden bg-gradient-to-t from-slate-800 to-slate-900 relative"
           style={{ height: 400 }}
         >
           {!modelError && result.previewUrl ? (
-            /* @ts-expect-error model-viewer web component */
-            <model-viewer
-              src={modelUrl}
-              alt={`3D ${result.garmentCategory} model`}
-              auto-rotate
-              camera-controls
-              style={{ width: "100%", height: "100%" }}
-              onError={() => setModelError(true)}
-            />
+            <>
+              {/* @ts-expect-error model-viewer web component */}
+              <model-viewer
+                src={modelUrl}
+                alt={`3D ${result.garmentCategory} model`}
+                auto-rotate
+                camera-controls
+                disable-zoom
+                touch-action="pan-y"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: "transparent",
+                }}
+                shadow-intensity="1"
+                exposure="0.8"
+                onError={() => setModelError(true)}
+              />
+              {/* Rotate Icon overlay */}
+              <div className="absolute right-4 bottom-4 w-10 h-10 bg-black/20 backdrop-blur-md rounded-full border border-white/10 flex items-center justify-center pointer-events-none">
+                <RefreshCw className="text-white/80 w-5 h-5 animate-spin-slow" />
+              </div>
+            </>
           ) : (
             <div className="flex items-center justify-center h-full bg-gray-100">
               <div className="text-center">
@@ -146,6 +215,9 @@ export default function ClothResultPage() {
           </h2>
           <p className="text-sm text-[var(--text-tertiary)]">
             {t("cloth.result.template")}: {result.templateCode}
+          </p>
+          <p className="text-sm text-[var(--text-tertiary)]">
+            {t("cloth.result.color")}: {result.attributes.color || "N/A"}
           </p>
         </div>
 
@@ -210,23 +282,98 @@ export default function ClothResultPage() {
           </div>
         )}
 
-        {/* Action Buttons */}
-        <div className="space-y-3">
-          <button className="w-full py-4 rounded-full bg-[var(--primary)] text-white font-bold text-base flex items-center justify-center gap-2 active:opacity-90 transition-opacity">
-            <CheckCircle size={20} />
-            {t("cloth.result.tryOn")}
-          </button>
+        {/* Add to Wardrobe Section */}
+        {!addedToWardrobe ? (
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">
+              {t("cloth.result.addToWardrobe")}
+            </h3>
 
-          <button
-            onClick={() => router.push("/cloth/analyze")}
-            className="w-full py-3 flex items-center justify-center gap-2 text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors"
-          >
-            <RefreshCw size={16} />
-            {t("cloth.result.uploadAnother")}
-          </button>
-        </div>
+            {/* User ID Input */}
+            <input
+              type="number"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              placeholder={t("cloth.analyze.userIdPlaceholder")}
+              className="w-full h-12 rounded-xl border border-[var(--border-light)] bg-white px-4 text-sm outline-none transition-all placeholder:text-[var(--text-tertiary)] focus:border-[var(--primary)]"
+            />
+
+            {/* Season Select */}
+            <select
+              value={season}
+              onChange={(e) => setSeason(e.target.value as Season)}
+              className="w-full h-12 rounded-xl border border-[var(--border-light)] bg-white px-4 text-sm outline-none transition-all focus:border-[var(--primary)]"
+            >
+              <option value="">{t("cloth.result.selectSeason")}</option>
+              <option value="SPRING">Spring</option>
+              <option value="SUMMER">Summer</option>
+              <option value="FALL">Fall</option>
+              <option value="WINTER">Winter</option>
+            </select>
+
+            {/* Notes Input */}
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder={t("cloth.result.notesPlaceholder")}
+              rows={2}
+              className="w-full rounded-xl border border-[var(--border-light)] bg-white px-4 py-2 text-sm outline-none transition-all placeholder:text-[var(--text-tertiary)] focus:border-[var(--primary)] resize-none"
+            />
+
+            {/* Add Error */}
+            {addError && (
+              <div className="flex items-center gap-2 p-2 text-red-600 text-sm">
+                <AlertCircle size={16} />
+                <span>{addError}</span>
+              </div>
+            )}
+
+            <button
+              onClick={handleAddToWardrobe}
+              disabled={isAddingToWardrobe || !userId}
+              className="w-full py-3 rounded-full bg-[var(--primary)] text-white font-bold text-base flex items-center justify-center gap-2 active:opacity-90 transition-opacity disabled:opacity-40"
+              type="button"
+            >
+              {isAddingToWardrobe ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  {t("cloth.result.addingToWardrobe")}
+                </>
+              ) : (
+                <>
+                  <Archive size={18} />
+                  {t("cloth.result.addToWardrobe")}
+                </>
+              )}
+            </button>
+          </div>
+        ) : (
+          /* Added Success */
+          <div className="flex flex-col items-center gap-3 p-4 bg-green-50 rounded-xl">
+            <CheckCircle size={32} className="text-green-600" />
+            <span className="text-green-700 font-semibold">
+              {t("cloth.result.addedToWardrobe")}
+            </span>
+            <button
+              onClick={() => router.push("/wardrobe")}
+              className="text-[var(--primary)] text-sm font-medium"
+              type="button"
+            >
+              {t("common.viewAll")}
+            </button>
+          </div>
+        )}
+
+        {/* Upload Another Button */}
+        <button
+          onClick={() => router.push("/cloth/analyze")}
+          className="w-full py-3 mt-3 flex items-center justify-center gap-2 text-sm font-semibold text-[var(--text-secondary)] hover:text-[var(--primary)] transition-colors"
+          type="button"
+        >
+          <RefreshCw size={16} />
+          {t("cloth.result.uploadAnother")}
+        </button>
       </div>
     </div>
   );
 }
-

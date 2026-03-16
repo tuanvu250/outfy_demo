@@ -11,8 +11,10 @@ import { CLOTH_RESULT_KEY, ClothingAnalysisResult } from "@/lib/types/cloth";
 export default function ClothAnalyzePage() {
   const router = useRouter();
   const { t } = useTranslation();
+  const [userId, setUserId] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [fileName, setFileName] = useState("");
+  const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ClothingAnalysisResult | null>(null);
@@ -21,9 +23,17 @@ export default function ClothAnalyzePage() {
     setError(null);
     setResult(null);
 
+    const userIdNum = parseInt(userId, 10);
+    if (isNaN(userIdNum) || userIdNum < 1) {
+      setError(t("cloth.analyze.requiredUserId"));
+      return;
+    }
+
     const validation = analyzeClothingSchema.safeParse({
+      userId: userIdNum,
       imageUrl,
       fileName: fileName || undefined,
+      name: name || undefined,
     });
 
     if (!validation.success) {
@@ -35,17 +45,17 @@ export default function ClothAnalyzePage() {
 
     try {
       const data = await analyzeClothing({
+        userId: userIdNum,
         imageUrl,
         fileName: fileName || undefined,
+        name: name || undefined,
       });
       setResult(data);
       // Save to localStorage for result page
       localStorage.setItem(CLOTH_RESULT_KEY, JSON.stringify(data));
     } catch (err) {
       console.error("Analysis error:", err);
-      setError(
-        err instanceof Error ? err.message : t("cloth.analyze.error")
-      );
+      setError(err instanceof Error ? err.message : t("cloth.analyze.error"));
     } finally {
       setIsLoading(false);
     }
@@ -69,6 +79,20 @@ export default function ClothAnalyzePage() {
 
       {/* Content */}
       <div className="flex-1 px-4 pb-6">
+        {/* User ID Input */}
+        <div className="mb-5">
+          <label className="block text-sm font-semibold text-[var(--text-primary)] mb-2">
+            {t("cloth.analyze.userId")}
+          </label>
+          <input
+            type="number"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+            placeholder={t("cloth.analyze.userIdPlaceholder")}
+            className="w-full h-14 rounded-2xl border border-[var(--border-light)] bg-white px-4 text-sm outline-none transition-all placeholder:text-[var(--text-tertiary)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+          />
+        </div>
+
         {/* Image URL Input */}
         <div className="mb-5">
           <label className="block text-sm font-semibold text-[var(--text-primary)] mb-2">
@@ -98,6 +122,20 @@ export default function ClothAnalyzePage() {
           <p className="text-xs text-[var(--text-tertiary)] mt-2">
             {t("cloth.analyze.fileNameHint")}
           </p>
+        </div>
+
+        {/* Name Input */}
+        <div className="mb-5">
+          <label className="block text-sm font-semibold text-[var(--text-primary)] mb-2">
+            {t("cloth.analyze.name")}
+          </label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder={t("cloth.analyze.namePlaceholder")}
+            className="w-full h-14 rounded-2xl border border-[var(--border-light)] bg-white px-4 text-sm outline-none transition-all placeholder:text-[var(--text-tertiary)] focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary)]/20"
+          />
         </div>
 
         {/* Error Message */}
@@ -138,7 +176,7 @@ export default function ClothAnalyzePage() {
         {/* Analyze Button */}
         <button
           onClick={handleAnalyze}
-          disabled={isLoading || !imageUrl}
+          disabled={isLoading || !imageUrl || !userId}
           className="w-full h-14 rounded-full bg-[var(--primary)] text-white font-bold text-base flex items-center justify-center gap-2 active:opacity-90 transition-opacity disabled:opacity-40"
         >
           {isLoading ? (
@@ -154,4 +192,3 @@ export default function ClothAnalyzePage() {
     </div>
   );
 }
-

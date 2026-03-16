@@ -250,16 +250,21 @@ export interface Translations {
   cloth: {
     analyze: {
       title: string;
+      userId: string;
+      userIdPlaceholder: string;
       imageUrl: string;
       imageUrlPlaceholder: string;
       fileName: string;
       fileNamePlaceholder: string;
       fileNameHint: string;
+      name: string;
+      namePlaceholder: string;
       analyzeBtn: string;
       analyzing: string;
       success: string;
       error: string;
       invalidUrl: string;
+      requiredUserId: string;
     };
     result: {
       pageTitle: string;
@@ -271,6 +276,16 @@ export interface Translations {
       view3DModel: string;
       tryOn: string;
       uploadAnother: string;
+      addToWardrobe: string;
+      addingToWardrobe: string;
+      addedToWardrobe: string;
+      addToWardrobeError: string;
+      selectSeason: string;
+      notes: string;
+      notesPlaceholder: string;
+      season: string;
+      color: string;
+      itemName: string;
     };
   };
   avatar: {
@@ -730,17 +745,22 @@ export const vi: Translations = {
   cloth: {
     analyze: {
       title: "Phân Tích Quần Áo",
+      userId: "ID Người dùng",
+      userIdPlaceholder: "Nhập ID người dùng",
       imageUrl: "URL Hình ảnh",
       imageUrlPlaceholder: "https://example.com/hoodie.jpg",
       fileName: "Tên file (tùy chọn)",
       fileNamePlaceholder: "my_hoodie.jpg",
       fileNameHint:
         "Dùng để phát hiện loại quần áo (vd: hoodie, tshirt, pants)",
+      name: "Tên sản phẩm (tùy chọn)",
+      namePlaceholder: "Áo Hoodie Xanh",
       analyzeBtn: "Phân Tích",
       analyzing: "Đang phân tích...",
       success: "Phân Tích Hoàn Tất!",
       error: "Phân tích thất bại. Vui lòng thử lại.",
       invalidUrl: "Vui lòng nhập URL hợp lệ",
+      requiredUserId: "ID người dùng là bắt buộc",
     },
     result: {
       pageTitle: "Kết Quả Phân Tích",
@@ -752,6 +772,16 @@ export const vi: Translations = {
       view3DModel: "Xem Mô Hình 3D",
       tryOn: "Thử Ngay",
       uploadAnother: "Tải Lên Thêm",
+      addToWardrobe: "Thêm vào tủ đồ",
+      addingToWardrobe: "Đang thêm vào tủ đồ...",
+      addedToWardrobe: "Đã thêm vào tủ đồ!",
+      addToWardrobeError: "Thêm vào tủ đồ thất bại",
+      selectSeason: "Chọn mùa",
+      notes: "Ghi chú (tùy chọn)",
+      notesPlaceholder: "Thêm ghi chú về sản phẩm...",
+      season: "Mùa",
+      color: "Màu sắc",
+      itemName: "Tên sản phẩm",
     },
   },
 };

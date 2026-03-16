@@ -87,8 +87,10 @@ export type GenerateAvatarFormData = z.infer<typeof generateAvatarSchema>;
 // ============================================
 
 export const analyzeClothingSchema = z.object({
+  userId: z.number().min(1, "User ID is required"),
   imageUrl: z.string().url("Invalid URL format"),
   fileName: z.string().optional(),
+  name: z.string().optional(),
 });
 
 export type AnalyzeClothingFormData = z.infer<typeof analyzeClothingSchema>;
