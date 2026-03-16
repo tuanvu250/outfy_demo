@@ -2,15 +2,21 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, RotateCw, Loader2 } from "lucide-react";
+import { ChevronLeft, RotateCw, Loader2, AlertCircle, Box } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { BodyGenerationResult } from "@/lib/types/avatar";
+import { BodyGenerationResult, ShapeParams } from "@/lib/types/avatar";
 
 // Store key for passing data between pages
 const AVATAR_RESULT_KEY = "outfy_avatar_result";
 
 // Backend API URL - should match NEXT_PUBLIC_API_URL
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api/v1";
+
+// Helper to calculate exact background size percentage for modern slider styling
+const getGradientPercent = (val: number, min: number, max: number) => {
+  return ((val - min) / (max - min)) * 100;
+};
 
 export default function AvatarResultPage() {
   const router = useRouter();
@@ -18,13 +24,17 @@ export default function AvatarResultPage() {
 
   // 3D Model state
   const [modelUrl, setModelUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [bodyType, setBodyType] = useState<string>("");
+  const [confidence, setConfidence] = useState<number>(0);
+  const [avatarPresetCode, setAvatarPresetCode] = useState<string>("");
 
-  // Slider States
-  const [waist, setWaist] = useState(68);
-  const [hips, setHips] = useState(94);
-  const [shoulders, setShoulders] = useState(42);
+  // Slider States - initialized with default values
+  const [waist, setWaist] = useState(80);
+  const [hips, setHips] = useState(95);
+  const [shoulders, setShoulders] = useState(45);
 
   // Load avatar result from localStorage on mount
   useEffect(() => {
@@ -33,30 +43,82 @@ export default function AvatarResultPage() {
       try {
         const result: BodyGenerationResult = JSON.parse(storedData);
         setModelUrl(result.modelUrl);
+        setPreviewUrl(result.previewUrl);
         setBodyType(result.bodyType);
+        setConfidence(result.confidence);
+        setAvatarPresetCode(result.avatarPresetCode);
 
-        // Pre-fill sliders with some values (could be derived from shapeParams)
+        // Pre-fill sliders with values from shapeParams
         if (result.shapeParams) {
-          setWaist(Math.round(68 * (result.shapeParams.waistScale || 1)));
-          setHips(Math.round(94 * (result.shapeParams.hipScale || 1)));
-          setShoulders(
-            Math.round(42 * (result.shapeParams.shoulderScale || 1)),
-          );
+          const params = result.shapeParams as unknown as ShapeParams;
+          setWaist(Math.round(params.waist));
+          setHips(Math.round(params.hip));
+          setShoulders(Math.round(params.shoulder));
         }
       } catch (e) {
         console.error("Failed to parse avatar result:", e);
+        setError("Failed to load avatar data. Please try again.");
       }
+    } else {
+      setError(
+        "No avatar data found. Please complete the measurement process.",
+      );
     }
     setIsLoading(false);
   }, []);
 
-  // Helper to calculate exact background size percentage for modern slider styling
-  const getGradientPercent = (val: number, min: number, max: number) => {
-    return ((val - min) / (max - min)) * 100;
+  // Full model URL for model-viewer
+  const fullModelUrl = modelUrl
+    ? `${API_BASE_URL.replace("/api/v1", "")}${modelUrl}`
+    : null;
+
+  // Handle finish - save final measurements
+  const handleFinish = () => {
+    // Here you could also call API to save the final avatar configuration
+    router.push("/wardrobe");
   };
 
-  // Full model URL for model-viewer
-  const fullModelUrl = modelUrl ? `${API_BASE_URL}${modelUrl}` : null;
+  if (isLoading) {
+    return (
+      <div className="flex flex-col min-h-dvh bg-white font-sans items-center justify-center">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+        <p className="mt-4 text-slate-600">Loading avatar...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col min-h-dvh bg-white font-sans">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 pt-8 pb-2">
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className="w-10 h-10 flex items-center justify-start"
+          >
+            <ChevronLeft className="w-6 h-6 text-[#0f172a]" />
+          </button>
+          <span className="text-[18px] font-bold text-[#0f172a] flex-1 text-center mr-10 py-2 tracking-[-0.45px]">
+            {t("avatar.scan.editTitle", "3D Avatar")}
+          </span>
+        </div>
+
+        <div className="flex-1 flex items-center justify-center px-6">
+          <div className="text-center">
+            <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+            <p className="text-red-600 mb-4">{error}</p>
+            <button
+              onClick={() => router.push("/avatar/measurements")}
+              className="px-6 py-3 bg-primary text-white rounded-full font-semibold"
+            >
+              {t("common.retry", "Try Again")}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-dvh bg-white font-sans">
@@ -70,18 +132,14 @@ export default function AvatarResultPage() {
           <ChevronLeft className="w-6 h-6 text-[#0f172a]" />
         </button>
         <span className="text-[18px] font-bold text-[#0f172a] flex-1 text-center mr-10 py-2 tracking-[-0.45px]">
-          {t("avatar.scan.editTitle", "Edit 3D Avatar")}
+          {t("avatar.scan.editTitle", "Your 3D Avatar")}
         </span>
       </div>
 
       <div className="flex-1 overflow-y-auto px-6 overflow-x-hidden">
         {/* 3D Viewer Area */}
-        <div className="relative w-full aspect-4/5 max-h-[460px] bg-linear-to-t from-slate-800 to-slate-900 rounded-[32px] overflow-hidden shadow-lg mt-2 mb-8 mx-auto flex items-center justify-center">
-          {isLoading ? (
-            <div className="flex items-center justify-center">
-              <Loader2 className="w-8 h-8 text-white animate-spin" />
-            </div>
-          ) : fullModelUrl ? (
+        <div className="relative w-full aspect-4/5 max-h-[460px] bg-gradient-to-t from-slate-800 to-slate-900 rounded-[32px] overflow-hidden shadow-lg mt-2 mb-8 mx-auto flex items-center justify-center">
+          {fullModelUrl ? (
             <>
               {/* @ts-expect-error - model-viewer is a web component */}
               <model-viewer
@@ -90,6 +148,7 @@ export default function AvatarResultPage() {
                 auto-rotate
                 camera-controls
                 disable-zoom
+                touch-action="pan-y"
                 style={{
                   width: "100%",
                   height: "100%",
@@ -104,40 +163,57 @@ export default function AvatarResultPage() {
                 <RotateCw className="text-white/80 w-5 h-5" />
               </div>
             </>
+          ) : previewUrl ? (
+            // Fallback to preview image if no 3D model
+            <div className="relative w-full h-full">
+              <img
+                src={`${API_BASE_URL.replace("/api/v1", "")}${previewUrl}`}
+                alt={`Avatar Preview - ${bodyType}`}
+                className="w-full h-full object-contain"
+              />
+            </div>
           ) : (
-            // Fallback placeholder
+            // No model available
             <div className="text-white/60 text-center p-4">
+              <Box className="w-12 h-12 mx-auto mb-2 opacity-50" />
               <p>No 3D model available</p>
-              <p className="text-sm mt-2">
-                Please complete the measurement process
-              </p>
             </div>
           )}
         </div>
 
-        {/* Body Type Badge */}
-        {bodyType && (
-          <div className="text-center mb-4">
-            <span className="inline-block px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">
-              {bodyType} Body Type
+        {/* Body Type & Confidence Badge */}
+        <div className="flex items-center justify-center gap-3 mb-6">
+          {bodyType && (
+            <span className="px-4 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold">
+              {bodyType}
             </span>
-          </div>
-        )}
+          )}
+          {confidence > 0 && (
+            <span className="px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+              {Math.round(confidence * 100)}% match
+            </span>
+          )}
+        </div>
 
         {/* Adjust Proportions Header */}
         <h3 className="text-[18px] font-bold text-[#0f172a] mb-2">
           {t("avatar.scan.adjustProportions", "Adjust Proportions")}
         </h3>
+        <p className="text-sm text-slate-500 mb-4">
+          Fine-tune your avatar to match your body type
+        </p>
 
         {/* Sliders Container */}
-        <div className="flex flex-col gap-8 pb-8">
+        <div className="flex flex-col gap-6 pb-8">
           {/* Waist Slider */}
           <div className="w-full">
             <div className="flex justify-between items-center mb-2">
               <span className="text-[14px] text-[#94a3b8]">
                 {t("avatar.measurements.waist", "Waist")}
               </span>
-              <span className="text-[14px] text-secondary">{waist} cm</span>
+              <span className="text-[14px] text-secondary font-semibold">
+                {waist} cm
+              </span>
             </div>
             <div className="relative h-6 flex items-center">
               <input
@@ -147,6 +223,7 @@ export default function AvatarResultPage() {
                 value={waist}
                 onChange={(e) => setWaist(Number(e.target.value))}
                 className="w-full absolute z-20 opacity-0 cursor-ew-resize h-full"
+                aria-label="Waist measurement"
               />
               {/* Custom Track */}
               <div className="w-full h-1.5 bg-slate-800 rounded-full relative overflow-hidden">
@@ -169,7 +246,9 @@ export default function AvatarResultPage() {
               <span className="text-[14px] text-[#94a3b8]">
                 {t("avatar.measurements.hips", "Hips")}
               </span>
-              <span className="text-[14px] text-secondary">{hips} cm</span>
+              <span className="text-[14px] text-secondary font-semibold">
+                {hips} cm
+              </span>
             </div>
             <div className="relative h-6 flex items-center">
               <input
@@ -179,6 +258,7 @@ export default function AvatarResultPage() {
                 value={hips}
                 onChange={(e) => setHips(Number(e.target.value))}
                 className="w-full absolute z-20 opacity-0 cursor-ew-resize h-full"
+                aria-label="Hips measurement"
               />
               <div className="w-full h-1.5 bg-slate-800 rounded-full relative overflow-hidden">
                 <div
@@ -199,9 +279,11 @@ export default function AvatarResultPage() {
               <span className="text-[14px] text-[#94a3b8]">
                 {t("avatar.scan.shoulders", "Shoulders")}
               </span>
-              <span className="text-[14px] text-secondary">{shoulders} cm</span>
+              <span className="text-[14px] text-secondary font-semibold">
+                {shoulders} cm
+              </span>
             </div>
-            <div className="relative h-4 flex items-center">
+            <div className="relative h-6 flex items-center">
               <input
                 type="range"
                 min={30}
@@ -209,6 +291,7 @@ export default function AvatarResultPage() {
                 value={shoulders}
                 onChange={(e) => setShoulders(Number(e.target.value))}
                 className="w-full absolute z-20 opacity-0 cursor-ew-resize h-full"
+                aria-label="Shoulders measurement"
               />
               <div className="w-full h-1.5 bg-slate-800 rounded-full relative overflow-hidden">
                 <div
@@ -224,13 +307,27 @@ export default function AvatarResultPage() {
           </div>
         </div>
 
-        {/* Finish Button */}
-        <div className="pb-4">
+        {/* Avatar Info */}
+        <div className="bg-slate-50 rounded-2xl p-4 mb-4">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-slate-500">Avatar Code</span>
+            <span className="font-mono text-slate-700">{avatarPresetCode}</span>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="pb-6 space-y-3">
           <button
-            onClick={() => router.push("/profile")}
-            className="w-full h-14 bg-primary text-white font-bold text-[18px] rounded-full shadow-[0_10px_15px_-3px_rgba(var(--primary-rgb),0.3)] flex items-center justify-center"
+            onClick={handleFinish}
+            className="w-full h-14 bg-primary text-white font-bold text-[18px] rounded-full shadow-lg flex items-center justify-center hover:bg-primary/90 transition-colors"
           >
-            {t("avatar.scan.finish", "Finish")}
+            {t("avatar.scan.finish", "Save & Continue")}
+          </button>
+          <button
+            onClick={() => router.push("/avatar/measurements")}
+            className="w-full h-12 bg-slate-100 text-slate-700 font-semibold text-[15px] rounded-full flex items-center justify-center hover:bg-slate-200 transition-colors"
+          >
+            {t("avatar.scan.retake", "Retake Measurements")}
           </button>
         </div>
       </div>

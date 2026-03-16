@@ -23,10 +23,25 @@ export interface AvatarSetupData {
 }
 
 // ============================================
-// NEW: Body Generation Types (for 3D Avatar)
+// Body Profile & Avatar Generation Types
 // ============================================
 
-export type GenderApi = "male" | "female";
+export type GenderApi = "MALE" | "FEMALE";
+
+export interface BodyProfile {
+  id: number;
+  userId: number;
+  gender: GenderApi;
+  heightCm: number;
+  weightKg: number;
+  chestCm: number;
+  waistCm: number;
+  hipCm: number;
+  shoulderCm: number;
+  inseamCm: number;
+  createdAt: string;
+  updatedAt?: string;
+}
 
 export interface GenerateAvatarRequest {
   gender: GenderApi;
@@ -39,11 +54,20 @@ export interface GenerateAvatarRequest {
   inseamCm: number;
 }
 
+export interface ShapeParams {
+  chest: number;
+  waist: number;
+  hip: number;
+  shoulder: number;
+  height: number;
+  weight: number;
+}
+
 export interface BodyGenerationResult {
-  bodyType: "Slim" | "Regular" | "Curvy" | "Broad";
+  bodyType: string;
   avatarPresetCode: string;
-  modelUrl: string;
+  shapeParams: ShapeParams;
   previewUrl: string;
-  shapeParams: Record<string, number>;
+  modelUrl: string;
   confidence: number;
 }

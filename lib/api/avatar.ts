@@ -3,6 +3,7 @@ import type {
   Avatar,
   AvatarSetupData,
   BodyMeasurements,
+  BodyProfile,
   GenerateAvatarRequest,
   BodyGenerationResult,
 } from "@/lib/types/avatar";
@@ -35,8 +36,31 @@ export const avatarApi = {
     ),
 
   // ============================================
-  // NEW: 3D Body Generation API
+  // Body Profile APIs
   // ============================================
+
+  /**
+   * Create a new body profile (saves to DB)
+   */
+  createBodyProfile: (
+    data: Omit<BodyProfile, "id" | "userId" | "createdAt" | "updatedAt">,
+  ) => api.post<ApiResponse<BodyProfile>>("/body-profiles", data),
+
+  /**
+   * Get body profile by ID
+   */
+  getBodyProfileById: (id: number) =>
+    api.get<ApiResponse<BodyProfile>>(`/body-profiles/${id}`),
+
+  /**
+   * Get all body profiles for a user
+   */
+  getBodyProfilesByUserId: (userId: number) =>
+    api.get<ApiResponse<BodyProfile[]>>(`/body-profiles/user/${userId}`),
+
+  /**
+   * Generate 3D avatar from measurements (does NOT save to DB)
+   */
   generateAvatar: async (
     data: GenerateAvatarRequest,
   ): Promise<BodyGenerationResult> => {

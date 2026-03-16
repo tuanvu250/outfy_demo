@@ -44,9 +44,9 @@ export type MeasurementsFormData = z.infer<typeof measurementsSchema>;
 // ============================================
 
 export const generateAvatarSchema = z.object({
-  gender: z.enum(["male", "female"]),
+  gender: z.enum(["MALE", "FEMALE"]),
   heightCm: z.number().min(100).max(250),
-  weightKg: z.number().min(30).max(300),
+  weightKg: z.number().min(30).max(200),
   chestCm: z.number().min(50).max(200),
   waistCm: z.number().min(40).max(200),
   hipCm: z.number().min(50).max(200),
