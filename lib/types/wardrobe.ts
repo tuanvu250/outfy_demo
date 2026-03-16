@@ -1,4 +1,10 @@
-export type ClothingCategory = 'tops' | 'bottoms' | 'shoes' | 'outfits' | 'hats' | 'accessories';
+export type ClothingCategory =
+  | "tops"
+  | "bottoms"
+  | "shoes"
+  | "outfits"
+  | "hats"
+  | "accessories";
 
 export interface ClothingItem {
   id: string;
@@ -11,6 +17,8 @@ export interface ClothingItem {
   size?: string;
   isFavorite: boolean;
   createdAt: string;
+  // 3D Model
+  modelUrl?: string;
 }
 
 export interface Outfit {

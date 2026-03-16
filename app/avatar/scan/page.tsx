@@ -59,6 +59,13 @@ function AvatarScanContent() {
       // avatarApi.generateAvatar already returns unwrapped data
       const result: BodyGenerationResult = response;
 
+      // Validate result before saving to localStorage
+      if (!result || (!result.modelUrl && !result.previewUrl)) {
+        console.error("Invalid avatar result:", result);
+        setError("Failed to generate avatar. Please try again.");
+        return;
+      }
+
       // Save result to localStorage for result page
       localStorage.setItem(AVATAR_RESULT_KEY, JSON.stringify(result));
 

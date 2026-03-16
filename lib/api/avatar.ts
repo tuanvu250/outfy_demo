@@ -64,11 +64,18 @@ export const avatarApi = {
   generateAvatar: async (
     data: GenerateAvatarRequest,
   ): Promise<BodyGenerationResult> => {
-    const response = await api.post<ApiResponse<BodyGenerationResult>>(
+    // Response type before interceptor: { success, message, data: BodyGenerationResult }
+    // Interceptor returns response.data = { success, message, data: BodyGenerationResult }
+    const response = (await api.post<ApiResponse<BodyGenerationResult>>(
       "/body-profiles/generate-avatar",
       data,
-    );
-    // Backend returns wrapped response: { success, message, data }
-    return response.data.data;
+    )) as unknown as {
+      success: boolean;
+      message: string;
+      data: BodyGenerationResult;
+    };
+
+    // After interceptor unwrap, response = { success, message, data: { bodyType, ... } }
+    return response.data;
   },
 };

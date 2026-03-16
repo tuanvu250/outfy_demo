@@ -15,7 +15,13 @@ const API_BASE_URL =
 
 // Helper to calculate exact background size percentage for modern slider styling
 const getGradientPercent = (val: number, min: number, max: number) => {
-  return ((val - min) / (max - min)) * 100;
+  // Handle NaN or invalid values
+  if (isNaN(val) || !isFinite(val)) {
+    return 0;
+  }
+  // Clamp value between min and max
+  const clampedVal = Math.min(Math.max(val, min), max);
+  return ((clampedVal - min) / (max - min)) * 100;
 };
 
 export default function AvatarResultPage() {
@@ -39,21 +45,42 @@ export default function AvatarResultPage() {
   // Load avatar result from localStorage on mount
   useEffect(() => {
     const storedData = localStorage.getItem(AVATAR_RESULT_KEY);
-    if (storedData) {
+
+    // Check if data exists and is valid
+    if (storedData && storedData !== "undefined" && storedData !== "null") {
       try {
         const result: BodyGenerationResult = JSON.parse(storedData);
-        setModelUrl(result.modelUrl);
-        setPreviewUrl(result.previewUrl);
-        setBodyType(result.bodyType);
-        setConfidence(result.confidence);
-        setAvatarPresetCode(result.avatarPresetCode);
 
-        // Pre-fill sliders with values from shapeParams
-        if (result.shapeParams) {
-          const params = result.shapeParams as unknown as ShapeParams;
-          setWaist(Math.round(params.waist));
-          setHips(Math.round(params.hip));
-          setShoulders(Math.round(params.shoulder));
+        // Validate result has required fields
+        if (result && (result.modelUrl || result.previewUrl)) {
+          setModelUrl(result.modelUrl);
+          setPreviewUrl(result.previewUrl);
+          setBodyType(result.bodyType);
+          setConfidence(result.confidence);
+          setAvatarPresetCode(result.avatarPresetCode);
+
+          // Pre-fill sliders with values from shapeParams
+          if (result.shapeParams) {
+            const params = result.shapeParams as unknown as ShapeParams;
+            // Validate values are valid numbers before setting
+            const waistVal = Number(params.waist);
+            const hipsVal = Number(params.hip);
+            const shouldersVal = Number(params.shoulder);
+
+            setWaist(
+              !isNaN(waistVal) && waistVal > 0 ? Math.round(waistVal) : 80,
+            );
+            setHips(!isNaN(hipsVal) && hipsVal > 0 ? Math.round(hipsVal) : 95);
+            setShoulders(
+              !isNaN(shouldersVal) && shouldersVal > 0
+                ? Math.round(shouldersVal)
+                : 45,
+            );
+          }
+        } else {
+          // Invalid result data
+          console.warn("Invalid avatar result data:", result);
+          setError("Invalid avatar data. Please try again.");
         }
       } catch (e) {
         console.error("Failed to parse avatar result:", e);

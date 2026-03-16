@@ -5,7 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils/formatCurrency";
 
-export default function ProductDetailPage({ params }: { params: { id: string } }) {
+export default function ProductDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const product = {
     id: params.id,
     name: "Nike Blazer Mid '77 Vintage",
@@ -44,7 +48,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
       </div>
 
       {/* Product Image */}
-      <div className="mx-4 overflow-hidden rounded-2xl bg-[#f8f8f8]" style={{ aspectRatio: "4/3" }}>
+      <div
+        className="mx-4 overflow-hidden rounded-2xl bg-[#f8f8f8]"
+        style={{ aspectRatio: "4/3" }}
+      >
         <div className="relative h-full w-full">
           <Image
             src="/images/product.png"
@@ -58,7 +65,9 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
       {/* Price + likes */}
       <div className="mt-4 flex items-center justify-between px-5">
-        <p className="text-[26px] font-black text-(--primary)">{formatCurrency(product.price)}</p>
+        <p className="text-[26px] font-black text-(--primary)">
+          {formatCurrency(product.price)}
+        </p>
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-text-secondary">
             {product.reviewCount >= 1000
@@ -73,14 +82,19 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
 
       {/* Name (link style) */}
       <div className="mt-1 px-5">
-        <Link href="#" className="text-[15px] font-semibold text-(--secondary) underline underline-offset-2">
+        <Link
+          href="#"
+          className="text-[15px] font-semibold text-(--secondary) underline underline-offset-2"
+        >
           {product.name}
         </Link>
       </div>
 
       {/* Description */}
       <div className="mt-4 px-5 space-y-2">
-        <p className="text-[13px] leading-relaxed text-text-secondary">{product.description}</p>
+        <p className="text-[13px] leading-relaxed text-text-secondary">
+          {product.description}
+        </p>
         <ul className="mt-3 space-y-1">
           {product.details.map((d) => (
             <li key={d} className="text-[13px] text-text-secondary">
@@ -96,8 +110,10 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
           href="/avatar/scan"
           className="flex h-14 w-full items-center justify-center gap-2 rounded-full text-[15px] font-bold text-white"
           style={{
-            background: "linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, black) 100%)",
-            boxShadow: "0 8px 20px color-mix(in srgb, var(--primary) 35%, transparent)",
+            background:
+              "linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, black) 100%)",
+            boxShadow:
+              "0 8px 20px color-mix(in srgb, var(--primary) 35%, transparent)",
           }}
         >
           <Users size={20} />

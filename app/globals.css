@@ -1,12 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined");
 @import "tailwindcss";
 
-
 :root {
-  --primary: #9D4EDD;
-  --secondary: #FF9100;
+  --primary: #9d4edd;
+  --secondary: #ff9100;
 
   --background: #ffffff;
   --surface: #ffffff;
@@ -15,16 +14,25 @@
   --text-tertiary: #64748b;
   --border-light: #e2e8f0;
   --foreground: #0f172a;
+
+  /* Wardrobe background */
+  --background-wardrobe: #4d4848;
+}
+
+/* User input class for wardrobe background */
+.userInput {
+  height: 100dvh;
+  background: var(--background-wardrobe);
 }
 
 @theme inline {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--secondary);
-  --color-background-light: #F3F0E6;
-  --color-background-dark: #1A0B2E;
-  --color-lime: #E6FF99;
-  --color-ink: #0D0D0D;
+  --color-background-light: #f3f0e6;
+  --color-background-dark: #1a0b2e;
+  --color-lime: #e6ff99;
+  --color-ink: #0d0d0d;
 
   --color-background: var(--background);
   --color-surface: var(--surface);
@@ -34,21 +42,21 @@
   --color-text-tertiary: var(--text-tertiary);
   --color-border-light: var(--border-light);
 
-  --font-sans: 'Montserrat', sans-serif;
-  --font-display: 'Montserrat', sans-serif;
-  --font-body: 'Montserrat', sans-serif;
+  --font-sans: "Montserrat", sans-serif;
+  --font-display: "Montserrat", sans-serif;
+  --font-body: "Montserrat", sans-serif;
   --font-sticker: "Permanent Marker", cursive;
 
-  --color-lime-pop: #E6FF99;
-  --color-bg-paper: #F3F0E6;
-  --color-surface: #1A0B2E;
+  --color-lime-pop: #e6ff99;
+  --color-bg-paper: #f3f0e6;
+  --color-surface: #1a0b2e;
   --color-vibe-green: var(--primary);
 
-  --shadow-hard: 6px 6px 0px 0px #0D0D0D;
-  --shadow-hard-sm: 3px 3px 0px 0px #0D0D0D;
-  --shadow-hard-hover: 8px 8px 0px 0px #0D0D0D;
-  --shadow-hard-white: 6px 6px 0px 0px #FFFFFF;
-  --shadow-card: 4px 4px 0px 0px #0D0D0D;
+  --shadow-hard: 6px 6px 0px 0px #0d0d0d;
+  --shadow-hard-sm: 3px 3px 0px 0px #0d0d0d;
+  --shadow-hard-hover: 8px 8px 0px 0px #0d0d0d;
+  --shadow-hard-white: 6px 6px 0px 0px #ffffff;
+  --shadow-card: 4px 4px 0px 0px #0d0d0d;
 
   --font-marker: "Permanent Marker", cursive;
 
@@ -56,7 +64,8 @@
   --animate-spin-slow: spin 12s linear infinite;
   --animate-float: float 4s ease-in-out infinite;
   --animate-float-delayed: float 5s ease-in-out infinite 1s;
-  --animate-glitch: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  --animate-glitch: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both
+    infinite;
   --animate-scan: scan 2s ease-in-out infinite;
 
   @keyframes marquee {
@@ -70,7 +79,6 @@
   }
 
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0);
@@ -103,7 +111,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-montserrat), 'Montserrat', sans-serif;
+  font-family: var(--font-montserrat), "Montserrat", sans-serif;
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -131,7 +139,7 @@ body {
 }
 
 .glitch-hover:hover {
-  animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
   transform: scale(1.1);
 }
 

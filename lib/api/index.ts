@@ -10,9 +10,15 @@ api.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     const raw = localStorage.getItem("outfy-auth");
     if (raw) {
-      const { state } = JSON.parse(raw) as { state: { token: string | null } };
-      if (state?.token) {
-        config.headers.Authorization = `Bearer ${state.token}`;
+      try {
+        const { state } = JSON.parse(raw) as {
+          state: { accessToken: string | null };
+        };
+        if (state?.accessToken) {
+          config.headers.Authorization = `Bearer ${state.accessToken}`;
+        }
+      } catch {
+        // Invalid JSON, ignore
       }
     }
   }
@@ -27,9 +33,9 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("outfy-auth");
-      if (typeof window !== "undefined") {
-        window.location.href = "/login";
-      }
+      // if (typeof window !== "undefined") {
+      //   window.location.href = "/login";
+      // }
     }
     return Promise.reject(error);
   },

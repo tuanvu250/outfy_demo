@@ -44,7 +44,7 @@ function NavItem({
         animate={{ fontWeight: isActive ? 700 : 500 }}
         className={cn(
           "text-[10px]",
-          isActive ? "text-primary" : "text-text-tertiary"
+          isActive ? "text-primary" : "text-text-tertiary",
         )}
       >
         {label}
@@ -108,8 +108,10 @@ export function BottomNav() {
         onClick={() => router.push("/avatar/scan")}
         className="absolute left-1/2 -translate-x-1/2 bottom-11.5 flex h-14.5 w-14.5 items-center justify-center rounded-4xl border-[3px] border-[#f1f5f9]"
         style={{
-          background: "linear-gradient(135deg, var(--primary) 0%, color-mix(in srgb, var(--primary) 70%, black) 100%)",
-          boxShadow: "0 8px 20px color-mix(in srgb, var(--primary) 45%, transparent), 0 2px 6px color-mix(in srgb, var(--primary) 20%, transparent)",
+          background:
+            "linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%)",
+          boxShadow:
+            "0 8px 20px rgba(124, 58, 237, 0.45), 0 2px 6px rgba(124, 58, 237, 0.2)",
         }}
         whileTap={{ scale: 0.92 }}
         whileHover={{ scale: 1.06 }}

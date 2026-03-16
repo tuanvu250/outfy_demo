@@ -81,6 +81,7 @@ export interface WardrobeItem {
   notes: string;
   imageUrl: string;
   previewUrl?: string;
+  modelUrl?: string; // 3D model URL for viewer
   createdAt: string;
   updatedAt: string;
 }
