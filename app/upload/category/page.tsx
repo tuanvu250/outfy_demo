@@ -19,10 +19,24 @@ const CATEGORY_IDS: CategoryItem[] = [
   { id: "outerwear", emoji: "🧥" },
 ];
 
+// LocalStorage key for upload category
+const UPLOAD_CATEGORY_KEY = "outfy_upload_category";
+
 export default function CategoryPage() {
   const router = useRouter();
   const { t } = useTranslation();
   const [selected, setSelected] = useState<string | null>(null);
+
+  // Handle continue - save category to localStorage
+  const handleContinue = () => {
+    if (!selected) return;
+
+    // Save category to localStorage
+    localStorage.setItem(UPLOAD_CATEGORY_KEY, selected);
+
+    // Navigate to upload page
+    router.push("/upload");
+  };
 
   return (
     <div className="flex flex-col h-screen bg-[var(--background)] overflow-hidden">
@@ -30,7 +44,10 @@ export default function CategoryPage() {
       <div className="flex-1 overflow-y-auto px-4 pt-6 pb-4">
         {/* Header */}
         <div className="flex items-center mb-6">
-          <button onClick={() => router.back()} className="p-2 rounded-full hover:bg-gray-100">
+          <button
+            onClick={() => router.back()}
+            className="p-2 rounded-full hover:bg-gray-100"
+          >
             <ArrowLeft size={20} className="text-[var(--text-primary)]" />
           </button>
           <h1 className="flex-1 text-center text-lg font-bold text-[var(--text-primary)] pr-8">
@@ -68,14 +85,20 @@ export default function CategoryPage() {
                     <Check size={11} className="text-white" strokeWidth={3} />
                   </span>
                 )}
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center ${
-                  isSelected ? "bg-orange-100" : "bg-gray-200"
-                }`}>
+                <div
+                  className={`w-16 h-16 rounded-full flex items-center justify-center ${
+                    isSelected ? "bg-orange-100" : "bg-gray-200"
+                  }`}
+                >
                   <span className="text-3xl">{emoji}</span>
                 </div>
-                <span className={`text-sm font-semibold ${
-                  isSelected ? "text-[var(--secondary)]" : "text-[var(--text-secondary)]"
-                }`}>
+                <span
+                  className={`text-sm font-semibold ${
+                    isSelected
+                      ? "text-[var(--secondary)]"
+                      : "text-[var(--text-secondary)]"
+                  }`}
+                >
                   {label}
                 </span>
               </button>
@@ -87,7 +110,7 @@ export default function CategoryPage() {
       {/* Sticky bottom button */}
       <div className="px-4 pt-3 pb-6 bg-[var(--background)] border-t border-[var(--border-light)]">
         <button
-          onClick={() => selected && router.push("/upload/attributes")}
+          onClick={handleContinue}
           disabled={!selected}
           className="w-full py-4 rounded-full bg-[var(--primary)] text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 active:opacity-90 transition-opacity"
         >
