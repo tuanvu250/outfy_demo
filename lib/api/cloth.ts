@@ -29,7 +29,8 @@ export async function analyzeClothing(
     CLOTHES_API_PATH,
     request,
   );
-  return response as unknown as ClothingAnalysisResult;
+  // Extract only the data field from the wrapper response
+  return response.data as ClothingAnalysisResult;
 }
 
 // ============================================

@@ -86,9 +86,18 @@ export default function TryOnResultPage() {
     }
   };
 
-  // Full model URL
-  const modelUrl = result
-    ? `${API_BASE_URL.replace("/api/v1", "")}${result.previewUrl}`
+  // Use modelUrl for 3D model, previewUrl for image
+  const modelUrl = result?.modelUrl
+    ? result.modelUrl.startsWith("http")
+      ? result.modelUrl
+      : `${API_BASE_URL.replace("/api/v1", "")}${result.modelUrl}`
+    : result?.previewUrl
+      ? `${API_BASE_URL.replace("/api/v1", "")}${result.previewUrl}`
+      : null;
+  const previewImageUrl = result?.previewUrl
+    ? result.previewUrl.startsWith("http")
+      ? result.previewUrl
+      : `${API_BASE_URL.replace("/api/v1", "")}${result.previewUrl}`
     : null;
 
   if (isLoading) {
@@ -163,11 +172,11 @@ export default function TryOnResultPage() {
           className="w-full rounded-3xl overflow-hidden bg-gradient-to-t from-slate-800 to-slate-900 relative"
           style={{ height: 400 }}
         >
-          {!modelError && result.previewUrl ? (
+          {!modelError && modelUrl ? (
             <>
               {/* @ts-expect-error model-viewer web component */}
               <model-viewer
-                src={modelUrl || ""}
+                src={modelUrl}
                 alt={`3D Try-On - ${result.garmentCategory}`}
                 auto-rotate
                 camera-controls
@@ -187,6 +196,16 @@ export default function TryOnResultPage() {
                 <RefreshCw className="text-white/80 w-5 h-5 animate-spin-slow" />
               </div>
             </>
+          ) : previewImageUrl ? (
+            // Fallback to preview image if no 3D model
+            <div className="flex items-center justify-center h-full">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={previewImageUrl}
+                alt={`${result.garmentCategory} preview`}
+                className="h-full w-full object-contain"
+              />
+            </div>
           ) : (
             <div className="flex items-center justify-center h-full">
               <div className="text-center text-white/60">

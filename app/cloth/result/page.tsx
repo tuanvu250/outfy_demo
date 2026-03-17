@@ -131,7 +131,21 @@ export default function ClothResultPage() {
     );
   }
 
-  const modelUrl = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}${result.previewUrl}`;
+  // Use modelUrl for 3D model, previewUrl for image
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  const modelUrl = result.modelUrl
+    ? result.modelUrl.startsWith("http")
+      ? result.modelUrl
+      : `${API_BASE_URL.replace("/api/v1", "")}${result.modelUrl}`
+    : result.previewUrl
+      ? `${API_BASE_URL.replace("/api/v1", "")}${result.previewUrl}`
+      : null;
+  const previewImageUrl = result.previewUrl
+    ? result.previewUrl.startsWith("http")
+      ? result.previewUrl
+      : `${API_BASE_URL.replace("/api/v1", "")}${result.previewUrl}`
+    : null;
 
   return (
     <div className="flex flex-col min-h-screen bg-[var(--background)]">
@@ -162,7 +176,7 @@ export default function ClothResultPage() {
           className="w-full rounded-3xl overflow-hidden bg-gradient-to-t from-slate-800 to-slate-900 relative"
           style={{ height: 400 }}
         >
-          {!modelError && result.previewUrl ? (
+          {!modelError && modelUrl ? (
             <>
               {/* @ts-expect-error model-viewer web component */}
               <model-viewer
@@ -186,11 +200,23 @@ export default function ClothResultPage() {
                 <RefreshCw className="text-white/80 w-5 h-5 animate-spin-slow" />
               </div>
             </>
+          ) : previewImageUrl ? (
+            // Fallback to preview image if no 3D model
+            <div className="flex items-center justify-center h-full bg-gray-100">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={previewImageUrl}
+                alt={`${result.garmentCategory} preview`}
+                className="h-full w-full object-contain"
+              />
+            </div>
           ) : (
             <div className="flex items-center justify-center h-full bg-gray-100">
               <div className="text-center">
                 <p className="text-gray-400 mb-2">3D Model not available</p>
-                <p className="text-xs text-gray-300">{result.previewUrl}</p>
+                <p className="text-xs text-gray-300">
+                  {result.modelUrl || result.previewUrl}
+                </p>
               </div>
             </div>
           )}

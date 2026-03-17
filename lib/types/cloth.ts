@@ -32,9 +32,13 @@ export type GarmentCategory =
   | "HOODIE"
   | "SHIRT"
   | "PANTS"
+  | "SHORTS"
   | "SKIRT"
+  | "SHORT_SKIRT"
   | "DRESS"
-  | "JACKET";
+  | "JACKET"
+  | "CLOTH_TOP"
+  | "FEMALE_SHIRT";
 
 export interface ClothingAnalysisResult {
   clothingItemId: number;
@@ -43,6 +47,7 @@ export interface ClothingAnalysisResult {
   attributes: ClothingAttributes;
   garmentParameters: GarmentParameters;
   previewUrl: string;
+  modelUrl: string;
   confidence: number;
 }
 

@@ -223,7 +223,7 @@ export default function WardrobePage() {
       {/* Right-side floating actions */}
       <div className="absolute right-3 top-16 z-10 flex flex-col gap-4">
         <FloatingActionBtn icon={MessageCircle} bg="var(--primary)" size={48} />
-        <Link href="/upload">
+        <Link href="/upload/category">
           <FloatingActionBtn icon={Plus} bg="var(--secondary)" />
         </Link>
         <Link href="/share-look">
@@ -508,7 +508,10 @@ export default function WardrobePage() {
             </AnimatePresence>
 
             {/* Add more button */}
-            <Link href="/upload" className="flex flex-col items-center gap-2">
+            <Link
+              href="/upload/category"
+              className="flex flex-col items-center gap-2"
+            >
               <div
                 className="flex w-full items-center justify-center rounded-2xl border-2 border-[var(--border-light)] bg-[#F8FAFC]"
                 style={{ aspectRatio: "0.75" }}

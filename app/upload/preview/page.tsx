@@ -20,8 +20,9 @@ import {
   CLOTH_RESULT_KEY,
   Season,
   AddToWardrobeRequest,
+  AnalyzeClothingRequest,
 } from "@/lib/types/cloth";
-import { addToWardrobe } from "@/lib/api/cloth";
+import { addToWardrobe, analyzeClothing } from "@/lib/api/cloth";
 
 // LocalStorage keys
 const UPLOAD_DATA_KEY = "outfy_upload_data";
@@ -85,41 +86,23 @@ export default function PreviewPage() {
       setAnalysisError(null);
 
       try {
-        // Call cloth analysis API
-        // Note: In production, you'd need to upload the image first to get a URL
-        // For now, we'll simulate the API call with the local URL
-        const API_BASE_URL =
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-
-        const response = await fetch(
-          `${API_BASE_URL}/api/v1/clothes/analyze-direct`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              imageUrl: uploadData.frontImage.url, // Using blob URL
-              fileName: uploadData.frontImage.file.name,
-              category: uploadData.category,
-            }),
-          },
+        // Get userId from localStorage (default to 1 for demo)
+        const userId = parseInt(
+          localStorage.getItem("outfy_user_id") || "1",
+          10,
         );
 
-        if (!response.ok) {
-          throw new Error("Failed to analyze clothing");
-        }
+        // Call cloth analysis API using the shared api instance (includes auth token)
+        const request: AnalyzeClothingRequest = {
+          userId,
+          imageUrl: uploadData.frontImage.url,
+          fileName: uploadData.frontImage.file.name,
+        };
 
-        const result = await response.json();
-
-        if (result.success && result.data) {
-          const analysisData = result.data as ClothingAnalysisResult;
-          setAnalysisResult(analysisData);
-          // Save to localStorage for result page
-          localStorage.setItem(CLOTH_RESULT_KEY, JSON.stringify(analysisData));
-        } else {
-          throw new Error(result.message || "Analysis failed");
-        }
+        const analysisData = await analyzeClothing(request);
+        setAnalysisResult(analysisData);
+        // Save to localStorage for result page
+        localStorage.setItem(CLOTH_RESULT_KEY, JSON.stringify(analysisData));
       } catch (err) {
         console.error("Analysis error:", err);
         setAnalysisError(
@@ -138,7 +121,8 @@ export default function PreviewPage() {
             sleeveLength: "Short",
           },
           garmentParameters: {},
-          previewUrl: "/models/sample-cloth.glb",
+          previewUrl: "",
+          modelUrl: "",
           confidence: 0.85,
         });
       } finally {
@@ -160,10 +144,22 @@ export default function PreviewPage() {
 
   const currentKey = PREVIEW_VIEW_KEYS[currentIndex];
 
-  // Get model URL from analysis result
-  const modelUrl = analysisResult?.previewUrl
-    ? `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}${analysisResult.previewUrl}`
+  // Get model URL from analysis result - use modelUrl for 3D, previewUrl for image
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  const modelUrl = analysisResult?.modelUrl
+    ? analysisResult.modelUrl.startsWith("http") &&
+      !analysisResult.modelUrl.startsWith("blob:")
+      ? analysisResult.modelUrl
+      : `${API_BASE_URL.replace("/api/v1", "")}${analysisResult.modelUrl}`
     : null;
+
+  console.log(
+    "[Preview] modelUrl:",
+    modelUrl,
+    "analysisResult:",
+    analysisResult?.modelUrl,
+  );
 
   // Handle add to wardrobe
   const handleAddToWardrobe = async () => {
@@ -238,34 +234,9 @@ export default function PreviewPage() {
                 Đang phân tích cloth...
               </span>
             </div>
-          ) : analysisError && !modelUrl ? (
-            // Error state - show uploaded image
-            <div
-              className="w-full h-full transition-transform duration-300 ease-in-out"
-              style={{ transform: `rotate(${rotation}deg)` }}
-            >
-              {uploadData?.frontImage ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={uploadData.frontImage.url}
-                  alt="Uploaded cloth"
-                  className="w-full h-full object-contain"
-                />
-              ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={PREVIEW_IMAGES[currentKey]}
-                  alt={currentKey}
-                  className="w-full h-full object-contain"
-                />
-              )}
-            </div>
           ) : modelUrl && !modelError ? (
-            // 3D Model Viewer
-            <div
-              className="w-full h-full"
-              style={{ transform: `rotate(${rotation}deg)` }}
-            >
+            // 3D Model Viewer - ưu tiên hiển thị
+            <div className="w-full h-full">
               {/* @ts-expect-error model-viewer is a web component */}
               <model-viewer
                 src={modelUrl}
@@ -285,7 +256,7 @@ export default function PreviewPage() {
               />
             </div>
           ) : (
-            // Fallback: show uploaded image
+            // Fallback: show uploaded image with rotation
             <div
               className="w-full h-full transition-transform duration-300 ease-in-out"
               style={{ transform: `rotate(${rotation}deg)` }}
@@ -307,11 +278,6 @@ export default function PreviewPage() {
               )}
             </div>
           )}
-
-          <span className="absolute top-3 left-3 text-xs font-semibold text-[var(--primary)] bg-white/80 rounded-full px-3 py-1">
-            {t(`upload.preview.${currentKey}`)}
-          </span>
-
           {/* Navigation buttons - only show when not viewing 3D model */}
           {!modelUrl || modelError || isAnalyzing ? (
             <>
