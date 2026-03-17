@@ -339,7 +339,7 @@ export default function WardrobePage() {
 
   // Handler for Quick Try-On
   const handleQuickTryOn = async () => {
-    if (selectedItems.length !== 2) return;
+    if (selectedItems.length < 1) return;
 
     setIsQuickTryingOn(true);
     setError(null);
@@ -638,7 +638,7 @@ export default function WardrobePage() {
 
       {/* Try now button */}
       <AnimatePresence>
-        {selectedItems.length === 2 && !tried && activeCategory !== 3 && (
+        {selectedItems.length >= 1 && !tried && activeCategory !== 3 && (
           <motion.div
             className="absolute inset-x-0 z-10 flex justify-center"
             style={{ bottom: "calc(15vh + 24px)" }}
