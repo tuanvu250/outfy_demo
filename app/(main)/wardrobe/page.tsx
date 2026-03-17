@@ -21,7 +21,9 @@ import {
 import Link from "next/link";
 import { cn } from "@/lib/utils/cn";
 import api from "@/lib/api";
+import { quickTryOn } from "@/lib/api/tryon";
 import type { BodyGenerationResult } from "@/lib/types/avatar";
+import type { QuickTryOnResponse } from "@/lib/types/tryon";
 
 // API Base URL
 const API_BASE_URL =
@@ -98,6 +100,11 @@ export default function WardrobePage() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [tried, setTried] = useState(false);
+
+  // Quick Try-On state
+  const [isQuickTryingOn, setIsQuickTryingOn] = useState(false);
+  const [quickTryOnResult, setQuickTryOnResult] =
+    useState<QuickTryOnResponse | null>(null);
 
   // Wardrobe data from API
   const [wardrobeItems, setWardrobeItems] = useState<WardrobeItem[]>([]);
@@ -330,6 +337,90 @@ export default function WardrobePage() {
     }
   };
 
+  // Handler for Quick Try-On
+  const handleQuickTryOn = async () => {
+    if (selectedItems.length !== 2) return;
+
+    setIsQuickTryingOn(true);
+    setError(null);
+
+    try {
+      // Get userId from localStorage or use default
+      const userId = parseInt(localStorage.getItem("outfy_user_id") || "1", 10);
+
+      // Get gender from measurements and bodyType from avatar result in localStorage
+      const measurementsStr = localStorage.getItem("outfy_measurements");
+      const avatarResultStr = localStorage.getItem(AVATAR_RESULT_KEY);
+      let gender = "female";
+      let bodyType = "regular";
+
+      // Get gender from measurements (stored when creating avatar)
+      if (measurementsStr) {
+        const measurements = JSON.parse(measurementsStr);
+        const genderFromMeasurements = measurements.gender?.toLowerCase() || "";
+        if (genderFromMeasurements === "male") {
+          gender = "male";
+        } else if (genderFromMeasurements === "female") {
+          gender = "female";
+        }
+      }
+
+      // Get bodyType from avatar result
+      if (avatarResultStr) {
+        const avatarResult = JSON.parse(avatarResultStr);
+
+        // Map body type from avatar result or preset code
+        const bodyTypeFromResult = avatarResult.bodyType?.toLowerCase() || "";
+        const presetCode = avatarResult.avatarPresetCode?.toUpperCase() || "";
+
+        if (bodyTypeFromResult) {
+          bodyType = bodyTypeFromResult;
+        } else if (presetCode.includes("SLIM")) {
+          bodyType = "slim";
+        } else if (
+          presetCode.includes("ATHLETIC") ||
+          presetCode.includes("BROAD")
+        ) {
+          bodyType = "broad";
+        } else if (presetCode.includes("CURVY")) {
+          bodyType = "curvy";
+        }
+      }
+
+      // Get wardrobeItemIds from selected items
+      const wardrobeItemIds = selectedItems.map((id) => parseInt(id, 10));
+
+      // Call Quick Try-On API
+      const result = await quickTryOn({
+        userId,
+        gender,
+        bodyType,
+        wardrobeItemIds,
+      });
+
+      // Store result and show in model viewer
+      setQuickTryOnResult(result);
+      setTried(true);
+
+      // Display the 3D model
+      setSelectedModel({
+        title: `Try-On: ${result.bodyType} - ${result.clothingCategories.join(", ")}`,
+        modelUrl: result.modelUrl,
+        imageUrl: "", // No preview image, show 3D model directly
+      });
+      setModelError(false);
+
+      // Save to localStorage for persistence
+      localStorage.setItem("outfy_quick_tryon_result", JSON.stringify(result));
+    } catch (err) {
+      console.error("Quick Try-On failed:", err);
+      setError("Không thể thực hiện thử đồ nhanh. Vui lòng thử lại.");
+      setTried(true); // Still show tried state even on error
+    } finally {
+      setIsQuickTryingOn(false);
+    }
+  };
+
   return (
     <div className="relative overflow-hidden userInput">
       {/* Avatar background - 3D Model or Static Image */}
@@ -512,6 +603,34 @@ export default function WardrobePage() {
               <div className="absolute bottom-4 left-0 right-0 text-center">
                 <p className="text-xs text-white/60">Kéo để xoay 360°</p>
               </div>
+
+              {/* Quick Try-On Result Info Overlay */}
+              {quickTryOnResult && (
+                <div className="absolute left-4 right-4 bottom-16 bg-black/40 backdrop-blur-md rounded-2xl p-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex flex-col">
+                      <span className="text-xs text-white/60">Body Type</span>
+                      <span className="text-sm font-semibold text-white capitalize">
+                        {quickTryOnResult.bodyType}
+                      </span>
+                    </div>
+                    <div className="flex flex-col text-right">
+                      <span className="text-xs text-white/60">Fit Score</span>
+                      <span className="text-sm font-semibold text-green-400">
+                        {Math.round(quickTryOnResult.fitScore * 100)}%
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mt-2 pt-2 border-t border-white/10">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-white/60">Trang phục</span>
+                      <span className="text-xs font-medium text-white">
+                        {quickTryOnResult.clothingCategories.join(", ")}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </motion.div>
           </motion.div>
         )}
@@ -528,14 +647,22 @@ export default function WardrobePage() {
             exit={{ opacity: 0, y: 16 }}
           >
             <button
-              onClick={() => setTried(true)}
-              className="rounded-full px-8 py-3 text-sm font-bold text-white"
+              onClick={handleQuickTryOn}
+              disabled={isQuickTryingOn}
+              className="rounded-full px-8 py-3 text-sm font-bold text-white disabled:opacity-50"
               style={{
                 background: "var(--primary)",
                 boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
               }}
             >
-              ✨ Thử ngay
+              {isQuickTryingOn ? (
+                <>
+                  <Loader2 size={16} className="inline mr-2 animate-spin" />
+                  Đang tải...
+                </>
+              ) : (
+                "✨ Thử ngay"
+              )}
             </button>
           </motion.div>
         )}

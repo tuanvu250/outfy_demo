@@ -6,6 +6,8 @@ import {
   CreateTryOnFromClothingRequest,
   CreateTryOnFromWardrobeRequest,
   UpdateTryOnRequest,
+  QuickTryOnRequest,
+  QuickTryOnResponse,
   TryOnSession,
   TryOnResult,
   ApiResponse,
@@ -110,3 +112,20 @@ export async function getTryOnResultDetail(id: number): Promise<TryOnResult> {
   return response as unknown as TryOnResult;
 }
 
+// ============================================
+// Quick Try-On API
+// ============================================
+
+export async function quickTryOn(
+  request: QuickTryOnRequest,
+): Promise<QuickTryOnResponse> {
+  const response = await api.post<{
+    success: boolean;
+    message: string;
+    data: QuickTryOnResponse;
+    timestamp: string;
+  }>(`${TRYON_API_PATH}/quick`, request);
+  // Interceptor returns axios response.data which is { success, message, data, timestamp }
+  // Extract data which is the actual QuickTryOnResponse
+  return (response as unknown as { data: QuickTryOnResponse }).data;
+}

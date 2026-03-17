@@ -55,6 +55,29 @@ export interface UpdateTryOnRequest {
 }
 
 // ============================================
+// Quick Try-On Types
+// ============================================
+
+export interface QuickTryOnRequest {
+  userId: number;
+  gender: string;
+  bodyType: string;
+  wardrobeItemIds: number[];
+  size?: Size;
+  fitType?: FitType;
+}
+
+export interface QuickTryOnResponse {
+  modelUrl: string;
+  modelFileName: string;
+  bodyType: string;
+  gender: string;
+  clothingCategories: string[];
+  fitScore: number;
+  message: string;
+}
+
+// ============================================
 // Response Types
 // ============================================
 
