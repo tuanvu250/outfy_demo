@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils/cn";
+import api from "@/lib/api";
 import type { BodyGenerationResult } from "@/lib/types/avatar";
 
 // API Base URL
@@ -33,23 +34,35 @@ const CATEGORIES = ["Tops", "Bottoms", "Shoes", "Outfits"];
 // Key for avatar result in localStorage
 const AVATAR_RESULT_KEY = "outfy_avatar_result";
 
-// Mock data for clothing items (would come from upload or other source)
-const MOCK_CLOTHING_ITEMS = [
-  {
-    id: "1",
-    name: "Gray Hoodie",
-    imageUrl: "/images/items/item1.png",
-    category: "tops",
-    modelUrl: "/models/cloth/hoodie.glb",
-  },
-  {
-    id: "2",
-    name: "Khaki Shorts",
-    imageUrl: "/images/items/item2.png",
-    category: "bottoms",
-    modelUrl: "/models/cloth/shorts.glb",
-  },
-];
+// Types for API response
+interface WardrobeItem {
+  id: number;
+  userId: number;
+  clothingItemId: number;
+  category: string;
+  season: string;
+  color: string | null;
+  isFavorite: boolean;
+  notes: string | null;
+  imageUrl: string;
+  templateCode: string;
+  modelUrl: string;
+  previewUrl: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface WardrobeApiResponse {
+  success: boolean;
+  message: string | null;
+  data: WardrobeItem[];
+}
+
+// Grouped clothing by category (unique)
+interface CategoryGroup {
+  category: string;
+  item: WardrobeItem;
+}
 
 function FloatingActionBtn({
   icon: Icon,
@@ -85,6 +98,157 @@ export default function WardrobePage() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [tried, setTried] = useState(false);
+
+  // Wardrobe data from API
+  const [wardrobeItems, setWardrobeItems] = useState<WardrobeItem[]>([]);
+  const [categoryGroups, setCategoryGroups] = useState<CategoryGroup[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  // Cache for converted blob URLs to Base64
+  const [imageUrlCache, setImageUrlCache] = useState<Record<string, string>>(
+    {},
+  );
+
+  // Fetch wardrobe data from API
+  useEffect(() => {
+    const fetchWardrobeData = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // Get userId from localStorage or use default
+        const userId = 1; // TODO: Get from auth store
+
+        const response = await api.get<WardrobeApiResponse>(
+          `/wardrobe/user/${userId}`,
+        );
+
+        // api interceptor returns response.data directly
+        const data = response as unknown as WardrobeApiResponse;
+
+        if (data.success && data.data) {
+          setWardrobeItems(data.data);
+
+          // Group by category and get unique categories (first item of each category)
+          const grouped: CategoryGroup[] = data.data.reduce(
+            (acc: CategoryGroup[], item: WardrobeItem) => {
+              const existingCategory = acc.find(
+                (g) => g.category === item.category,
+              );
+              if (!existingCategory) {
+                acc.push({ category: item.category, item });
+              }
+              return acc;
+            },
+            [],
+          );
+
+          setCategoryGroups(grouped);
+        }
+      } catch (err) {
+        console.error("Failed to fetch wardrobe data:", err);
+        setError("Failed to load wardrobe data");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchWardrobeData();
+  }, []);
+
+  // Convert blob URLs to Base64 when wardrobe items are loaded
+  useEffect(() => {
+    const convertBlobUrls = async () => {
+      const newCache: Record<string, string> = {};
+      const items = [...wardrobeItems];
+
+      for (const item of items) {
+        // Check imageUrl
+        if (
+          item.imageUrl.startsWith("blob:") &&
+          !imageUrlCache[item.imageUrl]
+        ) {
+          try {
+            const response = await fetch(item.imageUrl);
+            if (!response.ok) {
+              console.warn("Failed to fetch blob URL:", item.imageUrl);
+              continue;
+            }
+            const blob = await response.blob();
+            const base64 = await new Promise<string>((resolve) => {
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result as string);
+              reader.readAsDataURL(blob);
+            });
+            newCache[item.imageUrl] = base64;
+          } catch (err) {
+            console.warn("Failed to convert blob URL:", item.imageUrl, err);
+          }
+        }
+
+        // Check previewUrl
+        if (
+          item.previewUrl?.startsWith("blob:") &&
+          !imageUrlCache[item.previewUrl]
+        ) {
+          try {
+            const response = await fetch(item.previewUrl);
+            if (!response.ok) {
+              console.warn("Failed to fetch blob URL:", item.previewUrl);
+              continue;
+            }
+            const blob = await response.blob();
+            const base64 = await new Promise<string>((resolve) => {
+              const reader = new FileReader();
+              reader.onloadend = () => resolve(reader.result as string);
+              reader.readAsDataURL(blob);
+            });
+            newCache[item.previewUrl] = base64;
+          } catch (err) {
+            console.warn("Failed to convert blob URL:", item.previewUrl, err);
+          }
+        }
+      }
+
+      if (Object.keys(newCache).length > 0) {
+        setImageUrlCache((prev) => ({ ...prev, ...newCache }));
+      }
+    };
+
+    if (wardrobeItems.length > 0) {
+      convertBlobUrls();
+    }
+  }, [wardrobeItems]);
+
+  // Get image URL - returns cached Base64 if available, otherwise normal URL
+  const getCachedImageUrl = (url: string) => {
+    if (!url) return "/images/placeholder.png"; // Default placeholder
+
+    // Check if it's a blob URL that has failed (not in cache)
+    if (url.startsWith("blob:") && !imageUrlCache[url]) {
+      // Blob URL expired - return placeholder
+      return "/images/placeholder.png";
+    }
+
+    // Return cached Base64 if available
+    if (imageUrlCache[url]) {
+      return imageUrlCache[url];
+    }
+
+    // Otherwise use normal URL handler
+    return getFullImageUrl(url);
+  };
+
+  // Map category to tab index
+  const getCategoryIndex = (category: string): number => {
+    const categoryMap: Record<string, number> = {
+      TOPS: 0,
+      BOTTOMS: 1,
+      SHOES: 2,
+      OUTFITS: 3,
+    };
+    return categoryMap[category.toUpperCase()] ?? 0;
+  };
 
   // Avatar 3D Model state (from localStorage)
   const [avatarModel, setAvatarModel] = useState<{
@@ -135,6 +299,19 @@ export default function WardrobePage() {
   const fullModelUrl = selectedModel?.modelUrl
     ? `${API_BASE_URL.replace("/api/v1", "")}${selectedModel.modelUrl}`
     : null;
+
+  // Full image URL - handle both relative and absolute URLs
+  const getFullImageUrl = (url: string) => {
+    if (!url) return "";
+
+    // Already a valid absolute URL
+    if (url.startsWith("http://") || url.startsWith("https://")) {
+      return url;
+    }
+
+    // Relative URL - prepend API base URL
+    return `${API_BASE_URL.replace("/api/v1", "")}${url}`;
+  };
 
   // Avatar full model URL
   const avatarFullModelUrl = avatarModel?.modelUrl
@@ -323,7 +500,7 @@ export default function WardrobePage() {
                   // Fallback to image
                   <div className="flex h-full w-full items-center justify-center">
                     <img
-                      src={selectedModel.imageUrl}
+                      src={getCachedImageUrl(selectedModel.imageUrl)}
                       alt={selectedModel.title}
                       className="h-full w-full object-contain"
                     />
@@ -454,58 +631,91 @@ export default function WardrobePage() {
 
           {/* Clothing grid */}
           <div className="grid grid-cols-3 gap-3 px-6 pb-8 pt-6">
-            <AnimatePresence>
-              {MOCK_CLOTHING_ITEMS.map((item, i) => (
-                <motion.div
-                  key={item.id}
-                  onClick={() => {
-                    setSelectedItems((prev) =>
-                      prev.includes(item.id)
-                        ? prev.filter((id) => id !== item.id)
-                        : [...prev, item.id],
-                    );
-                    setTried(false);
-                  }}
-                  className="flex flex-col items-center gap-2 cursor-pointer"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05 }}
+            {isLoading ? (
+              <div className="col-span-3 flex items-center justify-center py-8">
+                <Loader2 className="h-6 w-6 animate-spin text-[var(--primary)]" />
+              </div>
+            ) : error ? (
+              <div className="col-span-3 flex flex-col items-center justify-center gap-2 py-8">
+                <p className="text-sm text-red-500">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="text-xs text-[var(--primary)] underline"
                 >
-                  <div
-                    className="relative w-full overflow-hidden rounded-2xl bg-[#F1F5F9]"
-                    style={{
-                      aspectRatio: "0.75",
-                      border: selectedItems.includes(item.id)
-                        ? "2px solid var(--primary)"
-                        : "none",
-                      boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-                    }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.imageUrl}
-                      alt={item.name}
-                      className="h-full w-full object-cover"
-                    />
-                    {selectedItems.includes(item.id) && (
-                      <div className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-(--primary)">
-                        <Check size={10} className="text-white" />
-                      </div>
-                    )}
-                  </div>
-                  <span
-                    className={cn(
-                      "text-[10px]",
-                      selectedItems.includes(item.id)
-                        ? "font-bold text-[var(--text-primary)]"
-                        : "font-medium text-[var(--text-secondary)]",
-                    )}
-                  >
-                    {item.name}
-                  </span>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+                  Thử lại
+                </button>
+              </div>
+            ) : (
+              <AnimatePresence>
+                {categoryGroups
+                  .filter((group) => {
+                    const catIndex = getCategoryIndex(group.category);
+                    return catIndex === activeCategory;
+                  })
+                  .map((group, i) => {
+                    const item = group.item;
+                    return (
+                      <motion.div
+                        key={item.id}
+                        onClick={() => {
+                          // Set selected item for display
+                          setSelectedItems((prev) =>
+                            prev.includes(String(item.id))
+                              ? prev.filter((id) => id !== String(item.id))
+                              : [...prev, String(item.id)],
+                          );
+                          setTried(false);
+
+                          // Open 3D model viewer
+                          setSelectedModel({
+                            title: item.templateCode || item.category,
+                            modelUrl: item.modelUrl,
+                            imageUrl: item.imageUrl,
+                          });
+                          setModelError(false);
+                        }}
+                        className="flex flex-col items-center gap-2 cursor-pointer"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.05 }}
+                      >
+                        <div
+                          className="relative w-full overflow-hidden rounded-2xl bg-[#F1F5F9]"
+                          style={{
+                            aspectRatio: "0.75",
+                            border: selectedItems.includes(String(item.id))
+                              ? "2px solid var(--primary)"
+                              : "none",
+                            boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                          }}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={getCachedImageUrl(item.imageUrl)}
+                            alt={item.templateCode}
+                            className="h-full w-full object-cover"
+                          />
+                          {selectedItems.includes(String(item.id)) && (
+                            <div className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-(--primary)">
+                              <Check size={10} className="text-white" />
+                            </div>
+                          )}
+                        </div>
+                        <span
+                          className={cn(
+                            "text-[10px]",
+                            selectedItems.includes(String(item.id))
+                              ? "font-bold text-[var(--text-primary)]"
+                              : "font-medium text-[var(--text-secondary)]",
+                          )}
+                        >
+                          {item.templateCode || item.category}
+                        </span>
+                      </motion.div>
+                    );
+                  })}
+              </AnimatePresence>
+            )}
 
             {/* Add more button */}
             <Link

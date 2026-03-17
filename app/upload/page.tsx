@@ -3,11 +3,13 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { Camera, ArrowLeft, Lightbulb, X } from "lucide-react";
+import { Camera, ArrowLeft, Lightbulb, X, Loader2 } from "lucide-react";
+import { uploadToCloudinary } from "@/lib/utils/cloudinary";
 
 interface UploadedImage {
   url: string;
   file: File;
+  cloudinaryUrl?: string;
 }
 
 // LocalStorage key for upload category
@@ -92,6 +94,10 @@ export default function UploadPage() {
   const frontRef = useRef<HTMLInputElement>(null);
   const backRef = useRef<HTMLInputElement>(null);
 
+  // Upload state
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
   // Load category from localStorage on mount
   useEffect(() => {
     const category = localStorage.getItem(UPLOAD_CATEGORY_KEY);
@@ -133,19 +139,61 @@ export default function UploadPage() {
     if (backRef.current) backRef.current.value = "";
   };
 
-  // Handle continue - save images to localStorage and go to attributes
-  const handleContinue = () => {
+  // Handle continue - upload images to Cloudinary then save to localStorage
+  const handleContinue = async () => {
     if (!frontImage) return;
 
-    // Save uploaded images to localStorage
-    const uploadData = {
-      category: selectedCategory,
-      frontImage: frontImage,
-      backImage: backImage,
-    };
-    localStorage.setItem("outfy_upload_data", JSON.stringify(uploadData));
+    setIsUploading(true);
+    setUploadError(null);
 
-    router.push("/upload/attributes");
+    try {
+      // Upload front image to Cloudinary
+      const frontUpload = await uploadToCloudinary(
+        frontImage.file,
+        "outfy/upload",
+      );
+
+      // Upload back image if exists
+      let backUpload = null;
+      if (backImage) {
+        backUpload = await uploadToCloudinary(backImage.file, "outfy/upload");
+      }
+
+      // Save uploaded images to localStorage with Cloudinary URLs
+      const uploadData = {
+        category: selectedCategory,
+        frontImage: {
+          url: frontImage.url,
+          file: frontImage.file,
+          cloudinaryUrl: frontUpload.secure_url,
+        },
+        backImage: backImage
+          ? {
+              url: backImage.url,
+              file: backImage.file,
+              cloudinaryUrl: backUpload!.secure_url,
+            }
+          : null,
+      };
+      localStorage.setItem("outfy_upload_data", JSON.stringify(uploadData));
+
+      router.push("/upload/attributes");
+    } catch (err) {
+      console.error("Failed to upload images:", err);
+      setUploadError(
+        err instanceof Error ? err.message : "Failed to upload images",
+      );
+      // Still allow proceeding with local blob URLs as fallback
+      const uploadData = {
+        category: selectedCategory,
+        frontImage: frontImage,
+        backImage: backImage,
+      };
+      localStorage.setItem("outfy_upload_data", JSON.stringify(uploadData));
+      router.push("/upload/attributes");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -224,12 +272,25 @@ export default function UploadPage() {
       {/* Sticky bottom button */}
       <div className="px-4 pt-3 pb-6 bg-[var(--background)] border-t border-[var(--border-light)]">
         <button
+          type="button"
           onClick={handleContinue}
-          disabled={!frontImage}
+          disabled={!frontImage || isUploading}
           className="w-full py-4 rounded-full bg-[var(--primary)] text-white font-bold text-base flex items-center justify-center gap-2 disabled:opacity-40 active:opacity-90 transition-opacity"
         >
-          {t("upload.continue")} <span aria-hidden>→</span>
+          {isUploading ? (
+            <>
+              <Loader2 className="animate-spin h-5 w-5" />
+              Uploading...
+            </>
+          ) : (
+            <>
+              {t("upload.continue")} <span aria-hidden>→</span>
+            </>
+          )}
         </button>
+        {uploadError && (
+          <p className="text-red-500 text-sm mt-2 text-center">{uploadError}</p>
+        )}
       </div>
     </div>
   );
