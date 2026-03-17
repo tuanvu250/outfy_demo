@@ -217,7 +217,6 @@ export default function AuthPage() {
   };
 
   const handleGoogleError = () => {
-    console.log("Google Login Failed");
     setError(t("auth.googleLoginFailed") || t("auth.loginError"));
   };
 

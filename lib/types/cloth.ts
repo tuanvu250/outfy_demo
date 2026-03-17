@@ -7,6 +7,7 @@ export interface AnalyzeClothingRequest {
   imageUrl: string;
   fileName?: string;
   name?: string;
+  garmentCategory?: string;
 }
 
 export interface ClothingAttributes {

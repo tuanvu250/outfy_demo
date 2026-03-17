@@ -58,6 +58,7 @@ Content-Type: application/json
 ```
 
 **Response Thành Công (User Mới):**
+
 ```json
 {
   "success": true,
@@ -82,6 +83,7 @@ Content-Type: application/json
 ```
 
 **Response Thành Công (User Đã Tồn Tại):**
+
 ```json
 {
   "success": true,
@@ -170,11 +172,11 @@ npm install @react-oauth/google
 #### Cấu Hình App (App.jsx)
 
 ```jsx
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 function App() {
   const clientId = "YOUR_GOOGLE_CLIENT_ID";
-  
+
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <YourAppComponents />
@@ -188,41 +190,40 @@ export default App;
 #### Component Đăng Nhập (LoginPage.jsx)
 
 ```jsx
-import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 function LoginPage() {
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const response = await axios.post(
-        'http://localhost:8080/api/v1/auth/google',
+        "http://localhost:8080/api/v1/auth/google",
         { idToken: credentialResponse.credential },
-        { headers: { 'Content-Type': 'application/json' } }
+        { headers: { "Content-Type": "application/json" } },
       );
 
       const { data } = response.data;
 
       if (data.success) {
         // Lưu tokens
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
-        
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+
         // Lưu thông tin user
-        localStorage.setItem('user', JSON.stringify(data.user));
-        
+        localStorage.setItem("user", JSON.stringify(data.user));
+
         // Chuyển đến trang chủ
-        window.location.href = '/home';
+        window.location.href = "/home";
       }
     } catch (error) {
-      console.error('Google login failed:', error);
-      const errorMessage = error.response?.data?.message || 'Login failed';
+      console.error("Google login failed:", error);
+      const errorMessage = error.response?.data?.message || "Login failed";
       alert(errorMessage);
     }
   };
 
   const handleGoogleError = () => {
-    console.log('Google Login Failed');
-    alert('Đăng nhập Google thất bại. Vui lòng thử lại.');
+    alert("Đăng nhập Google thất bại. Vui lòng thử lại.");
   };
 
   return (
@@ -251,30 +252,32 @@ export default LoginPage;
 ```html
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-<div id="g_id_onload"
-     data-client_id="YOUR_GOOGLE_CLIENT_ID"
-     data-context="signin"
-     data-ux_mode="popup"
-     data-callback="handleCredentialResponse"
-     data-auto_prompt="false">
-</div>
+<div
+  id="g_id_onload"
+  data-client_id="YOUR_GOOGLE_CLIENT_ID"
+  data-context="signin"
+  data-ux_mode="popup"
+  data-callback="handleCredentialResponse"
+  data-auto_prompt="false"
+></div>
 
-<div class="g_id_signin"
-     data-type="standard"
-     data-shape="rectangular"
-     data-theme="outline"
-     data-text="signin_with"
-     data-size="large"
-     data-logo_alignment="left">
-</div>
+<div
+  class="g_id_signin"
+  data-type="standard"
+  data-shape="rectangular"
+  data-theme="outline"
+  data-text="signin_with"
+  data-size="large"
+  data-logo_alignment="left"
+></div>
 
 <script>
   async function handleCredentialResponse(response) {
     try {
-      const res = await fetch('http://localhost:8080/api/v1/auth/google', {
-        method: 'POST',
+      const res = await fetch("http://localhost:8080/api/v1/auth/google", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ idToken: response.credential }),
       });
@@ -282,16 +285,16 @@ export default LoginPage;
       const data = await res.json();
 
       if (data.success) {
-        localStorage.setItem('accessToken', data.data.accessToken);
-        localStorage.setItem('refreshToken', data.data.refreshToken);
-        localStorage.setItem('user', JSON.stringify(data.data.user));
-        window.location.href = '/home';
+        localStorage.setItem("accessToken", data.data.accessToken);
+        localStorage.setItem("refreshToken", data.data.refreshToken);
+        localStorage.setItem("user", JSON.stringify(data.data.user));
+        window.location.href = "/home";
       } else {
         alert(data.message);
       }
     } catch (error) {
-      console.error('Login error:', error);
-      alert('Đăng nhập thất bại');
+      console.error("Login error:", error);
+      alert("Đăng nhập thất bại");
     }
   }
 </script>
@@ -301,12 +304,12 @@ export default LoginPage;
 
 ## Quy Tắc Nghiệp Vụ
 
-| Scenario | Behavior |
-|----------|----------|
-| User mới, login Google lần đầu | Tạo user mới, password = null, isEmailVerified = true |
-| User đã đăng ký email/password, login Google cùng email | Link Google account, authProvider → GOOGLE |
-| User Google, thử login bằng password | Bị chặn: "This account uses Google login. Please sign in with Google." |
-| Google email chưa verified | Bị chặn: "Google email is not verified" |
+| Scenario                                                | Behavior                                                               |
+| ------------------------------------------------------- | ---------------------------------------------------------------------- |
+| User mới, login Google lần đầu                          | Tạo user mới, password = null, isEmailVerified = true                  |
+| User đã đăng ký email/password, login Google cùng email | Link Google account, authProvider → GOOGLE                             |
+| User Google, thử login bằng password                    | Bị chặn: "This account uses Google login. Please sign in with Google." |
+| Google email chưa verified                              | Bị chặn: "Google email is not verified"                                |
 
 ---
 
@@ -316,22 +319,22 @@ export default LoginPage;
 
 ```javascript
 // Sau khi login thành công
-localStorage.setItem('accessToken', data.accessToken);
-localStorage.setItem('refreshToken', data.refreshToken);
+localStorage.setItem("accessToken", data.accessToken);
+localStorage.setItem("refreshToken", data.refreshToken);
 ```
 
 ### Sử Dụng Token Trong Requests
 
 ```javascript
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api/v1',
+  baseURL: "http://localhost:8080/api/v1",
 });
 
 // Thêm token vào mọi request
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('accessToken');
+  const token = localStorage.getItem("accessToken");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -368,6 +371,7 @@ Xem thêm tài liệu authentication về cách refresh token khi hết hạn.
 **Nguyên nhân:** Client ID chưa đúng hoặc chưa thêm domain vào Authorized JavaScript origins
 
 **Cách sửa:**
+
 1. Kiểm tra Client ID trong code
 2. Thêm domain vào Google Cloud Console → Credentials → OAuth 2.0
 
@@ -376,12 +380,14 @@ Xem thêm tài liệu authentication về cách refresh token khi hết hạn.
 **Nguyên nhân:** Frontend chạy domain chưa được allow
 
 **Cách sửa:**
+
 1. Thêm frontend URL vào Authorized JavaScript origins
 2. Thêm backend URL vào Authorized redirect URIs nếu cần
 
 ### Token hết hạn
 
 **Xử lý:**
+
 - Sử dụng refresh token để lấy access token mới
 - Hoặc yêu user đăng nhập lại
 
@@ -392,4 +398,3 @@ Xem thêm tài liệu authentication về cách refresh token khi hết hạn.
 - [Google Identity Services](https://developers.google.com/identity/sign-in/web/sign-in)
 - [@react-oauth/google](https://github.com/MomenSherif/react-oauth/google)
 - [Google Cloud Console](https://console.cloud.google.com/)
-

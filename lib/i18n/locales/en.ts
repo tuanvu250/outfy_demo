@@ -215,6 +215,18 @@ export const en: Translations = {
       accessories: "Accessories",
       outerwear: "Outerwear",
       continueToAnalysis: "Continue to Analysis",
+      // Garment categories
+      TSHIRT: "T-Shirt",
+      HOODIE: "Hoodie",
+      SHIRT: "Shirt",
+      PANTS: "Pants",
+      SHORTS: "Shorts",
+      SKIRT: "Skirt",
+      SHORT_SKIRT: "Mini Skirt",
+      DRESS: "Dress",
+      JACKET: "Jacket",
+      CLOTH_TOP: "Top",
+      FEMALE_SHIRT: "Blouse",
     },
     attributes: {
       title: "Attributes",

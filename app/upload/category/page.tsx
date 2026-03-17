@@ -4,19 +4,25 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Check } from "lucide-react";
+import type { GarmentCategory } from "@/lib/types/cloth";
 
 type CategoryItem = {
-  id: "top" | "bottom" | "dress" | "shoes" | "accessories" | "outerwear";
+  id: GarmentCategory;
   emoji: string;
 };
 
 const CATEGORY_IDS: CategoryItem[] = [
-  { id: "top", emoji: "👕" },
-  { id: "bottom", emoji: "👖" },
-  { id: "dress", emoji: "👗" },
-  { id: "shoes", emoji: "👟" },
-  { id: "accessories", emoji: "👜" },
-  { id: "outerwear", emoji: "🧥" },
+  { id: "TSHIRT", emoji: "" },
+  { id: "HOODIE", emoji: "" },
+  { id: "SHIRT", emoji: "" },
+  { id: "PANTS", emoji: "" },
+  { id: "SHORTS", emoji: "" },
+  { id: "SKIRT", emoji: "" },
+  { id: "SHORT_SKIRT", emoji: "" },
+  { id: "DRESS", emoji: "" },
+  { id: "JACKET", emoji: "" },
+  { id: "CLOTH_TOP", emoji: "" },
+  { id: "FEMALE_SHIRT", emoji: "" },
 ];
 
 // LocalStorage key for upload category

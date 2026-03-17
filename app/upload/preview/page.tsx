@@ -97,6 +97,7 @@ export default function PreviewPage() {
           userId,
           imageUrl: uploadData.frontImage.url,
           fileName: uploadData.frontImage.file.name,
+          garmentCategory: uploadData.category,
         };
 
         const analysisData = await analyzeClothing(request);
@@ -153,13 +154,6 @@ export default function PreviewPage() {
       ? analysisResult.modelUrl
       : `${API_BASE_URL.replace("/api/v1", "")}${analysisResult.modelUrl}`
     : null;
-
-  console.log(
-    "[Preview] modelUrl:",
-    modelUrl,
-    "analysisResult:",
-    analysisResult?.modelUrl,
-  );
 
   // Handle add to wardrobe
   const handleAddToWardrobe = async () => {

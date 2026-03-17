@@ -198,6 +198,18 @@ export interface Translations {
       accessories: string;
       outerwear: string;
       continueToAnalysis: string;
+      // Garment categories
+      TSHIRT: string;
+      HOODIE: string;
+      SHIRT: string;
+      PANTS: string;
+      SHORTS: string;
+      SKIRT: string;
+      SHORT_SKIRT: string;
+      DRESS: string;
+      JACKET: string;
+      CLOTH_TOP: string;
+      FEMALE_SHIRT: string;
     };
     attributes: {
       title: string;
@@ -654,6 +666,18 @@ export const vi: Translations = {
       accessories: "Phụ kiện",
       outerwear: "Áo khoác",
       continueToAnalysis: "Tiếp tục phân tích",
+      // Garment categories
+      TSHIRT: "Áo thun",
+      HOODIE: "Áo hoodie",
+      SHIRT: "Áo sơ mi",
+      PANTS: "Quần dài",
+      SHORTS: "Quần short",
+      SKIRT: "Chân váy",
+      SHORT_SKIRT: "Chân váy ngắn",
+      DRESS: "Đầm",
+      JACKET: "Áo khoác",
+      CLOTH_TOP: "Áo top",
+      FEMALE_SHIRT: "Áo nữ",
     },
     attributes: {
       title: "Thuộc tính",
