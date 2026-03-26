@@ -99,15 +99,15 @@ export function AboutUs() {
                 </div>
 
                 {/* What we are building */}
-                <div className="bg-ink text-white p-12 border-[3px] border-ink shadow-hard-white mb-24 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10">
+                <div className="bg-white text-ink p-12 border-4 border-ink shadow-hard mb-24 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-5">
                         <span className="material-symbols-outlined text-[150px]">architecture</span>
                     </div>
-                    <div className="relative z-10 max-w-2xl">
+                    <div className="relative z-10 max-w-3xl">
                         <h3 className="font-display font-bold text-4xl uppercase mb-8 leading-tight">
                             Chúng tôi đang xây dựng điều gì?
                         </h3>
-                        <p className="text-gray-400 text-xl font-body mb-10 leading-relaxed">
+                        <p className="text-ink/60 text-xl font-body mb-10 leading-relaxed font-medium">
                             Outfy không chỉ là một ứng dụng thử đồ. Chúng tôi đang xây dựng nền móng cho một hệ thống ra quyết định thời trang tối ưu.
                         </p>
                         <div className="space-y-4">
@@ -116,7 +116,7 @@ export function AboutUs() {
                                 "Bạn không còn phải thử sai",
                                 "Bạn luôn biết điều gì phù hợp với mình"
                             ].map((item, idx) => (
-                                <div key={idx} className="flex items-center gap-4 bg-white/10 px-6 py-4 border-2 border-white/20 hover:border-primary transition-colors cursor-default">
+                                <div key={idx} className="flex items-center gap-4 bg-ink/5 px-6 py-4 border-2 border-ink hover:bg-secondary transition-all cursor-default">
                                     <span className="text-primary text-2xl">👉</span>
                                     <span className="font-display font-bold text-lg uppercase">{item}</span>
                                 </div>
