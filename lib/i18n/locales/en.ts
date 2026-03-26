@@ -21,10 +21,11 @@ export const en: Translations = {
   },
   nav: {
     home: "Home",
-    aiTryon: "AI Try-on",
+    aiTools: "AI Tools",
+    community: "Community",
     wardrobe: "Wardrobe",
-    profile: "Profile",
     scanAvatar: "Scan avatar",
+    profile: "Profile"
   },
   splash: {
     heading1: "Try on outfits in 3D.",
@@ -78,7 +79,7 @@ export const en: Translations = {
     resend: "Resend Code",
   },
   home: {
-    title: "Home",
+    title: "Store",
     hero: {
       title: "Explore Your Wardrobe",
       subtitle: "Your style starts here",

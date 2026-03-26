@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { Home, Shirt, Sparkles, User, Focus } from "lucide-react";
+import { Home, Users, Sparkles, User2, Focus } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils/cn";
@@ -18,7 +18,7 @@ function NavItem({
   isActive: boolean;
 }) {
   return (
-    <a href={href} className="flex w-15 flex-col items-center gap-0.5">
+    <a href={href} className="flex min-w-[72px] flex-col items-center gap-0.5 text-center">
       <div className="relative flex items-center justify-center px-3 py-1.5">
         {isActive && (
           <motion.div
@@ -43,7 +43,7 @@ function NavItem({
         suppressHydrationWarning
         animate={{ fontWeight: isActive ? 700 : 500 }}
         className={cn(
-          "text-[10px]",
+          "text-[10px] leading-tight text-center px-1",
           isActive ? "text-primary" : "text-text-tertiary"
         )}
       >
@@ -60,12 +60,12 @@ export function BottomNav() {
 
   const LEFT_ITEMS = [
     { href: "/home", icon: Home, label: t("nav.home") },
-    { href: "/ai-stylist", icon: Sparkles, label: t("nav.aiTryon") },
+    { href: "/ai-stylist", icon: Sparkles, label: t("nav.aiTools") },
   ];
 
   const RIGHT_ITEMS = [
-    { href: "/wardrobe", icon: Shirt, label: t("nav.wardrobe") },
-    { href: "/profile", icon: User, label: t("nav.profile") },
+    { href: "/wardrobe", icon: Users, label: t("nav.community") },
+    { href: "/profile", icon: User2, label: t("nav.profile") },
   ];
 
   return (

@@ -19,7 +19,8 @@ export interface Translations {
   };
   nav: {
     home: string;
-    aiTryon: string;
+    aiTools: string;
+    community: string;
     wardrobe: string;
     profile: string;
     scanAvatar: string;
@@ -343,10 +344,11 @@ export const vi: Translations = {
     add: "Thêm",
   },
   nav: {
-    home: "Trang chủ",
-    aiTryon: "Thử đồ AI",
+    home: "Home",
+    aiTools: "AI Tools",
+    community: "Community",
     wardrobe: "Tủ đồ",
-    profile: "Hồ sơ",
+    profile: "Profile",
     scanAvatar: "Quét avatar",
   },
   splash: {
@@ -401,7 +403,7 @@ export const vi: Translations = {
     resend: "Gửi lại mã",
   },
   home: {
-    title: "Trang chủ",
+    title: "Cửa hàng",
     hero: {
       title: "Khám phá tủ đồ",
       subtitle: "Phong cách của bạn bắt đầu ở đây",

@@ -1,309 +1,253 @@
-﻿"use client";
+"use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  MessageCircle,
-  Plus,
-  Share2,
-  Star,
-  ListFilter,
-  Shirt,
-  ChevronDown,
-  ArrowLeftRight,
-  Trash2,
-  Check,
-  HelpCircle,
+import React, { useState } from "react";
+import { 
+  Search, Plus, Bell, Bookmark, Heart, MessageCircle, 
+  Share2, Star, AlertTriangle
 } from "lucide-react";
-import Link from "next/link";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
 
-const SNAP_HEIGHTS = ["15vh", "55vh", "85vh"];
-
-const CATEGORIES = ["Tops", "Bottoms", "Shoes", "Outfits"];
-
-const CLOTHING_ITEMS = [
-  { id: 1, title: "Gray Hoodie", image: "/images/items/item1.png" },
-  { id: 2, title: "Khaki Shorts", image: "/images/items/item2.png" },
+const MOCK_POSTS = [
+  {
+    id: 1,
+    user: {
+      name: "user10152334682",
+      avatar: "https://i.pravatar.cc/150?u=user10152334682",
+      followers: "77 followers",
+      level: "Level 23",
+      isFollowing: false,
+    },
+    image: "/images/male_3d_outfit_1.png",
+    items: [
+      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1542272604-787c3835535d?q=80&w=200&auto=format&fit=crop",
+    ],
+    likes: 131,
+    comments: 0,
+    saves: 9,
+    shares: 0,
+    rating: 3.9,
+    title: "Casual Streetwear",
+    caption: "Perfect for a day out in the city. #streetstyle #3dfashion",
+    time: "1 hour ago"
+  },
+  {
+    id: 2,
+    user: {
+      name: "fashion_guru",
+      avatar: "https://i.pravatar.cc/150?u=fashion_guru",
+      followers: "1.2k followers",
+      level: "Level 45",
+      isFollowing: true,
+    },
+    image: "/images/female_3d_outfit_1.png",
+    items: [
+      "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?q=80&w=200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=200&auto=format&fit=crop",
+    ],
+    likes: 842,
+    comments: 24,
+    saves: 56,
+    shares: 12,
+    rating: 4.8,
+    title: "Spring Vibes",
+    caption: "Feeling the breeze with this linen set #springstyle",
+    time: "3 hours ago"
+  }
 ];
 
-const OUTFIT_ITEMS = [
-  { id: 101, title: "Outfit 1", image: "/images/3dfullv1.png" },
-  { id: 102, title: "Outfit 2", image: "/images/3dfullv2.png" },
-];
+function PostCard({ post }: { post: typeof MOCK_POSTS[0] }) {
+  const [liked, setLiked] = useState(false);
 
-function FloatingActionBtn({
-  icon: Icon,
-  bg,
-  iconColor = "white",
-  size = 40,
-  onClick,
-}: {
-  icon: React.ElementType;
-  bg: string;
-  iconColor?: string;
-  size?: number;
-  onClick?: () => void;
-}) {
   return (
-    <button
-      onClick={onClick}
-      style={{
-        width: size,
-        height: size,
-        background: bg,
-        boxShadow: "0 4px 8px rgba(0,0,0,0.15)",
-      }}
-      className="flex items-center justify-center rounded-full transition-opacity hover:opacity-90"
-    >
-      <Icon size={size * 0.45} color={iconColor} />
-    </button>
+    <div className="mb-10 flex flex-col bg-white">
+      {/* Post Image Container */}
+      <div className="relative aspect-[3/4] overflow-hidden rounded-[2.5rem] bg-gray-100 shadow-sm">
+        <img 
+          src={post.image} 
+          alt={post.title} 
+          className="h-full w-full object-cover"
+        />
+
+        {/* Side Thumbnails (Left) */}
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+          {post.items.map((item, idx) => (
+            <motion.div 
+              key={idx}
+              className="h-14 w-14 rounded-xl border-2 border-white/40 bg-white/20 p-0.5 backdrop-blur-sm shadow-lg overflow-hidden"
+              whileHover={{ scale: 1.1, x: 5 }}
+            >
+              <img src={item} alt="item" className="h-full w-full rounded-lg object-cover" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Action Sidebar (Right) */}
+        <div className="absolute right-4 bottom-24 flex flex-col items-center gap-4">
+          <div className="flex flex-col items-center">
+            <button 
+              onClick={() => setLiked(!liked)}
+              className={cn(
+                "flex h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md transition-colors",
+                liked ? "text-red-500" : "text-white"
+              )}
+            >
+              <Heart size={26} fill={liked ? "currentColor" : "none"} />
+            </button>
+            <span className="mt-1 text-xs font-bold text-white shadow-sm">{post.likes + (liked ? 1 : 0)}</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <button className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white">
+              <MessageCircle size={26} />
+            </button>
+            <span className="mt-1 text-xs font-bold text-white shadow-sm">{post.comments}</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <button className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white">
+              <Bookmark size={26} />
+            </button>
+            <span className="mt-1 text-xs font-bold text-white shadow-sm">{post.saves}</span>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <button className="flex h-12 w-12 items-center justify-center rounded-full bg-white/10 backdrop-blur-md text-white">
+              <Share2 size={26} />
+            </button>
+            <span className="mt-1 text-xs font-bold text-white shadow-sm">{post.shares}</span>
+          </div>
+
+          <button className="flex h-12 w-12 flex-col items-center justify-center text-white/80">
+            <AlertTriangle size={24} />
+            <span className="mt-0.5 text-[10px] uppercase font-bold tracking-wider">Report</span>
+          </button>
+        </div>
+
+        {/* Bottom Info Overlay */}
+        <div className="absolute bottom-6 left-6 right-16">
+          <div className="flex items-center gap-1.5 mb-1">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star 
+                key={s} 
+                size={16} 
+                className={cn(s <= Math.floor(post.rating) ? "text-yellow-400 fill-yellow-400" : "text-white/40")} 
+              />
+            ))}
+            <span className="ml-1 text-sm font-bold text-white">{post.rating}/5</span>
+          </div>
+          <h3 className="text-lg font-bold text-white leading-tight drop-shadow-md">{post.title}</h3>
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+           <div className="h-1 w-8 rounded-full bg-white/30" />
+        </div>
+      </div>
+
+      {/* User Info & Caption (Below Image) */}
+      <div className="px-2 pt-4">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <img 
+                src={post.user.avatar} 
+                alt={post.user.name} 
+                className="h-11 w-11 rounded-full border-2 border-primary object-cover" 
+              />
+              <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-white border-2 border-white">
+                <Plus size={12} strokeWidth={3} />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-base">@{post.user.name}</span>
+                <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-[10px] font-bold text-gray-500 uppercase tracking-tighter">
+                  {post.user.followers}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-text-tertiary">
+                <span>{post.time}</span>
+                <span className="h-1 w-1 rounded-full bg-gray-300" />
+                <span className="font-semibold text-primary">{post.user.level}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p className="text-sm leading-relaxed text-text-secondary line-clamp-2">
+          {post.caption}
+        </p>
+      </div>
+    </div>
   );
 }
 
-export default function WardrobePage() {
-  const [snapIndex, setSnapIndex] = useState(1);
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
-  const [tried, setTried] = useState(false);
-
-  const handleSheetDragEnd = (_: unknown, info: { offset: { y: number }; velocity: { y: number } }) => {
-    if (info.offset.y < -50 || info.velocity.y < -300) {
-      setSnapIndex((s) => Math.min(s + 1, 2));
-    } else if (info.offset.y > 50 || info.velocity.y > 300) {
-      setSnapIndex((s) => Math.max(s - 1, 0));
-    }
-  };
+export default function CommunityPage() {
+  const [activeTab, setActiveTab] = useState<"for-you" | "following">("for-you");
 
   return (
-    <div
-      className="relative overflow-hidden"
-      style={{ height: "100dvh", background: "linear-gradient(to bottom, #E2E8F0, #F8FAFC)" }}
-    >
-      {/* Avatar background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <AnimatePresence mode="wait">
-          {tried ? (
-            <motion.img
-              key="3dfullv4"
-              src="/images/3dfullv4.png"
-              alt="3D Avatar V4"
-              className="absolute inset-0 h-full w-full object-cover object-top"
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.4 }}
-            />
-          ) : snapIndex === 0 ? (
-            <motion.img
-              key="3dfull"
-              src="/images/3dfullv1.png"
-              alt="3D Avatar Full"
-              className="absolute inset-0 h-full w-full object-cover object-top"
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.3 }}
-            />
-          ) : (
-            <motion.img
-              key="sumary3d"
-              src="/images/sumary3d.png"
-              alt="3D Avatar Summary"
-              className="absolute inset-0 h-full w-full object-cover object-top"
-              initial={{ opacity: 0, scale: 0.97 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Right-side floating actions */}
-      <div className="absolute right-3 top-16 z-10 flex flex-col gap-4">
-        <FloatingActionBtn icon={MessageCircle} bg="var(--primary)" size={48} />
-        <Link href="/upload">
-          <FloatingActionBtn icon={Plus} bg="var(--secondary)" />
-        </Link>
-        <Link href="/share-look">
-          <FloatingActionBtn icon={Share2} bg="white" iconColor="#0f172a" />
-        </Link>
-        <FloatingActionBtn icon={Star} bg="white" iconColor="#0f172a" />
-        <Link href="/ai-fit-analysis/result">
-          <FloatingActionBtn icon={HelpCircle} bg="white" iconColor="#0f172a" />
-        </Link>
-      </div>
-
-      {/* Try now button */}
-      <AnimatePresence>
-        {selectedItems.length === 2 && !tried && activeCategory !== 3 && (
-          <motion.div
-            className="absolute inset-x-0 z-10 flex justify-center"
-            style={{ bottom: "calc(15vh + 24px)" }}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
-          >
-            <button
-              onClick={() => setTried(true)}
-              className="rounded-full px-8 py-3 text-sm font-bold text-white"
-              style={{ background: "var(--primary)", boxShadow: "0 4px 20px rgba(0,0,0,0.25)" }}
+    <div className="flex min-h-screen flex-col bg-white pb-32">
+      {/* Header */}
+      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-lg px-5 py-4">
+        <div className="flex items-center justify-between">
+          <button className="text-text-primary">
+            <Bookmark size={24} />
+          </button>
+          
+          <div className="flex items-center gap-6">
+            <button 
+              onClick={() => setActiveTab("for-you")}
+              className="relative py-1"
             >
-              ✨ Thử ngay
+              <span className={cn(
+                "text-base font-bold transition-colors",
+                activeTab === "for-you" ? "text-text-primary" : "text-text-tertiary"
+              )}>
+                For you
+              </span>
+              {activeTab === "for-you" && (
+                <motion.div 
+                  layoutId="tab-underline"
+                  className="absolute bottom-0 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-text-primary" 
+                />
+              )}
             </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Bottom-right swap/delete actions */}
-      <div className="absolute right-5 z-10 flex flex-col gap-3" style={{ bottom: "130px" }}>
-        <AnimatePresence>
-          {activeCategory === 3 && selectedItems.length === 2 && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.7 }}
-              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            <button 
+              onClick={() => setActiveTab("following")}
+              className="relative py-1"
             >
-              <Link href="/outfit-duel">
-                <FloatingActionBtn icon={ArrowLeftRight} bg="var(--primary)" />
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        <FloatingActionBtn icon={Trash2} bg="var(--primary)" />
-      </div>
-
-      {/* Draggable Bottom Sheet */}
-      <motion.div
-        className="absolute inset-x-0 bottom-0 overflow-hidden bg-white"
-        style={{ borderRadius: "40px 40px 0 0", boxShadow: "0 -10px 40px rgba(0,0,0,0.08)" }}
-        animate={{ height: SNAP_HEIGHTS[snapIndex] }}
-        transition={{ type: "spring", stiffness: 300, damping: 30, mass: 0.8 }}
-        drag="y"
-        dragConstraints={{ top: 0, bottom: 0 }}
-        dragElastic={{ top: 0.1, bottom: 0.1 }}
-        onDragEnd={handleSheetDragEnd}
-      >
-        {/* Drag handle */}
-        <div className="flex cursor-grab justify-center pb-2 pt-3">
-          <div className="h-1.5 w-12 rounded-full bg-[#E2E8F0]" />
-        </div>
-
-        <div className="h-[calc(100%-32px)] overflow-y-auto">
-          {/* Filter pills */}
-          <div className="flex gap-2 overflow-x-auto px-6 pb-2">
-            {/* Active filter chip */}
-            <div
-              className="flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-xs font-bold"
-              style={{
-                background: "color-mix(in srgb, var(--primary) 10%, transparent)",
-                borderColor: "color-mix(in srgb, var(--primary) 20%, transparent)",
-                color: "var(--primary)",
-              }}
-            >
-              <ListFilter size={14} />
-              Bộ lọc
-              <ChevronDown size={12} />
-            </div>
-            <div className="flex flex-shrink-0 items-center gap-2 rounded-full border border-[var(--border-light)] bg-[var(--background)] px-4 py-2 text-xs font-medium text-[var(--text-secondary)]">
-              <Shirt size={14} />
-              Cotton Tee
-            </div>
-            <div className="flex flex-shrink-0 items-center gap-2 rounded-full border border-[var(--border-light)] bg-[var(--background)] px-4 py-2 text-xs font-medium text-[var(--text-secondary)]">
-              Slim Jeans
-            </div>
+              <span className={cn(
+                "text-base font-bold transition-colors",
+                activeTab === "following" ? "text-text-primary" : "text-text-tertiary"
+              )}>
+                Following
+              </span>
+              {activeTab === "following" && (
+                <motion.div 
+                  layoutId="tab-underline"
+                  className="absolute bottom-0 left-1/2 h-0.5 w-6 -translate-x-1/2 rounded-full bg-text-primary" 
+                />
+              )}
+            </button>
           </div>
 
-          {/* Category tabs */}
-          <div className="mt-4 px-6">
-            <div className="flex border-b border-[var(--background)]">
-              {CATEGORIES.map((cat, i) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(i)}
-                  className={cn(
-                    "pb-3 mr-4 text-sm transition-colors",
-                    i === activeCategory
-                      ? "border-b-2 border-[var(--secondary)] font-bold text-[var(--secondary)]"
-                      : "font-normal text-[var(--text-tertiary)]"
-                  )}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Clothing grid */}
-          <div className="grid grid-cols-3 gap-3 px-6 pb-8 pt-6">
-            <AnimatePresence>
-              {(activeCategory === 3 ? OUTFIT_ITEMS : CLOTHING_ITEMS).map((item, i) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => {
-                    setSelectedItems((prev) =>
-                      prev.includes(item.id)
-                        ? prev.filter((id) => id !== item.id)
-                        : [...prev, item.id]
-                    );
-                    setTried(false);
-                  }}
-                  className="flex flex-col items-center gap-2"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.05 }}
-                >
-                  <div
-                    className="relative w-full overflow-hidden rounded-2xl bg-[#F1F5F9]"
-                    style={{
-                      aspectRatio: "0.75",
-                      border: selectedItems.includes(item.id) ? "2px solid var(--primary)" : "none",
-                      boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-                    }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="h-full w-full object-cover"
-                    />
-                    {selectedItems.includes(item.id) && (
-                      <div className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-(--primary)">
-                        <Check size={10} className="text-white" />
-                      </div>
-                    )}
-                  </div>
-                  <span
-                    className={cn(
-                      "text-[10px]",
-                      selectedItems.includes(item.id)
-                        ? "font-bold text-[var(--text-primary)]"
-                        : "font-medium text-[var(--text-secondary)]"
-                    )}
-                  >
-                    {item.title}
-                  </span>
-                </motion.button>
-              ))}
-            </AnimatePresence>
-
-            {/* Add more button */}
-            <Link href="/upload" className="flex flex-col items-center gap-2">
-              <div
-                className="flex w-full items-center justify-center rounded-2xl border-2 border-[var(--border-light)] bg-[#F8FAFC]"
-                style={{ aspectRatio: "0.75" }}
-              >
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#E2E8F0]">
-                  <Plus size={14} className="text-[var(--text-tertiary)]" />
-                </div>
-              </div>
-              <span className="text-[10px] font-medium text-[var(--text-tertiary)]">Thêm</span>
-            </Link>
+          <div className="flex items-center gap-4">
+            <Plus size={24} className="text-text-primary" />
+            <Search size={24} className="text-text-primary" />
+            <Bell size={24} className="text-text-primary" />
           </div>
         </div>
-      </motion.div>
+      </header>
+
+      {/* Feed Content */}
+      <main className="flex-1 px-4 pt-2">
+        <div className="mx-auto max-w-lg">
+          {MOCK_POSTS.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
