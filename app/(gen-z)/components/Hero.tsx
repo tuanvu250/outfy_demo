@@ -16,8 +16,8 @@ export function Hero() {
                         Định hình<br />
                         chất riêng
                     </h1>
-                    <p className="text-xl md:text-2xl text-text-secondary mb-10 max-w-md font-medium leading-relaxed">
-                        Digital fashion without the anxiety. Scan body 360 độ, mix đồ cực cháy, chốt đơn liền tay.
+                    <p className="text-xl md:text-2xl text-text-secondary mb-10 max-w-full font-medium leading-relaxed">
+                        Wear right - Buy right - No more guesswork. <br /> Mặc đúng - Mua chuẩn - Không cần thử sai.
                     </p>
                     <div className="relative group">
                         <button onClick={() => window.location.href = '/start'} className="bg-primary text-white font-display font-bold text-xl px-10 py-5 rounded-full border-[3px] transition-all duration-200 glitch-hover flex items-center gap-3">

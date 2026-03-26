@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import React, { useRef } from 'react';
@@ -204,7 +205,7 @@ export function Community() {
                     className="absolute right-[2%] lg:right-[18%] top-[67%] lg:top-[55%] w-[85%] sm:w-[290px] z-30 bg-white border border-border-light rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow cursor-pointer -rotate-5"
                 >
                     <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 rounded-full overflow-hidden border border-border-light bg-secondary/20 flex-shrink-0 shadow-sm">
+                        <div className="w-12 h-12 rounded-full overflow-hidden border border-border-light bg-secondary/20 shrink-0 shadow-sm">
                             <img alt="Tuan Anh avatar" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjY-OnKSUSdT7PF1fZydwgWmvvylVpCxilL0AzY2dBHBphTldzb5zDw-qLVXIWw9g41HOF2O_ZPvKbKNX0rlJftvuMQYgXAcfC1yPRmgsKBCmJaClu4egkgBRioy5dlC_F7vrSrUINfxXLrnAJA2BOiRx7aOOhRaU_CI6vJCYjWT6v54a6QTRfoANSa1G2PXp3ik8WY3c7Pd9rLyeSb1Les3BGQ8_h4GPAwYby8GGd5rC0iqOFXNMM-ykTw2tjY1gToBV0Cw5CgG32" />
                         </div>
                         <div className="min-w-0">

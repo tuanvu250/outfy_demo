@@ -1,18 +1,21 @@
 import React from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { StickyTech } from './components/StickyTech';
-import { Community } from './components/Community';
-import { Waitlist } from './components/Waitlist';
+import { Navbar } from "./components/Navbar";
+import { Hero } from "./components/Hero";
+import { StickyTech } from "./components/StickyTech";
+import { Community } from "./components/Community";
+import { Waitlist } from "./components/Waitlist";
+import { AboutUs } from "./components/AboutUs";
+import { Footer } from "./components/Footer";
 
 export default function GenZLandingPage() {
     return (
-        <div className="bg-background text-text-primary font-body min-h-screen flex flex-col overflow-x-clip">
+        <div className="bg-background text-ink selection:bg-accent selection:text-white font-body selection:shadow-hard-sm">
             <Navbar />
             <Hero />
             <StickyTech />
-            <Community />
+            <AboutUs />
             <Waitlist />
+            <Footer />
         </div>
     );
 }
